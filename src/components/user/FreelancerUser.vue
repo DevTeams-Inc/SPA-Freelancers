@@ -45,7 +45,7 @@
         </el-col>
 
         <el-col :span="2" class="ml-4">
-          <el-button type="primary" class="contact-button" round>Contáctame</el-button>
+        <el-button type="primary" class="btn-nav contact-button" round>Contáctame</el-button>
         </el-col>
       </el-row>
     </el-col>
@@ -53,17 +53,39 @@
     </el-card>
         </el-row>
 
-    <el-row type="flex" class="" justify="start">
+    <el-row type="flex" class="" justify="space-around">
         <el-col :span="24" class="mt-4">
             <el-card class="box-card-habilities">
-        <el-col :span="15">
+        <el-col :span="22">
             <div class="grid-content bg-purple mb-2">
-                <h5 class="mt-2">Habilidades</h5>
-                <div class="hability-tag mt-3">
-                    <el-tag class="mb-2" type="success">VueJS</el-tag>
-                    <el-tag class="mb-2">CSS</el-tag>
-                    <el-tag class="mb-2" type="warning">JS</el-tag>
-                    <el-tag class="mb-2" type="danger">Laravel</el-tag>
+                <h5 class="mt-2 ml-4">Proyectos Realizados</h5>
+                <div class="hability-tag mt-3 mb-4">
+                    <el-row type="flex" justify="start">
+                        <el-col span="10" class="ml-5">
+                            <el-card shadow="hover">
+                                <slot>
+                                    <img src="@/assets/logo.png" height="45px">
+                                    <h6 class="mt-2">Punto de Venta</h6>
+                                </slot>
+                            </el-card>
+                        </el-col>
+                        <el-col span="10" class="ml-5">
+                            <el-card shadow="hover">
+                                <slot>
+                                    <img src="@/assets/logo.png" height="45px">
+                                    <h6 class="mt-2">Maquetacion Sitio Web</h6>
+                                </slot>
+                            </el-card>
+                        </el-col>
+                        <el-col span="10" class="ml-5">
+                            <el-card shadow="hover">
+                                <slot>
+                                    <img src="@/assets/logo.png" height="45px">
+                                    <h6 class="mt-2">API RESTful Node.JS</h6>
+                                </slot>
+                            </el-card>
+                        </el-col>
+                    </el-row>
                 </div>
             </div>
         </el-col>
@@ -99,7 +121,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scope>
 .freelancer-image {
     padding: 10px 0;
     margin-right: 10px;
@@ -112,9 +134,18 @@ export default {
 .box-card {
   width: 95%;
 }
-
 .box-card-habilities{
     width: 95%;
+}
+h6 {
+  color: #808695;
+  font-family: "Roboto", sans-serif;
+}
+.btn-nav {
+  background: #5a75e6;
+  color: #fff;
+  border: none;
+  font-family: "Roboto", sans-serif;
 }
 </style>
 
