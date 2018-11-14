@@ -1,0 +1,88 @@
+<template>
+  <div class="SearchContainer">
+     <div class="left-search">
+        <el-switch style="margin-top:8px;" active-color="#409EFF"  inactive-color="#409EFF" 
+         v-model="value3" active-text="Presenciales" inactive-text="Remotos">
+        </el-switch>
+     </div>
+     <div class="right-search">
+             <el-input placeholder="Palabras claves, Ejemplo: pintar casa"
+              v-model="search" class="input-with-select"  >
+             <el-button slot="append" icon="el-icon-search"></el-button>
+            </el-input>
+     </div>
+   </div>
+</template>
+<style>
+.SearchContainer{
+    color: white;
+    display: flex;
+}
+.left-search{
+ background-color: #304ab3;
+ width: 30.5%;
+
+}
+.right-search{
+    width: 69.5%;
+}
+.right-search .el-input__inner{
+    border: none;
+}
+.right-search  .el-input-group__append{
+ border: none;
+ background-color: white;
+}
+@media (min-width: 1106px) and (max-width: 1320px) {
+    .left-search{
+        width: 36%;
+    }
+ }
+ @media (min-width: 930px) and (max-width: 1105px) {
+ .left-search{
+
+     min-width:317px ;
+  
+ }
+ .el-switch span {
+     font-size: 13px;
+ }
+ }
+
+  @media (min-width: 670px) and (max-width: 929px) {
+ .el-switch span{
+     font-size: 11px;
+ }
+
+ }
+ @media (max-width: 669px) {
+ .SearchContainer{
+     display: block;
+ }
+ .left-search{
+
+ width: 100%;
+height: 36px;
+ margin-bottom:10px; 
+
+}
+.right-search{
+    width: 100%;
+}
+ }
+
+
+</style>
+
+<script>
+export default {
+
+  data() {
+    return {
+      search: '',
+      value3: true,
+      
+    }
+  }
+}
+</script>
