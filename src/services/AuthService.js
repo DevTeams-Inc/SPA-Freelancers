@@ -3,7 +3,7 @@ class AuthService{
     apiUrl
     constructor(axios,apiUrl){
         this.axios = axios;
-        this.apiUrl = `${apiUrl}api/account`;
+        this.apiUrl = `${apiUrl}api/accounts`;
         //recordar colocar esto en cada servicio
         // this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
     }

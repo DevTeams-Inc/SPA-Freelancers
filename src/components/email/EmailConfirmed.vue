@@ -39,7 +39,7 @@ export default {
       .then(result => {
         this.text1 = 'Gracias por confirmar'
         this.text2 = 'Animo ya estas listo,'
-        this.text3 = 'logueate y comienza a encontrar trabajo <br> o freelancers como tu'
+        this.text3 = 'logueate y comienza a encontrar trabajo o freelancers como tu'
         this.btn = true,
         this.img = 1
       })
