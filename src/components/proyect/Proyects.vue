@@ -27,7 +27,6 @@ components:{FilterProyects, Footer, ListProyect, SearchProyect}
 }
 </script>
 
-
 <style>
 
 .container-proyect{

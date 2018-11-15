@@ -48,7 +48,7 @@
 <script>
 import Category from "./Category";
 import Carousel from "./Carousel";
-import Freelancer from "./Freelancer";
+import Freelancer from "./Freelancers";
 export default {
   components: { Category, Carousel, Freelancer },
   data() {
