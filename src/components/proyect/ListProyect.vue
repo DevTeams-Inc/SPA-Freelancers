@@ -9,7 +9,7 @@
                         <h4>Soitsa</h4>
                   </div>
               </div>
-            
+          
               <div class="Center-Item">
                  <div class="Left-Item">
                      <div class="details-item">
@@ -161,7 +161,7 @@ text-align: right;
     margin-top: 30px;
 }
 .el-button{
-
+ 
     width: 100%;
 }
 .CenterRight-Item{

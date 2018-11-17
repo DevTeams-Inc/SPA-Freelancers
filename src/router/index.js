@@ -6,6 +6,7 @@ import Register from "@/components/auth/Register"
 import Proyects from "@/components/proyect/Proyects"
 import ProyectPost from "@/components/proyect/ProyectPost/Post"
 import FreelancerUser from '@/components/user/FreelancerUser'
+import Freelancers from '@/components/freelancers/Freelancers'
 import SendEmail from '@/components/email/SendEmail'
 import EmailValidation from "@/components/email/EmailConfirmed";
 
@@ -58,6 +59,14 @@ export default new Router({
       path: "/registro",
       name: "register",
       component: Register,
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
+      path: "/freelancers",
+      name: "freelancer",
+      component: Freelancers,
       meta: {
         requiresVisitor: true
       }

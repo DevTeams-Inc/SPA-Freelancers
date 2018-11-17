@@ -33,7 +33,7 @@ components:{FilterProyects, Footer, ListProyect, SearchProyect}
     position: relative;
     width: 90%;
     max-width: 1100px;
-    min-width: 1300px;
+    min-width: 1200px;
     height: auto;
     /* max-width: 1370px;
     min-width: 1350px; */
@@ -47,7 +47,7 @@ components:{FilterProyects, Footer, ListProyect, SearchProyect}
     position: relative;
     width: 90%;
     max-width: 1100px;
-    min-width: 1300px;
+    min-width: 1200px;
     height: auto;
     /* max-width: 1370px;
     min-width: 1350px; */
@@ -70,6 +70,9 @@ components:{FilterProyects, Footer, ListProyect, SearchProyect}
 }
 .texto-etiqueta{
   margin-left:30px; 
+}
+.texto-etiqueta h2{
+  font-size:20px; 
 }
 @media (min-width: 1106px) and (max-width: 1320px) {
   .container-proyect{

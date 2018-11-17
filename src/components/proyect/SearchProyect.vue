@@ -2,11 +2,11 @@
   <div class="SearchContainer">
      <div class="left-search">
         <el-switch style="margin-top:8px;" active-color="#409EFF"  inactive-color="#409EFF" 
-         v-model="value3" active-text="Presenciales" inactive-text="Remotos">
+         v-model="value3" active-text="Proyectos" inactive-text="Freelancers">
         </el-switch>
      </div>
      <div class="right-search">
-             <el-input placeholder="Palabras claves, Ejemplo: pintar casa"
+             <el-input @click="$router.push('/inicio')"  placeholder="Palabras claves, Ejemplo: pintar casa"
               v-model="search" class="input-with-select"  >
              <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
@@ -83,6 +83,12 @@ export default {
       value3: true,
       
     }
+  },
+  methods:{
+          redirect(path) {
+      if (path === undefined) return;
+      this.$router.push(path);
+    },
   }
 }
 </script>

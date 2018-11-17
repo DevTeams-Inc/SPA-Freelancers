@@ -118,6 +118,9 @@
 .texto-etiqueta{
   margin-left:30px; 
 }
+.texto-etiqueta h2{
+  font-size:20px; 
+}
 .indicador{
   margin-bottom: 20px;
   width: 100%;
