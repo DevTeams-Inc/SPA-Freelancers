@@ -1,12 +1,12 @@
 <template>
   <div class="SearchContainer">
      <div class="left-search">
-        <el-switch style="margin-top:8px;" active-color="#409EFF"  inactive-color="#409EFF" 
-         v-model="value3" active-text="Proyectos" inactive-text="Freelancers">
+        <el-switch  @change="redirect"  style="margin-top:8px;" active-color="#409EFF"  inactive-color="#409EFF" 
+         v-model="FreelancerPresencial" active-text="Proyectos" inactive-text="Freelancers">
         </el-switch>
      </div>
      <div class="right-search">
-             <el-input @click="$router.push('/inicio')"  placeholder="Palabras claves, Ejemplo: pintar casa"
+             <el-input placeholder="Palabras claves, Ejemplo: pintar casa"
               v-model="search" class="input-with-select"  >
              <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
@@ -35,7 +35,7 @@
 }
 @media (min-width: 1106px) and (max-width: 1320px) {
     .left-search{
-        width: 36%;
+        width: 34.6%;
     }
  }
  @media (min-width: 930px) and (max-width: 1105px) {
@@ -80,15 +80,32 @@ export default {
   data() {
     return {
       search: '',
-      value3: true,
+      FreelancerPresencial:false,
       
     }
   },
+  created(){
+   this.cambiarRuta();
+ 
+  },
   methods:{
-          redirect(path) {
-      if (path === undefined) return;
-      this.$router.push(path);
+     redirect() {
+     
+              if(this.FreelancerPresencial===true){
+            this.$router.push('/proyectos');
+         }else if(this.FreelancerPresencial===false){
+              this.$router.push('/freelancers');
+         }
+       
+      
     },
-  }
+          cambiarRuta(){
+           if( this.$router.currentRoute.fullPath==='/proyectos'){
+               return this.FreelancerPresencial=true;
+           }else if(this.$router.currentRoute.fullPath==='/freelancers'){return this.FreelancerPresencial=false}
+      },
+
+  },
+
 }
 </script>

@@ -27,8 +27,6 @@
     min-width: 1350px; */
     margin:0 auto; 
     margin-bottom: 100px;
-   
-
   display: flex;
 }
 .Etiqueta-freelancers{
@@ -64,26 +62,47 @@
 
 @media (min-width: 1106px) and (max-width: 1320px)
  {
+ .container-freelancers
+   {
+     min-width: 1100px;
+   }
 .search-freelancers
  {
+   
   min-width: 1100px;
  }
  }
  @media (min-width: 930px) and (max-width: 1105px) {
+.container-freelancers
+{
+    min-width: 900px;
+}  
 .search-freelancers
 {
 min-width: 900px;
  }
  
  }
-@media (min-width: 670px) and (max-width: 929px) {
+@media (max-width: 929px) {
+
+
+  .container-freelancers
+{
+    min-width: 90%;
+    display: block;
+ 
+} 
 .search-freelancers
 {
       min-width: 90%;
       margin-top: 80px;
  }
+ .Etiqueta-freelancers{
+  display: none;
+}
  }
 @media (max-width: 669px) {
+
 .search-freelancers
 {
       min-width: 90%;

@@ -127,11 +127,14 @@ text-align: left;
 
 /*Estilos section-FiltroFecha*/
 .section-FiltroFecha{
+  width: 100%;
     margin-top: 20px;
+
 }
 .el-select{
+  width: 100%;
     font-size: 18px;
-    width: 100%;
+  
 }
 
 /*Estilos section-FiltroHabilidades*/

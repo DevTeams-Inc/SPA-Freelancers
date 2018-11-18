@@ -65,7 +65,7 @@ export default new Router({
     },
     {
       path: "/freelancers",
-      name: "freelancer",
+      name: "freelancers",
       component: Freelancers,
       meta: {
         requiresVisitor: true
