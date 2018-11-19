@@ -4,7 +4,7 @@
       <el-main class="main">
         <router-view/>
       </el-main>
-       <Footer></Footer>
+       <Footer v-if="!$route.meta.hideFooter"></Footer>
   </div>
 </template>
 <script>

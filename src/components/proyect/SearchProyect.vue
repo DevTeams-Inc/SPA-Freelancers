@@ -86,24 +86,18 @@ export default {
   },
   created(){
    this.cambiarRuta();
+
  
   },
   methods:{
-     redirect() {
-     
-              if(this.FreelancerPresencial===true){
-            this.$router.push('/proyectos');
-         }else if(this.FreelancerPresencial===false){
-              this.$router.push('/freelancers');
-         }
-       
-      
+    redirect() 
+    {
+         if(this.FreelancerPresencial===true){ this.$router.push('/proyectos');}else if(this.FreelancerPresencial===false){  this.$router.push('/freelancers');}
     },
-          cambiarRuta(){
-           if( this.$router.currentRoute.fullPath==='/proyectos'){
-               return this.FreelancerPresencial=true;
-           }else if(this.$router.currentRoute.fullPath==='/freelancers'){return this.FreelancerPresencial=false}
-      },
+    cambiarRuta()
+     {
+         if( this.$router.currentRoute.fullPath==='/proyectos'){return this.FreelancerPresencial=true;}else if(this.$router.currentRoute.fullPath==='/freelancers'){return this.FreelancerPresencial=false}  
+     },
 
   },
 

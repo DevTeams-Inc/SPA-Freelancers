@@ -9,7 +9,9 @@ import FreelancerUser from '@/components/user/FreelancerUser'
 import Freelancers from '@/components/freelancers/Freelancers'
 import SendEmail from '@/components/email/SendEmail'
 import EmailValidation from "@/components/email/EmailConfirmed";
-
+import DashboardAdmin  from "@/components/dashboardAdmin/Dashboard";
+import DashboardIndex  from "@/components/dashboardAdmin/PageIndex/Index";
+import DashboardProyects from "@/components/dashboardAdmin/PageProyects/AdminProyects";
 Vue.use(Router);
 
 
@@ -95,7 +97,46 @@ export default new Router({
       meta: {
         requiresVisitor: true
       }
-    }
+    },
+
+    //Ruteo de administrador//
+    {
+      path: "/dashboardAdmin",
+      name: "dashboardAdmin",
+      redirect:"/dashboardAdmin/index",
+      component: DashboardAdmin,
+      props:true,
+      meta: {
+        hideFooter: true,
+        requiresVisitor: false
+      },
+      // /dashboardAdmin/proyectos
+      children:[
+        {
+          path: "/dashboardAdmin/index",
+          name: "dashboardIndex",
+          component: DashboardIndex,
+          meta:{
+            hideFooter: true,
+            requiresVisitor: false
+          }
+    
+        },
+        {
+          path: "/dashboardAdmin/proyectos",
+          name: "dashboardIndex",
+          component: DashboardProyects,
+          meta:{
+            hideFooter: true,
+            requiresVisitor: false
+          }
+    
+        },
+      
+      ]
+    },
+    //Page Inicio//
+
   ],
   mode: "history"
 });

@@ -7,7 +7,7 @@
             </div>
         </div>
       <div class="search-freelancers">  
-        <search-proyect></search-proyect>
+        <SearchProyect></SearchProyect>
       </div>  
         <div class="container-freelancers">
            <FilterFreelancer></FilterFreelancer> 
