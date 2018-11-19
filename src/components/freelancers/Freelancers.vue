@@ -1,5 +1,5 @@
 <template>
-    <el-row class="p-0 " :style="{background:'#f7f7f7'}" :gutter="40">
+    <el-row class=" p-0" :style="{position:'absolute',width:'100%',background: '#f7f7f7'}" :gutter="40">
         <div class="Etiqueta-freelancers">
             <div class="texto-etiqueta">
                <h2 class="h2-etiqueta">Freelancers</h2>
@@ -13,6 +13,7 @@
            <FilterFreelancer></FilterFreelancer> 
            <ListFreelancer></ListFreelancer>   
         </div>
+        <Footer></Footer>
     </el-row>
 </template>
 
@@ -116,8 +117,9 @@ min-width: 900px;
 import  FilterFreelancer  from "./FilterFreelancer";
 import  ListFreelancer  from "./ListFreelancer";
 import SearchProyect  from "../proyect/SearchProyect";
+import Footer from "../shared/Footer"
 export default {
-    components:{FilterFreelancer,ListFreelancer,SearchProyect}
+    components:{FilterFreelancer,ListFreelancer,SearchProyect,Footer}
 }
 </script>
 

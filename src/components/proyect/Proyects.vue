@@ -1,5 +1,5 @@
 <template  >
-    <el-row class=" p-0" :style="{background: '#f7f7f7'}" :gutter="40">
+    <el-row class=" p-0" :style="{position:'absolute',width:'100%',background: '#f7f7f7'}" :gutter="40">
        <div class="Etiqueta">
          <div class="texto-etiqueta">
            <h2 class="h2-etiqueta">Proyectos</h2>
@@ -13,7 +13,7 @@
         <FilterProyects></FilterProyects> 
         <ListProyect></ListProyect>   
       </div>
-
+     <Footer></Footer>
     </el-row>
 </template>
 
@@ -23,7 +23,7 @@ import Footer from "../shared/Footer";
 import ListProyect from "./ListProyect";
 import SearchProyect  from "./SearchProyect";
 export default {
-components:{FilterProyects, Footer, ListProyect, SearchProyect}
+components:{FilterProyects,Footer, ListProyect, SearchProyect}
 }
 </script>
 

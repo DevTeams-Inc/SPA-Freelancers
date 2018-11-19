@@ -32,7 +32,7 @@ width: 280px;
 background-color: #304ab3;
 padding-top:30px;
 padding-bottom: 30px;
-height: 600px;;
+height: 100%;;
 }
 /* Este clase existe por alguna emergencia de estilo */
 .top-Menu{
@@ -101,6 +101,11 @@ cursor: pointer;
   transition: all 0.5s ease;
 }
 
+@media (max-width: 1258px){
+.menu-Dashboard{
+    width: 200px;
+}
+}
 </style>
 
 <script>

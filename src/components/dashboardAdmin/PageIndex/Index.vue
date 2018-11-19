@@ -18,9 +18,9 @@
           </div>
        </div>
        <div class="container-categoriesTop">
-      
+          <h4>Categorias Populares</h4>
          <div class="item-categories">
-            <h4>Categorias Populares</h4>
+         
           <div class="item-categorie-top">
               <span>Icon</span>
               <p>Categoria 1</p>
@@ -64,10 +64,9 @@
 <style>
 .content-admin-Index{
  margin-top: 20px;
- width: 70%;
- margin-left: 25%;
-
+ width: 75%;
  padding-bottom:20px; 
+ margin-left: 22%;
   
 }
 .container-cont{
@@ -83,7 +82,8 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   padding-top:10px; 
   margin-left: 30px;
-    cursor: pointer;
+  cursor: pointer;
+
 }
 .item-cont h4{
   font-size: 15px;
@@ -98,16 +98,15 @@ background: linear-gradient(to right,  #5B86E5, rgb(18, 103, 173));
 }
 
 .container-categoriesTop{
-  
   margin-top: 40px;
-
+  
 }
 .item-categories{
     display: flex;
     justify-content: center; 
 }
 .container-categoriesTop h4{
-
+   margin-right: 67%;
   font-size: 15px;
   color:gray;
 }
