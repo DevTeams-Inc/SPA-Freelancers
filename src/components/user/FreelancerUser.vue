@@ -1,6 +1,5 @@
 <template>
 <div class="pt-5">
-
 <el-row type="flex" class="pl-4" justify="start">
     <el-col :span="18" class="mt-4">
         <el-row type="flex">
@@ -8,35 +7,32 @@
     <el-col :span="5">
         <div class="grid-content bg-purple mt-4">
             <slot>
-            <img class="freelancer-image" src="@/assets/logo.png" height="75px">
+            <img class="freelancer-image" :src="data.avatar" height="75px">
             </slot>
         </div>
     </el-col>
     <el-col :span="12">
         <div class="grid-content bg-purple-light">
-            <h5 class="mt-2">Nombre Completo</h5>
-            <p>Otras descripciones</p>
-            <p><small> Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Maxime, odit ea. Exercitationem quia perspiciatis optio illo. </small></p>
+            <h5 class="mt-2">{{data.name}} {{data.lastName}}</h5>
+            <p>P/H : ${{data.priceHour}}</p>
+            <p><small>{{data.biography}}</small></p>
         </div>
     </el-col>
     <el-col :span="5">
         <div class="ml-4 grid-content bg-purple mb-2">
             <h5 class="mt-2">Habilidades</h5>
             <div class="hability-tag mt-5">
-                <el-tag class="mb-2" type="success">VueJS</el-tag>
-                <el-tag class="mb-2">CSS</el-tag>
-                <el-tag class="mb-2" type="warning">JS</el-tag>
-                <el-tag class="mb-2" type="danger">Laravel</el-tag>
+                <el-tag v-for="(hability, index) in data.habilities" :key="index" class="mb-2" type="success">{{hability.title}}</el-tag>
             </div>
         </div>
     </el-col>
+      <el-button type="primary" v-show="id == UserId" icon="el-icon-edit" circle></el-button>
     <el-col span="12" class="mb-3 mt-2">
       <el-row type="flex" class="" justify="end">
         <el-col :span="26">
           <p><b>Valoracion</b></p>
             <el-rate
-            v-model="value5"
+            v-model="rating"
             disabled
             show-score
             text-color="#ff9900"
@@ -93,7 +89,6 @@
         </el-col>
     </el-row>
 </el-col>
-
     <el-col :span="12">
       <div class="grid-content bg-purple">
             <slot>
@@ -102,22 +97,42 @@
         </div>
     </el-col>    
 </el-row>
-
-
 </div>
-
 </template>
-
 <style>
 </style>
-
 <script>
 export default {
-  data() {
+    props:['id'],
+    data() {
     return {
       city: null,
-      value5: 3.7
+      rating: 0,
+      id:0,
+      data:[]
     };
+  },
+  mounted(){
+     this.getUser(this.id)
+  },
+  methods:{
+      getUser(id){
+          let self = this
+          self.$store.state.services.freelancerService
+          .getById(id)
+          .then(r =>{
+             self.data = r.data
+             self.rating = r.data.rating
+          })
+          .catch(e =>{
+
+          })
+      }
+  },
+  computed:{
+      UserId(){
+          return this.$store.getters.UserId
+      }
   }
 };
 </script>
@@ -125,8 +140,9 @@ export default {
 .freelancer-image {
     padding: 10px 0;
     margin-right: 10px;
-    border-radius: 40px;
+    border-radius: 70px;
     height: 125px;
+    width: 120px;
 }
 .contact-button {
   margin-left: 75px;

@@ -46,7 +46,7 @@ export default new Router({
       name: "ProyectPost",
       component: ProyectPost,
       meta: {
-        requiresVisitor: true
+        requiresAuth: true
       }
     },
     {
@@ -74,11 +74,12 @@ export default new Router({
       }
     },
     {
-      path: "/freelancer/nombre",
+      path: "/freelancer/:id",
       name: "freelancer",
+      props:true,
       component: FreelancerUser,
       meta: {
-        requiresVisitor: true
+        requiresAuth: true
       }
     },
     {
@@ -103,7 +104,7 @@ export default new Router({
     {
       path: "/dashboardAdmin",
       name: "dashboardAdmin",
-      redirect:"/dashboardAdmin/index",
+      redirect:"/dashboardAdmin/index1",
       component: DashboardAdmin,
       props:true,
       meta: {
@@ -114,7 +115,7 @@ export default new Router({
       children:[
         {
           path: "/dashboardAdmin/index",
-          name: "dashboardIndex",
+          name: "dashboardIndex2",
           component: DashboardIndex,
           meta:{
             hideFooter: true,

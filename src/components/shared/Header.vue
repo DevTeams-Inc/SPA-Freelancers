@@ -26,7 +26,9 @@
     <div class="mr-4" v-if="UserName !== 'Inicia Sesion'">
      <el-submenu :style="{width:'100%'}" index="2">
     <span slot="title" >{{UserName}}</span>
-    <el-menu-item index="2-1" ><span @click="redirecProfileOrLogin()">Mi Perfil</span></el-menu-item>
+    <el-menu-item index="2-1" > <router-link tag="span" :to="`/freelancer/${UserId}`">
+Mi Perfil
+</router-link></el-menu-item>
     <el-menu-item index="2-2"><span @click="logout()">Salir</span></el-menu-item>
     </el-submenu>
   </div>
@@ -51,7 +53,9 @@
     {{UserName}}<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
   <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item > <span @click="redirecProfileOrLogin()">Mi Perfil</span></el-dropdown-item>
+    <el-dropdown-item ><router-link tag="span" :to="`/freelancer/${UserId}`">
+Mi Perfil
+</router-link></el-dropdown-item>
     <el-dropdown-item><span @click="logout()">Salir</span></el-dropdown-item>
     <el-dropdown-item>Action 3</el-dropdown-item>
     <el-dropdown-item disabled>Action 4</el-dropdown-item>
@@ -122,6 +126,13 @@ export default {
     },
     register() {
       return this.UserName != "Inicia Sesion" ? false : true;
+    },
+    UserId(){
+      let name =
+        this.$store.getters.loggedIn != false
+          ? localStorage.getItem("user_id")
+          : null;
+      return name;
     }
   }
 };

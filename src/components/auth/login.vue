@@ -83,7 +83,8 @@ export default {
         ]
       },
         token:localStorage.getItem('access_token') || null,
-        user:localStorage.getItem('user_info') || null
+        user:localStorage.getItem('user_info') || null,
+        idUser:localStorage.getItem('user_id') || null
     };
   },
   methods: {
@@ -101,10 +102,12 @@ export default {
               //obtenemos el token
               self.token = r.data.token;
               self.user = `${r.data.user.name} ${r.data.user.lastName}`;
+              self.idUser = r.data.user.id;
               //guardamos en el localStorage
               //accedemos al state y le asignamos el token
               self.$store.state.token = localStorage.setItem("access_token",self.token);
               self.$store.state.user = localStorage.setItem("user_info",self.user);
+              self.$store.state.idUser = localStorage.setItem('user_id', self.idUser);
             })
             .then(e => {
                 self.redirect('/proyectos')

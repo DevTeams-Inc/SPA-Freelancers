@@ -12,6 +12,10 @@ class FreelancerService{
         return this.axios.get(`${this.apiUrl}/getall/${page}`)
     }
 
+    getById(id){
+        return this.axios.get(`${this.apiUrl}/getuser/${id}`)
+    }
+
 }
 
 export default FreelancerService
