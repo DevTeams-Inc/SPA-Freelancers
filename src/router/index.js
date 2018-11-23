@@ -3,6 +3,9 @@ import Router from 'vue-router'
 import Home from "@/components/home/Home"
 import Login from '@/components/auth/Login'
 import Register from "@/components/auth/Register"
+import completeRegister from "@/components/auth/completeRegister"
+import googlemap from "@/components/auth/googleMap"
+
 import Proyects from "@/components/proyect/Proyects"
 import ProyectPost from "@/components/proyect/ProyectPost/Post"
 import FreelancerUser from '@/components/user/FreelancerUser'
@@ -61,6 +64,22 @@ export default new Router({
       path: "/registro",
       name: "register",
       component: Register,
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
+      path: "/completar/registro",
+      name: "completeregister",
+      component: completeRegister,
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
+      path: "/map",
+      name: "map",
+      component: googlemap,
       meta: {
         requiresVisitor: true
       }

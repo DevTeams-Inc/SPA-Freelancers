@@ -24,7 +24,9 @@
                 v-model="ruleForm.email"
                 placeholder="Email"
                 prefix-icon="el-icon-message"
-                size="medium">
+                size="medium"
+                type="email">
+                
             </el-input>
 
            </el-form-item>
@@ -43,16 +45,16 @@
             </el-form-item>
          </el-col>
        </el-row>
-          <el-row class="mt-4">
+          <!-- <el-row class="mt-4">
               <el-col>
                 <el-form-item>
                     <span ><img class="span-img" src="@/assets/img/facebook.svg" width="30px" alt="Facebook"></span>
                     <span class=" ml-2"><img class="span-img" src="@/assets/img/search.svg" width="30px" alt="Google"></span>
                 </el-form-item>
               </el-col>
-          </el-row>
+          </el-row> -->
 
-      <span @click="redirect('/registro')" class="span-register">¿No tienes cuenta? Click aquí</span>
+      <span @click="redirect('/registro')" class="span-register">¿No tienes cuenta? Click aquí.</span>
     </el-form>
     </el-card>
     </el-col>

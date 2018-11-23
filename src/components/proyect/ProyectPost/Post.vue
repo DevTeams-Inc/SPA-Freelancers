@@ -61,7 +61,6 @@
                              <div class="indicador-Paso2">
 
                      </div>
-                      
                        <div class="categorias" >
                          <div class="item" v-for="l in 10">
                        <input type="radio" name="radio1" :id="l" value="Idcategoria"><label class="categoria-label" :for="l">	<br><span>icon</span><br> Categoria {{l}}</label>
