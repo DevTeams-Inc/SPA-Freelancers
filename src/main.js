@@ -13,6 +13,14 @@ import 'jquery'
 import 'popper.js'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import * as VueGoogleMaps from 'vue2-google-maps'
+ 
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyBGX9Idq22bpPlt-WOXv_py3SfeNhLgEhk',
+    libraries: ""
+  },
+})
 
 
 Vue.use(ElementUI)
