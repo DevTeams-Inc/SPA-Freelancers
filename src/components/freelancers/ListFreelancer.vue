@@ -107,7 +107,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .containerListaFreelancer {
   width: 70%;
 

@@ -23,7 +23,7 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .img-profile{
     border-radius: 50px;
 }

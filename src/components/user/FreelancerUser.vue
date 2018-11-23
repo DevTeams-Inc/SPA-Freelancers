@@ -95,6 +95,9 @@
             <img class="" src="@/assets/img/imglogin.svg" height="425px">
             </slot>
         </div>
+        <button @click="getLocation()">Try It</button>
+        <input type="text" v-model="latitude"  placeholder="latitude">
+        <input type="text" v-model="longitude" placeholder="longitude">
     </el-col>    
 </el-row>
 </div>
@@ -103,46 +106,58 @@
 </style>
 <script>
 export default {
-    props:['id'],
-    data() {
+  props: ["id"],
+  data() {
     return {
-      city: null,
+      latitude: null,
+      longitude:null,
       rating: 0,
-      id:0,
-      data:[]
+      id: 0,
+      data: []
     };
   },
-  mounted(){
-     this.getUser(this.id)
+  mounted() {
+    this.getUser(this.id);
   },
-  methods:{
-      getUser(id){
-          let self = this
-          self.$store.state.services.freelancerService
-          .getById(id)
-          .then(r =>{
-             self.data = r.data
-             self.rating = r.data.rating
-          })
-          .catch(e =>{
+  methods: {
+    getUser(id) {
+      let self = this;
+      self.$store.state.services.freelancerService
+        .getById(id)
+        .then(r => {
+          self.data = r.data;
+          self.rating = r.data.rating;
+        })
+        .catch(e => {});
+    },
+    getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition);
+        
+      } else {
+        this.city = "Geolocation is not supported by this browser.";
+      }
+    },
+    showPosition(position){
+       this.latitude = position.coords.latitude;
+       this.longitude = position.coords.longitude;
 
-          })
-      }
+    }
   },
-  computed:{
-      UserId(){
-          return this.$store.getters.UserId
-      }
+  computed: {
+    UserId() {
+      return this.$store.getters.UserId;
+    }
   }
 };
 </script>
-<style scope>
+<style scoped>
 .freelancer-image {
-    padding: 10px 0;
-    margin-right: 10px;
-    border-radius: 70px;
-    height: 125px;
-    width: 120px;
+  padding: 10px 0;
+  margin-right: 10px;
+  border-radius: 70px;
+  height: 125px;
+  width: 120px;
 }
 .contact-button {
   margin-left: 75px;
@@ -150,8 +165,8 @@ export default {
 .box-card {
   width: 95%;
 }
-.box-card-habilities{
-    width: 95%;
+.box-card-habilities {
+  width: 95%;
 }
 h6 {
   color: #808695;
