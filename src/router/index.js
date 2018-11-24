@@ -11,7 +11,11 @@ import SendEmail from '@/components/email/SendEmail'
 import EmailValidation from "@/components/email/EmailConfirmed";
 import DashboardAdmin  from "@/components/dashboardAdmin/Dashboard";
 import DashboardIndex  from "@/components/dashboardAdmin/PageIndex/Index";
-import DashboardProyects from "@/components/dashboardAdmin/PageProyects/AdminProyects";
+import DashboardProyects from "@/components/dashboardAdmin/PageProyects/Proyects";
+import DashboardFreelancers from "@/components/dashboardAdmin/PageFreelancers/Freelancers";
+import DashboardCategories from "@/components/dashboardAdmin/PageCategories/Categories";
+import DashboardReports from "@/components/dashboardAdmin/PageReports/Reports";
+
 Vue.use(Router);
 
 
@@ -103,17 +107,16 @@ export default new Router({
     {
       path: "/dashboardAdmin",
       name: "dashboardAdmin",
-      redirect:"/dashboardAdmin/index",
+      redirect:"/dashboardAdmin/inicio",
       component: DashboardAdmin,
       props:true,
       meta: {
         hideFooter: true,
         requiresVisitor: false
       },
-      // /dashboardAdmin/proyectos
       children:[
         {
-          path: "/dashboardAdmin/index",
+          path: "inicio",
           name: "dashboardIndex",
           component: DashboardIndex,
           meta:{
@@ -123,10 +126,40 @@ export default new Router({
     
         },
         {
-          path: "/dashboardAdmin/proyectos",
-          name: "dashboardIndex",
+          path: "proyectos",
+          name: "dashboardProyects",
           component: DashboardProyects,
-          meta:{
+            meta:{
+            hideFooter: true,
+            requiresVisitor: false
+          }
+    
+        },
+        {
+          path: "freelancers",
+          name: "dashboardFreelancers",
+          component: DashboardFreelancers,
+            meta:{
+            hideFooter: true,
+            requiresVisitor: false
+          }
+    
+        },
+        {
+          path: "categorias",
+          name: "dashboardCategories",
+          component: DashboardCategories,
+            meta:{
+            hideFooter: true,
+            requiresVisitor: false
+          }
+    
+        },
+        {
+          path: "/dashboardAdmin/reportes",
+          name: "dashboardReports",
+          component: DashboardReports,
+            meta:{
             hideFooter: true,
             requiresVisitor: false
           }

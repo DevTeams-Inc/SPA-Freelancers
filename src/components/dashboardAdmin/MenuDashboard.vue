@@ -12,12 +12,12 @@
               <div class="nav-nenu-dashboard-admin">
                    <nav>
                        <ul>
-                           <a @click="$router.push('/dashboardAdmin/index')"><li>Inicio</li></a>
+                           <a @click="$router.push('/dashboardAdmin/inicio')"><li>Inicio</li></a>
                            <a @click="$router.push('/dashboardAdmin/proyectos')"><li>Proyectos</li></a>
-                           <a href=""><li>Freelancers</li></a>
-                           <a href=""><li>Categorias</li></a>
-                           <a href=""><li>Reportes</li></a>
-                           <a href=""><li>Configulacion</li></a>
+                           <a @click="$router.push('/dashboardAdmin/freelancers')" ><li>Freelancers</li></a>
+                           <a @click="$router.push('/dashboardAdmin/categorias')"><li>Categorias</li></a>
+                           <a @click="$router.push('/dashboardAdmin/reportes')" ><li>Reportes</li></a>
+                           <a @click="$router.push('/dashboardAdmin/proyectos')" ><li>Configuracion</li></a>
                        </ul>
                    </nav>
               </div>

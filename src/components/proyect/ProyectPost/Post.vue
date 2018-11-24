@@ -1,6 +1,5 @@
 <template>
 
-
      <el-row class=" p-0" :style="{background: '#f7f7f7'}" :gutter="40">
          <div class="Etiqueta">
            <div class="texto-etiqueta">

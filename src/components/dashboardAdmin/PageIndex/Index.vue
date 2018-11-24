@@ -85,6 +85,7 @@
   cursor: pointer;
 
 }
+
 .item-cont h4{
   font-size: 15px;
   color: gray;
@@ -117,9 +118,15 @@ width: 100px;
 margin-left: 8px;
 height: 100px;
 border-radius: 100%;
+cursor: pointer;
   
 }
-
+.item-categorie-top:hover{
+  background-color:#40a8fd;
+  color:white;
+  transition: all 0.2s ease;
+ 
+}
 .reports{
 background-color:white;
  margin-top: 40px;
