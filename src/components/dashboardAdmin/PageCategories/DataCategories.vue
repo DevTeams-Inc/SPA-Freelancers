@@ -12,8 +12,10 @@
                           </template>
 
                           <template slot-scope="scope">
-                              <el-button size="mini" @click="dialogFormEditarVisible=true">editar</el-button>
-                              <el-button  size="mini"  type="danger"  @click="dialogFormEliminarVisible=true">Eliminar</el-button>
+                            <div class="botones-table-categorie">
+                              <el-button id="botonesDialog" size="mini" @click="dialogFormEditarVisible=true">editar</el-button>
+                              <el-button  id="botonesDialog" size="mini"  type="danger"  @click="dialogFormEliminarVisible=true">Eliminar</el-button>
+                            </div>
                           </template>
                      </el-table-column>
                   </el-table>
@@ -34,13 +36,17 @@
                              </el-form-item>
                         </el-form>
                         <span slot="footer" class="dialog-footer">
-                          <el-button @click="dialogFormEditarVisible = false">Cancel</el-button>
-                          <el-button @click="submitForm('ruleForm')" type="primary">Guardar Cambios</el-button>
+                          <div class="botones-dialog">
+                            <el-button id="botonesDialog" @click="dialogFormEditarVisible = false">Cancel</el-button>
+                            <el-button id="botonesDialog" @click="submitForm('ruleForm')" type="primary">Guardar Cambios</el-button>
+                          </div>
                         </span>
                  </el-dialog>
                  <el-dialog title="Realmente deseas eliminar esta categoria?" :visible.sync="dialogFormEliminarVisible">
-                    <el-button @click="dialogFormEliminarVisible = false">No</el-button>
-                    <el-button @click="submitForm('ruleForm')" type="primary">Si</el-button>
+                   <div class="botones-dialog">
+                    <el-button id="botonesDialog" @click="dialogFormEliminarVisible = false">No</el-button>
+                    <el-button id="botonesDialog" @click="submitForm('ruleForm')" type="primary">Si</el-button>
+                   </div>
                  </el-dialog>
                       </div>
               </div>
@@ -74,7 +80,18 @@ width: 70%;
       	border-radius: 10px;
 
 } 
+.botones-table-categorie{
+  display: flex;  
+  width: 100%;
 
+}
+.botones-dialog{
+  display: flex;
+  width: 100%;
+}
+#botonesDialog{
+  width: 100%;
+}
 
 /* .el-table::-webkit-scrollbar-track {
       background-color: blue;

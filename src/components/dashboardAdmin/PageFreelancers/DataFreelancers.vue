@@ -3,30 +3,36 @@
          <h4>Freelancers registrados</h4>
          <div class="table-freelancers">
              <el-table empty-text="No se encontraron resultados" height="280" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"  style="width: 98%;margin-left:10px;;">
-                 <el-table-column label="Date" prop="date">
-                 </el-table-column>
-                 <el-table-column label="Name" prop="name">
-                 </el-table-column>
+                 <el-table-column label="Date" prop="date"> </el-table-column>
+                 <el-table-column label="Name" prop="name"> </el-table-column>
+                 <el-table-column label="Name" prop="name"> </el-table-column>
+                 <el-table-column label="Name" prop="name"> </el-table-column>
                  <el-table-column  align="right">
                  <template slot="header" slot-scope="scope">
                      <el-input v-model="search" size="mini" placeholder="buscar"/>
                  </template>
                  <template slot-scope="scope">
+                   <div class="botones-table">
                      <el-button  size="mini"  @click="dialogFormBloquearVisible=true">Bloquear</el-button>
                      <el-button size="mini" type="danger"  @click="dialogFormEliminarVisible=true">Eliminar</el-button>
+                   </div>
                   </template>
                  </el-table-column>
                </el-table>
                <div class="DialogInterative">
                 <!-- Dialogo de eliminar -->
                  <el-dialog title="Realmente deseas bloquear este freelancer?" :visible.sync="dialogFormBloquearVisible">
-                    <el-button @click="dialogFormBloquearVisible = false">No</el-button>
-                    <el-button @click="submitForm('ruleForm')" type="primary">Si</el-button>
+                    <div class="botones-dialog">
+                     <el-button  id="botonesDialog" @click="dialogFormBloquearVisible = false">No</el-button>
+                     <el-button  id="botonesDialog" @click="submitForm('ruleForm')" type="primary">Si</el-button>
+                    </div>
                  </el-dialog>
                    <!-- dialogo de Ocultar -->
                  <el-dialog title="Realmente deseas eliminar este freelancer?" :visible.sync="dialogFormEliminarVisible">
-                    <el-button @click="dialogFormEliminarVisible = false">No</el-button>
-                    <el-button @click="submitForm('ruleForm')" type="primary">Si</el-button>
+                   <div class="botones-dialog">
+                    <el-button id="botonesDialog" @click="dialogFormEliminarVisible = false">No</el-button>
+                    <el-button id="botonesDialog" @click="submitForm('ruleForm')" type="primary">Si</el-button>
+                   </div>
                  </el-dialog>
               </div>
           </div>
@@ -60,6 +66,17 @@ margin-top:20px;
 
 } 
 
+.botones-table{
+  display: flex;
+
+}
+.botones-dialog{
+  display: flex;
+  width: 100%;
+}
+#botonesDialog{
+  width: 100%;
+}
 
 /* .el-table::-webkit-scrollbar-track {
       background-color: blue;
