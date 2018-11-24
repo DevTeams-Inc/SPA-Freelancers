@@ -29,8 +29,10 @@
                 
                </el-form>
             <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogFormVisible = false">Cancel</el-button>
-              <el-button @click="submitForm('ruleForm')" type="primary">Agregar</el-button>
+              <div class="botones-dialog">
+               <el-button id="botonesDialog" @click="dialogFormVisible = false">Cancel</el-button>
+               <el-button id="botonesDialog" @click="submitForm('ruleForm')" type="primary">Agregar</el-button>
+              </div>
             </span>
            </el-dialog>
          </div>
@@ -69,7 +71,13 @@
 .add-icon i:hover{
     background-color:rgb(235, 149, 149)
 }
-
+.botones-dialog{
+  display: flex;
+  width: 100%;
+}
+#botonesDialog{
+  width: 100%;
+}
 </style>
 <script>
 export default {
