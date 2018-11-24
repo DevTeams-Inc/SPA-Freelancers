@@ -3,16 +3,18 @@
        <el-card shadow="hover">
        <slot>
        <img src="@/assets/logo.png" height="75px">
-        <h6 class="mt-2">A high quality UI Toolkit based on Vue.js</h6>
+        <h6 class="mt-2">{{title}}</h6>
        </slot>
      </el-card>
 </div>     
 </template>
 <script>
 export default {
+  props:['title' , 'img' , 'id'],
   name: "Category",
   data() {
-    return {};
+    return {
+    };
   }
 };
 </script>

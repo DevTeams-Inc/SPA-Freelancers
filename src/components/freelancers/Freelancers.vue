@@ -17,7 +17,24 @@
     </el-row>
 </template>
 
-<style>
+<script>
+import  FilterFreelancer  from "./FilterFreelancer";
+import  ListFreelancer  from "./ListFreelancer";
+import SearchProyect  from "../proyect/SearchProyect";
+import Footer from "../shared/Footer"
+export default {
+    components:{FilterFreelancer,ListFreelancer,SearchProyect,Footer},
+    data(){
+      return{
+
+      }
+    },
+    mounted(){
+      
+    }
+}
+</script>
+<style scoped>
 .container-freelancers{
     position: relative;
     width: 90%;
@@ -113,13 +130,5 @@ min-width: 900px;
 
 </style>
 
-<script>
-import  FilterFreelancer  from "./FilterFreelancer";
-import  ListFreelancer  from "./ListFreelancer";
-import SearchProyect  from "../proyect/SearchProyect";
-import Footer from "../shared/Footer"
-export default {
-    components:{FilterFreelancer,ListFreelancer,SearchProyect,Footer}
-}
-</script>
+
 

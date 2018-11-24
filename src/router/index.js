@@ -3,6 +3,9 @@ import Router from 'vue-router'
 import Home from "@/components/home/Home"
 import Login from '@/components/auth/Login'
 import Register from "@/components/auth/Register"
+import completeRegister from "@/components/freelancers/completeRegister"
+import googlemap from "@/components/location/googleMap"
+
 import Proyects from "@/components/proyect/Proyects"
 import ProyectPost from "@/components/proyect/ProyectPost/Post"
 import FreelancerUser from '@/components/user/FreelancerUser'
@@ -50,7 +53,7 @@ export default new Router({
       name: "ProyectPost",
       component: ProyectPost,
       meta: {
-        requiresVisitor: true
+        requiresAuth: true
       }
     },
     {
@@ -70,6 +73,22 @@ export default new Router({
       }
     },
     {
+      path: "/completar/registro",
+      name: "completeregister",
+      component: completeRegister,
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
+      path: "/map",
+      name: "map",
+      component: googlemap,
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
       path: "/freelancers",
       name: "freelancers",
       component: Freelancers,
@@ -78,11 +97,12 @@ export default new Router({
       }
     },
     {
-      path: "/freelancer/nombre",
+      path: "/freelancer/:id",
       name: "freelancer",
+      props:true,
       component: FreelancerUser,
       meta: {
-        requiresVisitor: true
+        requiresAuth: true
       }
     },
     {
@@ -107,7 +127,11 @@ export default new Router({
     {
       path: "/dashboardAdmin",
       name: "dashboardAdmin",
+<<<<<<< HEAD
       redirect:"/dashboardAdmin/inicio",
+=======
+      redirect:"/dashboardAdmin/index1",
+>>>>>>> 2d4c885de03d88081a6c42870b4f4445cdf060e9
       component: DashboardAdmin,
       props:true,
       meta: {
@@ -116,8 +140,13 @@ export default new Router({
       },
       children:[
         {
+<<<<<<< HEAD
           path: "inicio",
           name: "dashboardIndex",
+=======
+          path: "/dashboardAdmin/index",
+          name: "dashboardIndex2",
+>>>>>>> 2d4c885de03d88081a6c42870b4f4445cdf060e9
           component: DashboardIndex,
           meta:{
             hideFooter: true,
