@@ -2,8 +2,14 @@
 <el-row class="freelancer-content ml-1" justify="center" :gutter="10">
   <h1 class="mt-5 mb-5">Nuestros mejores freelancers</h1>
   <div class="freelancer-div">
-  <el-col v-for="i in 3" :key="i" class="mb-2" :xs="24" :sm="8" :md="8" :lg="8" :xl="10">
-    <freelancer ></freelancer>
+  <el-col v-for="(freelancer,index) in data" :key="index" class="mb-2" :xs="24" :sm="8" :md="8" :lg="8" :xl="10">
+    <freelancer
+    :name="freelancer.name"
+    :lastName="freelancer.lastName"
+    :img="freelancer.avatar"
+    :rating="freelancer.rating"
+    :idUser="freelancer.applicationUserId"
+    ></freelancer>
     </el-col>
     </div> 
 </el-row>
@@ -12,6 +18,7 @@
 import freelancer from '../freelancers/FreelancerHome'
 export default {
   components:{freelancer},
+  props:['data'],
   name: "Freelancers",
   data() {
     return {

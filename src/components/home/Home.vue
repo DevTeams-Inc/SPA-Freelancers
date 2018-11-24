@@ -11,38 +11,20 @@
     <div class=" cards-category row mt-5 p-5" >
         <div class="col">
             <el-row  :gutter="10">
-            <el-col class="mt-1" :xs="24" :sm="8" :md="8" :lg="8" :xl="8" >
-                <Category></Category>
-            </el-col>
-            <el-col class="mt-1" :xs="24" :sm="8" :md="8" :lg="8" :xl="8" >
-                <Category></Category>                
-            </el-col>
-            <el-col class="mt-1" :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
-                <Category></Category>
-            </el-col>
-        </el-row>
-            <el-row  :gutter="10">
-            <el-col class="mt-1" :xs="24" :sm="8" :md="8" :lg="8" :xl="8" >
-                <Category></Category>
-            </el-col>
-            <el-col class="mt-1" :xs="24" :sm="8" :md="8" :lg="8" :xl="8" >
-                <Category></Category>                
-            </el-col>
-            <el-col class="mt-1" :xs="24" :sm="8" :md="8" :lg="8" :xl="8">
-                <Category></Category>
+            <el-col v-for="(item , index) in categories" :key="index" class="mt-1" :xs="24" :sm="8" :md="8" :lg="8" :xl="8" >
+                <Category :title="item.name" ></Category>
             </el-col>
         </el-row>
         </div>  
     </div>
-
         <div class="cards-carousel">
     <el-carousel :interval="4000"  type="card" height="200px">
-        <el-carousel-item :style="{background:'#fff'}" v-for="item in 6" :key="item">
-                <Category :key="item"></Category>                
+        <el-carousel-item :style="{background:'#fff'}" v-for="(item , index) in categories" :key="index">
+                <Category  :title="item.name" ></Category>                
         </el-carousel-item>
     </el-carousel>
     </div> 
-         <Freelancer></Freelancer>
+         <Freelancer :data ="freelancer"></Freelancer>
     </div>
 </template>
 <script>
@@ -52,7 +34,38 @@ import Freelancer from "./Freelancers";
 export default {
   components: { Category, Carousel, Freelancer },
   data() {
-    return {};
+    return {
+      categories: [],
+      freelancer:[]
+    };
+  },
+  mounted() {
+    this.getCategories();
+    this.getFreelancers();
+  },
+  methods: {
+    getCategories() {
+      let self = this;
+      self.$store.state.services.homeService
+        .getCategories()
+        .then(r => {
+          self.categories = r.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    getFreelancers() {
+      let self = this;
+      self.$store.state.services.homeService
+        .getFreelancers()
+        .then(r => {
+          self.freelancer = r.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   }
 };
 </script>

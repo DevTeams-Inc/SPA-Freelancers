@@ -3,15 +3,15 @@
             <el-card :body-style="{ padding: '0px' }">
       <div style="padding: 14px;">
           <div>
-          <img src="@/assets/logo.png" class="img-profile" width="50px" alt="">
+          <img :src="img" class="img-profile" width="70px" alt="">
           </div>
-        <span>Yummy hamburger</span>
+        <span>{{ name }} {{ lastName }} </span>
         <br class="mb-2">
-        <el-tag class="tag">Tag One</el-tag>
-        <el-tag class="tag">Tag One</el-tag>
-        <el-tag class="tag">Tag One</el-tag>
+        <div class="rating">
+        <el-rate id="rating-star" v-model="rating" disabled  show-score text-color="#ff9900" score-template="" ></el-rate>
+        </div>
         <div class="bottom clearfix">
-          <el-button @click="$router.push('/freelancer/nombre')" type="text" class="button">Operating button</el-button>
+          <el-button @click="$router.push(`/freelancer/${idUser}`)" type="text" class="button">Ver</el-button>
         </div>
       </div>
     </el-card>
@@ -20,7 +20,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props:['name' , 'lastName' , 'rating' , 'img' , 'idUser'],
+  data(){
+    return{
+      //rating:3.0
+    }
+  }
+};
 </script>
 
 <style scoped>

@@ -41,7 +41,7 @@
         </el-col>
 
         <el-col :span="2" class="ml-4">
-        <el-button type="primary" class="btn-nav contact-button" round>Contáctame</el-button>
+        <el-button type="primary" round>Contáctame</el-button>
         </el-col>
       </el-row>
     </el-col>
@@ -49,6 +49,43 @@
     </el-card>
         </el-row>
 
+    <el-row type="flex" class="" justify="space-center">
+        <el-col :span="24" class="mt-4">
+            <el-card class="box-card-habilities">
+        <el-col :span="24">
+            <div class="grid-content bg-purple mb-2">
+                <h5 class="mt-2 ml-4">Ubicacion</h5>
+                <div class="map mt-3 mb-4">
+                <gmap-map
+                :center="center"
+                :zoom="10"
+                style="height: 300px;"
+            >
+            <gmap-marker
+                :key="index"
+                v-for="(m, index) in markers"
+                :position="m.position"
+                :clickable="true"
+                :draggable="false"
+                @click="center=m.position , toggleInfoWindow(m, index)"
+                >
+                </gmap-marker>
+
+                <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWindowOpen"
+                @closeclick="infoWindowOpen=false">
+                <img :src="infoImg" class="img-map" alt="">
+                <p class="mt-1">{{infoContent}}</p>
+                </gmap-info-window>
+
+
+            </gmap-map>
+                </div>
+            </div>
+        </el-col>
+        </el-card>
+        </el-col>
+    </el-row>
+    
     <el-row type="flex" class="" justify="space-around">
         <el-col :span="24" class="mt-4">
             <el-card class="box-card-habilities">
@@ -95,29 +132,53 @@
             <img class="" src="@/assets/img/imglogin.svg" height="425px">
             </slot>
         </div>
-        <button @click="getLocation()">Try It</button>
-        <input type="text" v-model="latitude"  placeholder="latitude">
-        <input type="text" v-model="longitude" placeholder="longitude">
     </el-col>    
 </el-row>
 </div>
 </template>
-<style>
-</style>
 <script>
 export default {
   props: ["id"],
   data() {
     return {
+        infoContent:'',
+        infoImg:'',
+        infoWindowPos:{
+            lat: 0,
+            lng: 0 
+        },
+        infoWindowOpen:false,
+        currentMidx: null,
+        infoOptions:{
+            pixelOffeset:{
+                width:0,
+                height:-35
+            }
+        },
+
       latitude: null,
       longitude:null,
       rating: 0,
-      id: 0,
-      data: []
+      data: [],
+      center: { lat: 0, lng: 0 },
+      markers: [
+        {
+          position: { lat: 0, lng: 0 },
+          name:'Mi Posicion',
+          img:''
+        },
+        {
+          position: { lat: 0, lng: 0 },
+          name: '',
+          img:''
+        }
+      ]
     };
   },
   mounted() {
-    this.getUser(this.id);
+    this.getUser(this.id)
+    this.getLocation()
+    this.route()
   },
   methods: {
     getUser(id) {
@@ -127,22 +188,47 @@ export default {
         .then(r => {
           self.data = r.data;
           self.rating = r.data.rating;
+          self.markers[1].name = r.data.name +' '+ r.data.lastName
+          self.markers[1].img = r.data.avatar
+          self.center.lat = r.data.lat
+          self.center.lng = r.data.long
+          self.markers[1].position.lng = r.data.long
+          self.markers[1].position.lat = r.data.lat
         })
         .catch(e => {});
     },
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.showPosition);
-        
-      } else {
-        this.city = "Geolocation is not supported by this browser.";
       }
     },
-    showPosition(position){
-       this.latitude = position.coords.latitude;
-       this.longitude = position.coords.longitude;
+    /**
+     * muestra mi posicion y la centra en el mapa
+     * y luego le asigna a markers[0].position 
+     * a mi primera posicion mi longitud y latitud para ubicarme en el mapa
+     * @param position posicion 
+     */
+    showPosition(position){  
+       this.markers[0].position = {
+           lat : position.coords.latitude,
+           lng : position.coords.longitude
+       }
+    },
+    toggleInfoWindow(marker , idx){
+        this.infoWindowPos = marker.position
+        this.infoContent = marker.name
+        this.infoImg = marker.img
 
+        if(this.currentMidx == idx){
+            this.infoWindowOpen = !this.infoWindowOpen
+
+        }
+        else{
+            this.infoWindowOpen = false;
+            this.currentMidx = idx
+        }
     }
+
   },
   computed: {
     UserId() {
@@ -152,6 +238,13 @@ export default {
 };
 </script>
 <style scoped>
+.img-map{
+    height: 60px;
+    border-radius: 40%;
+}
+.map{
+    width: 100%;
+}
 .freelancer-image {
   padding: 10px 0;
   margin-right: 10px;

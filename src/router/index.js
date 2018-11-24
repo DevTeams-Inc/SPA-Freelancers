@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import Home from "@/components/home/Home"
 import Login from '@/components/auth/Login'
 import Register from "@/components/auth/Register"
-import completeRegister from "@/components/auth/completeRegister"
-import googlemap from "@/components/auth/googleMap"
+import completeRegister from "@/components/freelancers/completeRegister"
+import googlemap from "@/components/location/googleMap"
 
 import Proyects from "@/components/proyect/Proyects"
 import ProyectPost from "@/components/proyect/ProyectPost/Post"
