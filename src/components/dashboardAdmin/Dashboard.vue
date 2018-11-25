@@ -1,5 +1,5 @@
 <template>
-   <el-row class="p-0 " :style="{position:'absolute',background:'#f7f7f7',width:'100%', height:'100%'}" :gutter="40">
+   <el-row class="p-0 " :style="{position:'absolute',background:'#f7f7f7',width:'100%', height:'97%'}" :gutter="40">
    <div class="containerDashboard">
        <div class="containerMenu">
            <MenuDashboard></MenuDashboard>

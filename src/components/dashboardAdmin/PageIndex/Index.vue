@@ -17,31 +17,31 @@
             <span>5000</span>
           </div>
        </div>
-       <div class="container-categoriesTop">
+       <div class="container-categoriesTop-index">
           <h4>Categorias Populares</h4>
-         <div class="item-categories">
+         <div class="item-categories-index">
          
-          <div class="item-categorie-top">
+          <div class="item-categorie-top-index">
               <span>Icon</span>
               <p>Categoria 1</p>
           </div>
-          <div class="item-categorie-top">
+          <div class="item-categorie-top-index">
               <span>Icon</span>
               <p>Categoria 1</p>
           </div>
-          <div class="item-categorie-top">
+          <div class="item-categorie-top-index">
               <span>Icon</span>
               <p>Categoria 1</p>
           </div>
-          <div class="item-categorie-top">
+          <div class="item-categorie-top-index">
               <span>Icon</span>
               <p>Categoria 1</p>
           </div>
-          <div class="item-categorie-top">
+          <div class="item-categorie-top-index">
               <span>Icon</span>
               <p>Categoria 1</p>
           </div>
-          <div class="item-categorie-top">
+          <div class="item-categorie-top-index">
               <span>Icon</span>
               <p>Categoria 1</p>
           </div>
@@ -85,6 +85,7 @@
   cursor: pointer;
 
 }
+
 .item-cont h4{
   font-size: 15px;
   color: gray;
@@ -97,29 +98,35 @@ background: linear-gradient(to right,  #5B86E5, rgb(18, 103, 173));
 -webkit-text-fill-color: transparent;
 }
 
-.container-categoriesTop{
+.container-categoriesTop-index{
   margin-top: 40px;
   
 }
-.item-categories{
+.item-categories-index{
     display: flex;
     justify-content: center; 
 }
-.container-categoriesTop h4{
+.container-categoriesTop-index h4{
    margin-right: 67%;
   font-size: 15px;
   color:gray;
 }
-.item-categorie-top{
+.item-categorie-top-index{
 margin-top:20px; 
 background-color:white;
 width: 100px;
 margin-left: 8px;
 height: 100px;
 border-radius: 100%;
+cursor: pointer;
   
 }
-
+.item-categorie-top-index:hover{
+  background-color:#40a8fd;
+  color:white;
+  transition: all 0.2s ease;
+ 
+}
 .reports{
 background-color:white;
  margin-top: 40px;
