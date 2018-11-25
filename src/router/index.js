@@ -1,22 +1,28 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from "@/components/home/Home"
+
 import Login from '@/components/auth/Login'
 import Register from "@/components/auth/Register"
 import completeRegister from "@/components/freelancers/completeRegister"
+
 import googlemap from "@/components/location/googleMap"
 
 import Proyects from "@/components/proyect/Proyects"
 import ProyectPost from "@/components/proyect/ProyectPost/Post"
+
 import FreelancerUser from '@/components/user/FreelancerUser'
 import Freelancers from '@/components/freelancers/Freelancers'
+
 import SendEmail from '@/components/email/SendEmail'
 import EmailValidation from "@/components/email/EmailConfirmed";
+
 import DashboardAdmin  from "@/components/dashboardAdmin/Dashboard";
 import DashboardIndex  from "@/components/dashboardAdmin/PageIndex/Index";
 import DashboardProyects from "@/components/dashboardAdmin/PageProyects/Proyects";
 import DashboardFreelancers from "@/components/dashboardAdmin/PageFreelancers/Freelancers";
 import DashboardCategories from "@/components/dashboardAdmin/PageCategories/Categories";
+import DashboardHabilidades from "@/components/dashboardAdmin/PageHabilidades/Habilidades";
 import DashboardReports from "@/components/dashboardAdmin/PageReports/Reports";
 
 Vue.use(Router);
@@ -127,11 +133,7 @@ export default new Router({
     {
       path: "/dashboardAdmin",
       name: "dashboardAdmin",
-<<<<<<< HEAD
       redirect:"/dashboardAdmin/inicio",
-=======
-      redirect:"/dashboardAdmin/index1",
->>>>>>> 2d4c885de03d88081a6c42870b4f4445cdf060e9
       component: DashboardAdmin,
       props:true,
       meta: {
@@ -140,19 +142,13 @@ export default new Router({
       },
       children:[
         {
-<<<<<<< HEAD
-          path: "inicio",
-          name: "dashboardIndex",
-=======
-          path: "/dashboardAdmin/index",
-          name: "dashboardIndex2",
->>>>>>> 2d4c885de03d88081a6c42870b4f4445cdf060e9
-          component: DashboardIndex,
-          meta:{
-            hideFooter: true,
-            requiresVisitor: false
-          }
-    
+            path:"inicio",
+            name:"dashboardInicio",
+            component:DashboardIndex,
+            meta:{
+              hideFooter:true,
+              requiresVisitor:false
+            }
         },
         {
           path: "proyectos",
@@ -178,6 +174,16 @@ export default new Router({
           path: "categorias",
           name: "dashboardCategories",
           component: DashboardCategories,
+            meta:{
+            hideFooter: true,
+            requiresVisitor: false
+          }
+    
+        },
+        {
+          path: "habilidades",
+          name: "dashboardHabilidades",
+          component: DashboardHabilidades,
             meta:{
             hideFooter: true,
             requiresVisitor: false

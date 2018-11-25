@@ -13,7 +13,7 @@ class AuthService{
         return self.axios.post(`${self.apiUrl}/login` , user)
     }
 
-    logout(tokenName, tokenUserName){
+    logout(tokenName, tokenUserName){   
         //removemos del localStorage
        localStorage.removeItem(tokenName)
        localStorage.removeItem(tokenUserName)
