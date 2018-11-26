@@ -18,6 +18,7 @@ import DashboardProyects from "@/components/dashboardAdmin/PageProyects/Proyects
 import DashboardFreelancers from "@/components/dashboardAdmin/PageFreelancers/Freelancers";
 import DashboardCategories from "@/components/dashboardAdmin/PageCategories/Categories";
 import DashboardReports from "@/components/dashboardAdmin/PageReports/Reports";
+import SearchFreelancer from '@/components/location/SearchFreelancer'
 
 Vue.use(Router);
 
@@ -122,16 +123,17 @@ export default new Router({
         requiresVisitor: true
       }
     },
+    {
+      path: '/buscar/freelancers',
+      name: '/buscar/freelancer',
+      component: SearchFreelancer
+    },
 
     //Ruteo de administrador//
     {
       path: "/dashboardAdmin",
       name: "dashboardAdmin",
-<<<<<<< HEAD
-      redirect:"/dashboardAdmin/inicio",
-=======
       redirect:"/dashboardAdmin/index1",
->>>>>>> 2d4c885de03d88081a6c42870b4f4445cdf060e9
       component: DashboardAdmin,
       props:true,
       meta: {
@@ -140,13 +142,8 @@ export default new Router({
       },
       children:[
         {
-<<<<<<< HEAD
-          path: "inicio",
-          name: "dashboardIndex",
-=======
           path: "/dashboardAdmin/index",
           name: "dashboardIndex2",
->>>>>>> 2d4c885de03d88081a6c42870b4f4445cdf060e9
           component: DashboardIndex,
           meta:{
             hideFooter: true,

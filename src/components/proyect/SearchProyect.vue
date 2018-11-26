@@ -13,7 +13,7 @@
      </div>
    </div>
 </template>
-<style>
+<style scoped>
 .SearchContainer{
     color: white;
     display: flex;
@@ -92,11 +92,11 @@ export default {
   methods:{
     redirect() 
     {
-         if(this.FreelancerPresencial===true){ this.$router.push('/proyectos');}else if(this.FreelancerPresencial===false){  this.$router.push('/freelancers');}
+         this.FreelancerPresencial ? this.$router.push('/proyectos') : this.$router.push('/freelancers')
     },
     cambiarRuta()
      {
-         if( this.$router.currentRoute.fullPath==='/proyectos'){return this.FreelancerPresencial=true;}else if(this.$router.currentRoute.fullPath==='/freelancers'){return this.FreelancerPresencial=false}  
+         this.$router.currentRoute.fullPath === '/proyectos' ? this.FreelancerPresencial = true : this.FreelancerPresencial = false
      },
 
   },
