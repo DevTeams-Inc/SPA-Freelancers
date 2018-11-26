@@ -16,8 +16,8 @@
                            <a @click="$router.push('/dashboardAdmin/proyectos')"><li>Proyectos</li></a>
                            <a @click="$router.push('/dashboardAdmin/freelancers')" ><li>Freelancers</li></a>
                            <a @click="$router.push('/dashboardAdmin/categorias')"><li>Categorias</li></a>
+                           <a @click="$router.push('/dashboardAdmin/habilidades')" ><li>Habilidades</li></a>
                            <a @click="$router.push('/dashboardAdmin/reportes')" ><li>Reportes</li></a>
-                           <a @click="$router.push('/dashboardAdmin/proyectos')" ><li>Configuracion</li></a>
                        </ul>
                    </nav>
               </div>
