@@ -90,159 +90,175 @@
    </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      rating1: 3.5,
+      rating2: 4.0,
+      rating3: 5,
+      Actividades: [
+        {
+          value: "Option1",
+          label: "Option1"
+        },
+        {
+          value: "Option2",
+          label: "Option2"
+        },
+        {
+          value: "Option3",
+          label: "Option3"
+        },
+        {
+          value: "Option4",
+          label: "Option4"
+        },
+        {
+          value: "Option5",
+          label: "Option5"
+        }
+      ],
+      ActividadSelect: "",
+      Habilidades: [
+        {
+          value: "HTML",
+          label: "HTML"
+        },
+        {
+          value: "CSS",
+          label: "CSS"
+        },
+        {
+          value: "JavaScript",
+          label: "JavaScript"
+        }
+      ],
+
+      Ciudades: [
+        {
+          value: "idAzua",
+          label: "Azua"
+        },
+        {
+          value: "idHiguey",
+          label: "Higuey"
+        },
+        {
+          value: "idRomana",
+          label: "Romana"
+        }
+      ],
+      CiudadSelect: [],
+      Rangos: [
+        {
+          value: "id10",
+          label: "10 min"
+        },
+        {
+          value: "id30",
+          label: "30 min"
+        },
+        {
+          value: "id50",
+          label: "50 min"
+        }
+      ],
+      RangoSelect: [],
+      HabilidadesSelect: [],
+      Ubicacion: [],
+      city: []
+    };
+  },
+  mounted(){
+
+  },
+  methods(){
+    
+  }
+};
+</script>
 <style scoped>
-.container-FiltroFreelancersResponsive{
+.container-FiltroFreelancersResponsive {
   display: none;
 }
-.container-FiltroFreelancers
- {
- height: 600px;
-padding-top: 30px;
-padding-bottom: 30px;
-font-family: 'Roboto',sans-serif;
-background: white;
-border-radius:2px; 
-width: 365px;
-text-align: left;
- box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
- transition: all 0.3s cubic-bezier(.25,.8,.25,1);
- }
- .All-filtro-freelancers{
-   width: 100%;
-
- }
- .h2-Filtro{
-     font-size: 20px;
-      text-align: center;
- }
- .section-FiltroCategoria-freelancers
- {
-  margin-top: 20px;
- }
-.All-filtro-freelancers{
- position: relative;
- width: 300px;
- margin-left:33px; 
- margin-right: 33px;
-
+.container-FiltroFreelancers {
+  height: 600px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-family: "Roboto", sans-serif;
+  background: white;
+  border-radius: 2px;
+  width: 365px;
+  text-align: left;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-.h4-Categoria{
+.All-filtro-freelancers {
+  width: 100%;
+}
+.h2-Filtro {
+  font-size: 20px;
+  text-align: center;
+}
+.section-FiltroCategoria-freelancers {
+  margin-top: 20px;
+}
+.All-filtro-freelancers {
+  position: relative;
+  width: 300px;
+  margin-left: 33px;
+  margin-right: 33px;
+}
+.h4-Categoria {
   margin-bottom: 10px;
 }
- h4{
-     font-size: 16px;   
-     color: rgb(95, 94, 94);
- }
+h4 {
+  font-size: 16px;
+  color: rgb(95, 94, 94);
+}
 
 /*Estilos section-FiltroHabilidades*/
-.section-FiltroHabilidades-freelancers{
-       margin-top: 20px;
+.section-FiltroHabilidades-freelancers {
+  margin-top: 20px;
 }
 
 /*Estilos section-FiltroUbicacion*/
-.section-FiltroUbicacion-freelancers{
-      margin-top: 20px;
+.section-FiltroUbicacion-freelancers {
+  margin-top: 20px;
 }
 /*Estilos section-FiltroRating-freelancers*/
-.section-FiltroRating-freelancers{
+.section-FiltroRating-freelancers {
   position: relative;
-      margin-top: 20px;
-      width: 100%;
+  margin-top: 20px;
+  width: 100%;
 }
-.el-select{
-    font-size: 18px;
-    width: 100%;
+.el-select {
+  font-size: 18px;
+  width: 100%;
 }
 .el-checkbox {
-    right: 30px;
-    z-index: 0;
+  right: 30px;
+  z-index: 0;
 }
 
 /* Media queries */
- @media (min-width: 930px) and (max-width: 1105px)
-{
-  .container-FiltroFreelancers{
-   width: 330px;
+@media (min-width: 930px) and (max-width: 1105px) {
+  .container-FiltroFreelancers {
+    width: 330px;
   }
-   .All-filtro-freelancers{
-   width: 80%;
-
- }
+  .All-filtro-freelancers {
+    width: 80%;
+  }
 }
-   @media (max-width: 929px) {
-     .container-FiltroFreelancers{
-      display: none;
-    }
-    .container-FiltroFreelancersResponsive{
-      display: block;
-      margin-bottom: 10px;
-    }
- 
- }
+@media (max-width: 929px) {
+  .container-FiltroFreelancers {
+    display: none;
+  }
+  .container-FiltroFreelancersResponsive {
+    display: block;
+    margin-bottom: 10px;
+  }
+}
 </style>
 
-<script>
-export default {
-       data() {
-      return {
-          rating1:3.5,
-          rating2:4.0,
-          rating3:5,
-        Actividades: [{
-          value: 'Option1',
-          label: 'Option1'
-        }, {
-          value: 'Option2',
-          label: 'Option2'
-        }, {
-          value: 'Option3',
-          label: 'Option3'
-        }, {
-          value: 'Option4',
-          label: 'Option4'
-        }, {
-          value: 'Option5',
-          label: 'Option5'
-        }],
-       ActividadSelect:'',
-        Habilidades: [{
-          value: 'HTML',
-          label: 'HTML'
-        }, {
-          value: 'CSS',
-          label: 'CSS'
-        }, {
-          value: 'JavaScript',
-          label: 'JavaScript'
-        }],
-         
-        Ciudades: [{
-          value: 'idAzua',
-          label: 'Azua'
-        }, {
-          value: 'idHiguey',
-          label: 'Higuey'
-        }, {
-          value: 'idRomana',
-          label: 'Romana'
-        }],
-         CiudadSelect:[],
-      Rangos: [{
-          value: 'id10',
-          label: '10 min'
-        }, {
-          value: 'id30',
-          label: '30 min'
-        }, {
-          value: 'id50',
-          label: '50 min'
-        }],
-        RangoSelect:[],
-         HabilidadesSelect: [],
-         Ubicacion: [],
-         city:[]
-
-      }
-    }
-}
-</script>

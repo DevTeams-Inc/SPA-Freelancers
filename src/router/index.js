@@ -127,11 +127,7 @@ export default new Router({
     {
       path: "/dashboardAdmin",
       name: "dashboardAdmin",
-<<<<<<< HEAD
-      redirect:"/dashboardAdmin/inicio",
-=======
       redirect:"/dashboardAdmin/index1",
->>>>>>> 2d4c885de03d88081a6c42870b4f4445cdf060e9
       component: DashboardAdmin,
       props:true,
       meta: {
@@ -140,13 +136,8 @@ export default new Router({
       },
       children:[
         {
-<<<<<<< HEAD
-          path: "inicio",
-          name: "dashboardIndex",
-=======
           path: "/dashboardAdmin/index",
           name: "dashboardIndex2",
->>>>>>> 2d4c885de03d88081a6c42870b4f4445cdf060e9
           component: DashboardIndex,
           meta:{
             hideFooter: true,
