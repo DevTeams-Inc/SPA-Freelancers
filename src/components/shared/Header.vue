@@ -56,7 +56,7 @@ Panel Administrativo
     {{UserName}}<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
   <el-dropdown-menu slot="dropdown">
-   <el-dropdown-item >
+   <el-dropdown-item v-if="admin() == 1">
 <span @click="profile">Perfil</span>
 </el-dropdown-item>
     <el-dropdown-item v-if="admin() == 2">
@@ -87,7 +87,7 @@ export default {
       path: null
     };
   },
-  created(){
+  updated(){
     this.admin()
   },
   methods: {
@@ -161,7 +161,7 @@ export default {
           ? localStorage.getItem("user_id")
           : null;
       return name;
-    },
+    }
   }
 };
 </script>
