@@ -15,8 +15,7 @@
                         </div>
                    </div>
                    <div class="botones-Freelancer">
-                         <el-button type="primary"  id="boton-freelancer">Contratar</el-button>
-                         <el-button type="secondary" id="boton-freelancer" >Ubicacion</el-button>
+                         <el-button type="primary"  id="boton-freelancer">Contactar</el-button>
                    </div>
                 </div>
                 <div class="top-right-item-Freelancer">
@@ -32,7 +31,6 @@
                      </div>
                 </div>
             </div>
-
             <div class="bottom-Item-Freelancer">
                 <div class="skills">
                     <h4>Habilidades</h4>
@@ -71,24 +69,40 @@ export default {
     this.getAll(this.index);
   },
   methods: {
+    /**
+     * obtiene todos los freelancers
+     * @param index el numero de pagina en el que nos encontramos
+     */
     getAll(index) {
       let self = this;
       self.$store.state.services.freelancerService
         .getAll(index)
         .then(r => {
-          self.data = r.data.entities;
+          /**
+           * remueve el usuario logueado de la lista de 
+           * freelancers
+           */
+          self.data = r.data.entities.filter((c , i , arr) => {
+            return c.applicationUserId != localStorage.getItem('user_id')
+          })
           self.totalOfRegister = r.data.totalOfRegister;
         })
         .catch(e => {
           console.log("error :" + e);
         });
     },
+    /**
+     * pagina anterior para la paginacion
+     */
     beforePage() {
       if (this.index > 1) {
         this.index--;
         this.getAll(this.index);
       }
     },
+    /**
+     * pagina siguiente en la paginacion
+     */
     nextPage() {
       if (this.totalOfRegister > 0) {
         this.index++;
@@ -99,6 +113,9 @@ export default {
     }
   },
   computed: {
+    /**
+     * verifica el total de registros
+     */
     i() {
       if (this.totalOfRegister <= 0) {
         return this.beforePage();
@@ -110,14 +127,11 @@ export default {
 <style scoped>
 .containerListaFreelancer {
   width: 70%;
-
-  /* background-color: blueviolet; */
 }
 .Item-Freelancer:nth-child(1) {
   margin-top: 0px;
 }
 .Item-Freelancer {
-  /* background-color: azure; */
   background: white;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -130,12 +144,10 @@ export default {
   padding: 20px;
   box-sizing: border-box;
   border-bottom: 1px solid rgb(240, 240, 240);
-  /* background-color: blue; */
 }
 .top-left-item-Freelancer {
   width: 80%;
   text-align: left;
-  /* background-color: brown; */
 }
 .texto-freelancer h2 {
   font-size: 20px;
@@ -152,13 +164,9 @@ export default {
 .botones-Freelancer {
   display: flex;
   width: 50%;
-  /* background-color: bisque; */
 }
 .top-right-item-Freelancer {
   width: 20%;
-  /* background-color: cadetblue; */
-}
-.container-pic-freelancer {
 }
 .img-pic-freelancer {
   border-radius: 100%;

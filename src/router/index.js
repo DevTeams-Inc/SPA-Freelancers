@@ -58,7 +58,8 @@ export default new Router({
       name: "ProyectPost",
       component: ProyectPost,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresVisitor: false
       }
     },
     {
@@ -107,7 +108,7 @@ export default new Router({
       props: true,
       component: FreelancerUser,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {

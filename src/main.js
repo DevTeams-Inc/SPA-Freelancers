@@ -40,7 +40,7 @@ router.beforeEach((to, from, next) => {
     else {
       next();
     }
-  }if (to.meta.adminAuth){
+  }else if (to.meta.adminAuth){
      if (localStorage.getItem('user_role') != 2) {
       next({
         path: "/inicio", //este es el path al que se va a redireccionar
