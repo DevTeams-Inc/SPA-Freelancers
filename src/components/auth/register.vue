@@ -142,7 +142,7 @@ export default {
               .register(self.ruleForm)
               .then(r => {
                 self.loading = false;
-               
+                self.redirect('/email/validacion')
               })
               .catch(e => {
                 self.$notify.error({
