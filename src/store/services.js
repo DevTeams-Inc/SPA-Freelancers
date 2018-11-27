@@ -7,9 +7,9 @@ import HabilityService from '../services/HabilityService'
 //Axios configuration
 Axios.defaults.headers.common.Accept = "application/json";
 
- let apiUrl = "http://192.168.1.139:45455/";
+let apiUrl = "http://192.168.1.139:45455/";
 //local
-//let apiUrl = "http://localhost:57455/";
+// let apiUrl = "http://localhost:57455/";
 
 
 export default {
