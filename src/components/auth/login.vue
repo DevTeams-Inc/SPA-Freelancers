@@ -86,7 +86,8 @@ export default {
       },
         token:localStorage.getItem('access_token') || null,
         user:localStorage.getItem('user_info') || null,
-        idUser:localStorage.getItem('user_id') || null
+        idUser:localStorage.getItem('user_id') || null,
+        role:localStorage.getItem('user_role') || null,
     };
   },
   methods: {
@@ -105,14 +106,21 @@ export default {
               self.token = r.data.token;
               self.user = `${r.data.user.name} ${r.data.user.lastName}`;
               self.idUser = r.data.user.id;
+              self.role = r.data.user.role
               //guardamos en el localStorage
               //accedemos al state y le asignamos el token
               self.$store.state.token = localStorage.setItem("access_token",self.token);
               self.$store.state.user = localStorage.setItem("user_info",self.user);
               self.$store.state.idUser = localStorage.setItem('user_id', self.idUser);
+              self.$store.state.role = localStorage.setItem('user_role', self.role);
+
             })
-            .then(e => {
-                self.redirect('/proyectos')
+            .then(r => {
+              if(self.role == 1){
+                self.redirect('/freelancers')
+              }else if(self.role == 2){
+                self.redirect('/dashboardAdmin')
+              }
             })
             .catch(e => {
               self.$notify.error({

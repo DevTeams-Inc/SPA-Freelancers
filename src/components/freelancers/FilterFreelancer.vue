@@ -5,22 +5,31 @@
                    <el-collapse-item title="Filtro " name="1">
                                      <h2 class="h2-Filtro">Freelancers Profesionales</h2>
                <div class="All-filtro-freelancers">
-                 <div class="section-FiltroCategoria-freelancers">
+                 <!-- <div class="section-FiltroCategoria-freelancers">
                    <h4 class="h4-Categoria">Actividad de freelancer</h4>
-                      <!--Esto se va a generar con un bucle-->
                     <el-select v-model="ActividadSelect" clearable placeholder="selecciona actividad requerida">
-                          <el-option  v-for="item in Actividades" :key="item.value" :label="item.label" :value="item.value">
+                          <el-option  v-for="item in Actividades" 
+                          :key="item.value" 
+                          :label="item.label" 
+                          :value="item.value">
                           </el-option>
                     </el-select>   
-                  </div>
+                  </div> -->
 
                   <div class="section-FiltroHabilidades-freelancers">
                     <h4>Habilidades</h4>
-                    <el-select v-model="HabilidadesSelect" multiple filterable  allow-create  placeholder="selecciona habilidades"> 
-                      <el-option  v-for="item in Habilidades" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
-                    </el-select>
-                   </div>
-                   <div class="section-FiltroUbicacion-freelancers">
+                   
+                    <el-select v-model="searchHability" filterable placeholder="Habilidad">
+                    <el-option
+                      v-for="hability in habilities"
+                      :key="hability.id"
+                      :label="hability.title"
+                      :value="hability.id">
+                    </el-option>
+                  </el-select>
+                
+                </div>
+                   <!-- <div class="section-FiltroUbicacion-freelancers">
                       <h4>Ubicacion del Freelancer</h4>
                       <el-select v-model="CiudadSelect" clearable placeholder="selecciona la ciudad"> 
                         <el-option  v-for="item in Ciudades" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
@@ -28,7 +37,7 @@
                       <el-select v-model="RangoSelect"  clearable placeholder="rango de distancia" style="margin-top:10px;"> 
                          <el-option  v-for="item in Rangos" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
                       </el-select>
-                     </div>
+                     </div> -->
                     <div class="section-FiltroRating-freelancers">
                       <h4>Clasificacion</h4>
                       <el-checkbox style="display:none;" :label="city" :key="city"> </el-checkbox>
@@ -49,22 +58,26 @@
              <div class="container-FiltroFreelancers">
                <h2 class="h2-Filtro">Freelancers Profesionales</h2>
                <div class="All-filtro-freelancers">
-                 <div class="section-FiltroCategoria-freelancers">
+                 <!-- <div class="section-FiltroCategoria-freelancers">
                    <h4 class="h4-Categoria">Actividad de freelancer</h4>
-                      <!--Esto se va a generar con un bucle-->
                     <el-select v-model="ActividadSelect" clearable placeholder="selecciona actividad requerida">
                           <el-option  v-for="item in Actividades" :key="item.value" :label="item.label" :value="item.value">
                           </el-option>
                     </el-select>   
-                  </div>
+                  </div> -->
 
                   <div class="section-FiltroHabilidades-freelancers">
                     <h4>Habilidades</h4>
-                    <el-select v-model="HabilidadesSelect" multiple filterable  allow-create  placeholder="selecciona habilidades"> 
-                      <el-option  v-for="item in Habilidades" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
-                    </el-select>
+                    <el-select v-model="searchHability" filterable placeholder="Habilidad">
+                    <el-option
+                      v-for="hability in habilities"
+                      :key="hability.id"
+                      :label="hability.title"
+                      :value="hability.id">
+                    </el-option>
+                  </el-select>
                    </div>
-                   <div class="section-FiltroUbicacion-freelancers">
+                   <!-- <div class="section-FiltroUbicacion-freelancers">
                       <h4>Ubicacion del Freelancer</h4>
                       <el-select v-model="CiudadSelect" clearable placeholder="selecciona la ciudad"> 
                         <el-option  v-for="item in Ciudades" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
@@ -72,7 +85,7 @@
                       <el-select v-model="RangoSelect"  clearable placeholder="rango de distancia" style="margin-top:10px;"> 
                          <el-option  v-for="item in Rangos" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
                       </el-select>
-                     </div>
+                     </div> -->
                     <div class="section-FiltroRating-freelancers">
                       <h4>Clasificacion</h4>
                       <el-checkbox style="display:none;" :label="city" :key="city"> </el-checkbox>
@@ -97,6 +110,7 @@ export default {
       rating1: 3.5,
       rating2: 4.0,
       rating3: 5,
+      searchHability: '',
       Actividades: [
         {
           value: "Option1",
@@ -120,21 +134,8 @@ export default {
         }
       ],
       ActividadSelect: "",
-      Habilidades: [
-        {
-          value: "HTML",
-          label: "HTML"
-        },
-        {
-          value: "CSS",
-          label: "CSS"
-        },
-        {
-          value: "JavaScript",
-          label: "JavaScript"
-        }
+      habilities: [ 
       ],
-
       Ciudades: [
         {
           value: "idAzua",
@@ -171,10 +172,24 @@ export default {
     };
   },
   mounted(){
-
+    let self = this
+    self.getAll()
   },
-  methods(){
-    
+  methods:{
+    /*
+    *Habilidades
+    */
+    getAll(){
+      let self = this
+      self.$store.state.services.habilityService
+      .getAll()
+      .then(r => {
+        self.habilities = r.data
+      }).catch(e => {
+        
+      });
+    }
+
   }
 };
 </script>

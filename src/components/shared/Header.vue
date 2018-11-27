@@ -1,6 +1,6 @@
 <template>
 <div>
-<div class="nav-r" >
+<div class="nav-admin" >
 <div>
   <el-menu default-active="2" class="el-menu-vertical-demo el-menu-responsive mb-5"  :collapse="false">
   <el-submenu :style="{width:'100%'}" class="text-white" index="1">
@@ -26,8 +26,11 @@
     <div class="mr-4" v-if="UserName !== 'Inicia Sesion'">
      <el-submenu :style="{width:'100%'}" index="2">
     <span slot="title" >{{UserName}}</span>
-    <el-menu-item index="2-1" > <router-link tag="span" :to="`/freelancer/${UserId}`">
+    <el-menu-item index="2-1" > <router-link tag="span" :to="`/freelancer/${userId}`">
 Mi Perfil
+</router-link></el-menu-item>
+    <el-menu-item index="2-1" v-if="admin() == 2" > <router-link tag="span" :to="`/dashboardAdmin`">
+Panel Administrativo
 </router-link></el-menu-item>
     <el-menu-item index="2-2"><span @click="logout()">Salir</span></el-menu-item>
     </el-submenu>
@@ -56,10 +59,12 @@ Mi Perfil
    <el-dropdown-item >
 <span @click="profile">Perfil</span>
 </el-dropdown-item>
-    <el-dropdown-item><span @click="logout()">Salir</span></el-dropdown-item>
-    <el-dropdown-item>Action 3</el-dropdown-item>
-    <el-dropdown-item disabled>Action 4</el-dropdown-item>
-    <el-dropdown-item divided>Action 5</el-dropdown-item>
+    <el-dropdown-item v-if="admin() == 2">
+      <span @click="redirect('/dashboardAdmin')">
+        Panel Administrativo
+      </span>
+    </el-dropdown-item>    
+    <el-dropdown-item divided><span @click="logout()">Salir</span></el-dropdown-item>
   </el-dropdown-menu>
 </el-dropdown>
     </div>    
@@ -72,7 +77,7 @@ Mi Perfil
 </div>
 </template>
 <script>
-import {EventBus} from '../../helpers/event-bus'
+import { EventBus } from "../../helpers/event-bus";
 export default {
   name: "Nav1",
   data() {
@@ -81,6 +86,9 @@ export default {
       isCollapse: true,
       path: null
     };
+  },
+  created(){
+    this.admin()
   },
   methods: {
     redirect(path) {
@@ -99,29 +107,37 @@ export default {
         this.isCollapse = true;
       }
     },
-    logout(){
-      let self = this
-      let tokenName = 'access_token'
-      let tokenUserName = 'user_info'
-      let response =  self.$store.state.services.authService.logout(tokenName , tokenUserName)
+    logout() {
+      let self = this;
+      let tokenName = "access_token";
+      let tokenUserName = "user_info";
+      let response = self.$store.state.services.authService.logout(
+        tokenName,
+        tokenUserName
+      );
       //si se removio el token se desloguea
-      if(response){
-       //removemos el token del state
-       self.$store.state.token = null
-       this.redirect('/login')
-      }else{
-        console.log('ocurrio un error')
+      if (response) {
+        //removemos el token del state
+        self.$store.state.token = null;
+        this.redirect("/login");
+      } else {
+        console.log("ocurrio un error");
       }
     },
     /**
      * envia un evento al momento de ir al perfil
      * para hacer una nueva peticion de los datos
      */
-    profile(){
-      EventBus.$emit('profile' , this.UserId)
-      this.$router.push(`/freelancer/${this.UserId}`);
+    profile() {
+      EventBus.$emit("profile", this.userId);
+      this.$router.push(`/freelancer/${this.userId}`);
+    },
+    /**
+     * retorna el rol del usuario admin/normal
+     */
+    admin(){
+      return localStorage.getItem('user_role')
     }
-
   },
   computed: {
     UserName() {
@@ -136,19 +152,18 @@ export default {
     },
     /**
      * esta funcion es para traer el id que esta en
-     * el estado de los componenetes y se encuentra en el 
+     * el estado de los componenetes y se encuentra en el
      * localStorage
      */
-    UserId(){
+    userId() {
       let name =
         this.$store.getters.loggedIn != false
           ? localStorage.getItem("user_id")
           : null;
       return name;
-    }
+    },
   }
 };
-
 </script>
 <style scoped>
 .nav-text.scrolled {
@@ -215,7 +230,7 @@ export default {
   }
 }
 @media (min-width: 900px) {
-  .nav-r {
+  .nav-admin {
     display: none;
   }
 }

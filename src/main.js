@@ -36,10 +36,20 @@ router.beforeEach((to, from, next) => {
       next({
         path: "/login", //este es el path al que se va a redireccionar
       });
-    } else {
+    } 
+    else {
       next();
     }
-  } else {
+  }if (to.meta.adminAuth){
+     if (store.getters.userRole != 2) {
+      next({
+        path: "/inicio", //este es el path al que se va a redireccionar
+      });
+    }else{
+      next()
+    }
+  }
+  else {
     next(); // make sure to always call next()!
   }
 });

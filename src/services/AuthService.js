@@ -17,6 +17,8 @@ class AuthService{
         //removemos del localStorage
        localStorage.removeItem(tokenName)
        localStorage.removeItem(tokenUserName)
+       localStorage.removeItem('user_role')
+       localStorage.removeItem('user_id')
        return true
     }
 
