@@ -22,22 +22,43 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
       </el-form-item>
-      <el-form-item label="Direccion" prop="direccion">
-        <el-input v-model="ruleForm.direccion"></el-input>
-      </el-form-item>
         <el-col :span="12">
-          <el-form-item label="Telefono" prop="telefono" >
-            <el-input v-model="ruleForm.telefono"></el-input>
+         <el-form-item label="Habilidades" prop="habilidades" >
+           <el-select
+          v-model="ruleForm.habilidades"
+          multiple
+          collapse-tags
+          placeholder="Seleciona">
+            <el-option
+              v-for="item in opcion"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+        </el-select>
+      </el-form-item>
+        </el-col>
+          <el-col :span="12">
+          <el-form-item label="Interes" prop="interes">
+            <el-select v-model="ruleForm.interes" placeholder="Seleciona">
+              <el-option label="Desarrollo web" value="web developer"></el-option>
+              <el-option label="Powerpoint" value="owerpoint"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="Idioma" prop="idioma">
-            <el-select v-model="ruleForm.idioma" placeholder="">
+            <el-select v-model="ruleForm.idioma" placeholder="Seleciona">
               <el-option label="Español" value="Español"></el-option>
               <el-option label="Ingles" value="Ingles"></el-option>
             </el-select>
           </el-form-item>
       </el-col>
+        <el-col :span="12">
+          <el-form-item label="Telefono" prop="telefono" >
+            <el-input v-model="ruleForm.telefono"></el-input>
+          </el-form-item>
+        </el-col>
     </el-col>
     <el-col :span="12" class="coll">
       <el-form-item label="Biografia" prop="biografia" class="mb-5">
@@ -48,23 +69,19 @@
         <el-input v-model="ruleForm.profesion" placeholder="e.j Web developer"></el-input>
       </el-form-item>
       <el-row>
-        <el-col :span="12">
-          <el-form-item label="Interes" prop="interes">
-            <el-select v-model="ruleForm.interes" placeholder="">
-              <el-option label="Desarrollo web" value="web developer"></el-option>
-              <el-option label="Powerpoint" value="owerpoint"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
+        <el-col>
           <el-form-item label="Precio por hora" prop="ph">
-            <el-input type="ph" v-model="ruleForm.ph"></el-input>
+            <el-input type="number" v-model="ruleForm.ph"  min="0" placeholder="e.j 520"></el-input>
           </el-form-item> 
         </el-col>
+         </el-row>
+        <el-row>
+          <el-col >
          <el-form-item class="mt-2">
           <el-button type="primary" @click="submitForm('ruleForm')">Completar</el-button>
           <el-button @click="resetForm('ruleForm')">Reset</el-button>
         </el-form-item>
+        </el-col >
       </el-row>
     </el-col>
   </el-form>
@@ -77,24 +94,24 @@ export default {
   data() {
     return {
       // top: 'top',
-      imageUrl: null,
+      imageUrl: '',
       ubicacion: '',
       ruleForm: {
-        direccion: null,
-        idioma: null,
-        telefono: null,
-        foto: null,
-        biografia: null,
-        profesio: null,
-        interes: null,
-        ph: null
+        habilidades: '',
+        idioma: '',
+        telefono: '',
+        foto: '',
+        biografia: '',
+        profesio: '',
+        interes: '',
+        ph: ''
       },
       rules: {
-        direccion: [
+        habilidades: [
           {
             required: true,
-            message: "Ingrese una direccion",
-            trigger: "change"
+            message: "Ingrese una habilidad",
+            trigger: "blur"
           }
           // { min: 3, max: 30, message: 'Length should be 3 to 5', trigger: 'change' }
         ],
@@ -102,43 +119,51 @@ export default {
           {
             required: true,
             message: "Selecione un idioma.",
-            trigger: "change"
+            trigger: "blur"
           }
         ],
         telefono: [
           {
             required: true,
             message: "Ingrese un numero de telefono.",
-            trigger: "change"
+            trigger: "blur"
           }
           // {type: 'number', message: 'El telefono solo debe tener numeros.',trigger: 'blur'}
         ],
         biografia: [
           {
+            required: true,
             min: 5,
             max: 200,
             message: "Debes tener de 5 a 200 caracteres.",
-            trigger: "change"
+            trigger: "blur"
           }
         ],
         profesion: [
           {
             required: true,
             message: "Ingrese su profesion.",
-            trigger: "change"
+            trigger: "blur"
           }
         ],
         ph: [
-          // {
-          //   required: true,
-          //   message: "Ingrese un precio por hora.",
-          //   trigger: "change"
-          // },
-          { type: "number",
-            message: "Solo numero." 
-          }
+          {
+            required: true,
+           
+            message: "Ingrese un precio por hora.",
+            trigger: "change"
+          },
+          
         ]
-      }
+      },
+       opcion: [{
+          value: 'Option1',
+          label: 'Option1'
+        }, {
+          value: 'Option2',
+          label: 'Option2'
+        }
+        ],
     };
   },
   methods: {
@@ -150,15 +175,25 @@ export default {
         const isLt2M = file.size / 1024 / 1024 < 2;
 
         if (!isJPG) {
-          this.$message.error('La imagen debe estar en formato JPG!');
+          this.$notify.error({
+          title: 'Error',
+          message: 'La imagen debe estar en formato JPG!',
+          offset: 50,
+          duration: 2200
+        });
         }
-        if (!isLt2M) {
-          this.$message.error('La imagen excede los 2MB!');
+        else if (!isLt2M) {
+          this.$notify.error({
+          title: 'Error',
+          message: 'La imagen excede los 2MB!',
+          offset: 50,
+          duration: 2200
+        });
         }
         return isJPG && isLt2M;
       },
-    submitForm(formdireccion) {
-      this.$refs[formdireccion].validate(valid => {
+    submitForm(formhabilidades) {
+      this.$refs[formhabilidades].validate(valid => {
         if (valid) {
           alert("submit!");
         } else {
@@ -167,8 +202,8 @@ export default {
         }
       });
     },
-    resetForm(formdireccion) {
-      this.$refs[formdireccion].resetFields();
+    resetForm(formhabilidades) {
+      this.$refs[formhabilidades].resetFields();
     }
   }
 };
