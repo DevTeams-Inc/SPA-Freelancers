@@ -88,7 +88,7 @@
             <el-form-item label="biografia" prop="biography" class="mb-5">
               <el-input type="textarea" :rows="4" v-model="ruleForm.biography"></el-input>
             </el-form-item>
-            <el-form-item label="Profesion" prop="profesion">
+            <el-form-item label="profesion" prop="profesion">
               <el-input v-model="ruleForm.profesion" placeholder="e.j Web developer"></el-input>
             </el-form-item>
             <el-row>
@@ -135,7 +135,7 @@ export default {
         lenguaje: "",
         telefono: "",
         biography: "",
-        profesio: "",
+        profesion: "",
         interest: "",
         priceHour: "",
         ubicacion: "",
