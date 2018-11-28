@@ -55,6 +55,7 @@ export default {
       id: 0,
       habilities: [],
       search: "",
+      
       model: {
         id: 0,
         title: null,

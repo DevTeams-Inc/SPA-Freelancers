@@ -2,7 +2,8 @@ import Axios from 'axios'
 import AuthService from "@/services/AuthService";
 import FreelancerService from '../services/FreelancerService';
 import HomeService from '../services/HomeService';
-import HabilityService from '../services/HabilityService'
+import HabilityService from '../services/HabilityService';
+import AccountService from '../services/AccountService';
 
 //Axios configuration
 Axios.defaults.headers.common.Accept = "application/json";
@@ -16,5 +17,6 @@ export default {
   authService: new AuthService(Axios, apiUrl),
   freelancerService: new FreelancerService(Axios, apiUrl),
   homeService: new HomeService(Axios , apiUrl),
-  habilityService: new HabilityService(Axios , apiUrl)
+  habilityService: new HabilityService(Axios , apiUrl),
+  accountService: new AccountService(Axios, apiUrl)
 };
