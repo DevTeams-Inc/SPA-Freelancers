@@ -1,7 +1,6 @@
 <template>
-    <div class="containerListaFreelancer">
-        <div  v-for="(i , index) in data" :key="index" class="Item-Freelancer">
-
+    <div v-loading="loading" class="containerListaFreelancer">
+        <div   v-for="(i , index) in data" :key="index" class="Item-Freelancer">
             <div class="top-Item-Freelancer">
                 <div class="top-left-item-Freelancer">
                    <div class="texto-freelancer">
@@ -56,17 +55,24 @@
     </div>
 </template>
 <script>
+import { EventBus } from "../../helpers/event-bus";
 export default {
   data() {
     return {
       ratingFreelancer: 4.5,
       data: [],
       totalOfRegister: null,
-      index: 1
+      index: 1,
+      loading: true
     };
   },
   mounted() {
     this.getAll(this.index);
+  },
+  updated() {
+    EventBus.$on("search", query => {
+      this.search(query);
+    });
   },
   methods: {
     /**
@@ -78,17 +84,38 @@ export default {
       self.$store.state.services.freelancerService
         .getAll(index)
         .then(r => {
+          this.loading = false;
           /**
-           * remueve el usuario logueado de la lista de 
+           * remueve el usuario logueado de la lista de
            * freelancers
            */
-          self.data = r.data.entities.filter((c , i , arr) => {
-            return c.applicationUserId != localStorage.getItem('user_id')
-          })
+          self.data = r.data.entities.filter((c, i, arr) => {
+            return c.applicationUserId != localStorage.getItem("user_id");
+          });
           self.totalOfRegister = r.data.totalOfRegister;
         })
         .catch(e => {
           console.log("error :" + e);
+        });
+    },
+    search(query) {
+      let self = this;
+      self.loading = true;
+      self.$store.state.services.freelancerService
+        .search(query)
+        .then(r => {
+          if (query != "") {
+            self.loading = false;
+            self.data = r.data.filter((value, i, arr) => {
+              return value.applicationUserId != localStorage.getItem("user_id");
+            });
+            self.totalOfRegister = r.data.totalOfRegister;
+          } else {
+            self.getAll(1);
+          }
+        })
+        .catch(e => {
+          console.log(e);
         });
     },
     /**

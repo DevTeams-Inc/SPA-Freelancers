@@ -15,6 +15,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import * as VueGoogleMaps from 'vue2-google-maps'
  
+//google maps
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyBGX9Idq22bpPlt-WOXv_py3SfeNhLgEhk',
@@ -40,21 +41,22 @@ router.beforeEach((to, from, next) => {
     else {
       next();
     }
-  }else if (to.meta.adminAuth){
+  }else{
+    next()
+  } if (to.meta.adminAuth){
      if (localStorage.getItem('user_role') != 2) {
       next({
-        path: "/inicio", //este es el path al que se va a redireccionar
+        path: "/inicio",
       });
     }else{
       next()
     }
   }
-  else {
-    next(); // make sure to always call next()!
-  }
+  // else {
+  //   next(); // make sure to always call next()!
+  // }
 });
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

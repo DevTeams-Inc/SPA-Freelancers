@@ -86,7 +86,8 @@ export default {
       token: localStorage.getItem("access_token") || null,
       user: localStorage.getItem("user_info") || null,
       idUser: localStorage.getItem("user_id") || null,
-      role: localStorage.getItem("user_role") || null
+      role: localStorage.getItem("user_role") || null,
+      email: localStorage.getItem("user_email") || null
     };
   },
   methods: {
@@ -106,6 +107,7 @@ export default {
               self.user = `${r.data.user.name} ${r.data.user.lastName}`;
               self.idUser = r.data.user.id;
               self.role = r.data.user.role;
+              self.email = r.data.user.email;
               //guardamos en el localStorage
               //accedemos al state y le asignamos el token
               self.$store.state.token = localStorage.setItem(
@@ -123,6 +125,10 @@ export default {
               self.$store.state.role = localStorage.setItem(
                 "user_role",
                 self.role
+              );
+              self.$store.state.userEmail = localStorage.setItem(
+                "user_email",
+                self.email
               );
             })
             .then(r => {

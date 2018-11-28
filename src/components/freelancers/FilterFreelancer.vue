@@ -40,14 +40,14 @@
                      </div> -->
                     <div class="section-FiltroRating-freelancers">
                       <h4>Clasificacion</h4>
-                      <el-checkbox style="display:none;" :label="city" :key="city"> </el-checkbox>
-                      <el-checkbox  :label="city" :key="city">
+                      <el-checkbox style="display:none;" :label="city" > </el-checkbox>
+                      <el-checkbox  :label="city" >
                         <el-rate v-model="rating1" disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
                      </el-checkbox>
-                     <el-checkbox  :label="city" :key="city">
+                     <el-checkbox  :label="city" >
                        <el-rate v-model="rating2" disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
                      </el-checkbox>
-                    <el-checkbox  :label="city" :key="city">
+                    <el-checkbox  :label="city">
                        <el-rate v-model="rating3" disabled  show-score text-color="#ff9900"  score-template="{value} puntos"></el-rate>
                     </el-checkbox>    
                    </div>
@@ -70,8 +70,8 @@
                     <h4>Habilidades</h4>
                     <el-select v-model="searchHability" filterable placeholder="Habilidad">
                     <el-option
-                      v-for="hability in habilities"
-                      :key="hability.id"
+                      v-for="(hability, index) in habilities"
+                      :key="index"
                       :label="hability.title"
                       :value="hability.id">
                     </el-option>
@@ -88,14 +88,14 @@
                      </div> -->
                     <div class="section-FiltroRating-freelancers">
                       <h4>Clasificacion</h4>
-                      <el-checkbox style="display:none;" :label="city" :key="city"> </el-checkbox>
-                      <el-checkbox  :label="city" :key="city">
+                      <el-checkbox style="display:none;" :label="city" > </el-checkbox>
+                      <el-checkbox  :label="city" >
                         <el-rate v-model="rating1" disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
                      </el-checkbox>
-                     <el-checkbox  :label="city" :key="city">
+                     <el-checkbox  :label="city" >
                        <el-rate v-model="rating2" disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
                      </el-checkbox>
-                    <el-checkbox  :label="city" :key="city">
+                    <el-checkbox  :label="city">
                        <el-rate v-model="rating3" disabled  show-score text-color="#ff9900"  score-template="{value} puntos"></el-rate>
                     </el-checkbox>    
                    </div>
