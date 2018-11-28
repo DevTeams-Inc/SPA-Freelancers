@@ -222,6 +222,10 @@ export default {
   color: #fff;
   border: none;
   font-family: "Roboto", sans-serif;
+  outline: none;
+}
+.btn-nav:hover{
+    background: #4960bb;
 }
 @media (max-width: 900px) {
   .nav {

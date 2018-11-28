@@ -158,8 +158,6 @@ export default {
   width: 20%;
   /* background-color: cadetblue; */
 }
-.container-pic-freelancer {
-}
 .img-pic-freelancer {
   border-radius: 100%;
   width: 100px;
