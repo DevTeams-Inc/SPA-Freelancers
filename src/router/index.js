@@ -128,7 +128,6 @@ export default new Router({
         requiresVisitor: true
       }
     },
-
     //Ruteo de administrador//
     {
       path: "/dashboardAdmin",
