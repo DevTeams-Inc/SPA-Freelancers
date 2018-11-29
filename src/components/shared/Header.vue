@@ -16,6 +16,7 @@
    <el-menu-item index="1-1"  @click="$router.push('/inicio')"><span class="" >Home</span></el-menu-item>
   <el-menu-item index="1-2" @click="$router.push('/proyectos')" > <span class=""> Proyectos </span></el-menu-item>
   <el-menu-item index="1-3"  @click="$router.push('/freelancers')" ><span class="">Freelancers</span></el-menu-item>
+  <el-menu-item index="1-4"  @click="$router.push('/buscar/freelancers')" ><span class="">Buscar Freelancers</span></el-menu-item>
   <el-menu-item index=""  @click="$router.push('/proyecto/publicar')" ><span class="">Publicar Proyecto</span></el-menu-item>
   <el-menu-item index="1-5" v-show="register" @click="$router.push('/registro')"><span class="nav-text">Registrate</span></el-menu-item>    
   <el-menu-item index="1-6" @click="redirecProfileOrLogin()"  v-if="UserName === 'Inicia Sesion'" >
@@ -45,10 +46,11 @@ Panel Administrativo
   <el-menu :default-active="activeIndex"  class="el-menu-demo nav-header " mode="horizontal" >
   <el-menu-item index="1" class="logo" @click="$router.push('/inicio')"><span class="title1" >SpeedWork</span></el-menu-item>
   <el-menu-item index="2" class="proyect " @click="$router.push('/proyectos')" > <span class="nav-text"> Proyectos </span></el-menu-item>
-  <el-menu-item index="3" class="freelancers " @click="$router.push('/freelancers')"><span class="nav-text">Freelancers</span></el-menu-item>
-  <el-menu-item index="4" class="shared-proyect " @click="$router.push('/proyecto/publicar')" ><el-button type="primary" class="btn-nav" round>Publicar Proyecto</el-button></el-menu-item>
-  <el-menu-item index="5" v-show="register" class="register " @click="$router.push('/registro')"><span class="nav-text">Registrate</span></el-menu-item>    
-  <el-menu-item index="6" class="login " ><span class="nav-text">
+  <el-menu-item index="3" class="freelancers" @click="$router.push('/freelancers')"><span class="nav-text">Freelancers</span></el-menu-item>
+  <el-menu-item index="4" class="search-freelancers" @click="$router.push('/buscar/freelancers')" ><span class="">Buscar Freelancers</span></el-menu-item>
+  <el-menu-item index="5" class="shared-proyect " @click="$router.push('/proyecto/publicar')" ><el-button type="primary" class="btn-nav" round>Publicar Proyecto</el-button></el-menu-item>
+  <el-menu-item index="6" v-show="register" class="register " @click="$router.push('/registro')"><span class="nav-text">Registrate</span></el-menu-item>    
+  <el-menu-item index="7" class="login " ><span class="nav-text">
     
     <div v-if="UserName !== 'Inicia Sesion' ">
       <el-dropdown :hide-on-click="true">
@@ -195,6 +197,10 @@ export default {
 .freelancers {
   position: absolute;
   left: 15%;
+}
+.search-freelancers {
+  position: absolute;
+  left: 33%;
 }
 .logo {
   position: relative;

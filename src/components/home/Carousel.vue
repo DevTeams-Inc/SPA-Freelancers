@@ -3,16 +3,16 @@
         <div class="mt-5" height="600px">
         <div class="row justify-content-around">
             <div class="col mt-5">
-                <div class="title" >
+                <div class="title animated fadeInRight" >
                             <h1>Eslogan de la pagina web</h1>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
                             Nesciunt dolorem similique reiciendis voluptatibus molestiae. 
                             Reiciendis eveniet dolores placeat nihil fugiat esse officia ab, 
                             deserunt similique quod illo eum nemo repellat.</p>
-                            <button class="btn btn-primary btn-search">Buscar Freelancers</button>
                     </div>
+                    <button class="btn btn-primary btn-search animated fadeInLeft">Buscar Freelancers</button>
             </div>
-            <div class="col">
+            <div class="col animated fadeInRight">
             <img class="img-carousel" src="@/assets/img/3.svg" alt="" width="685px">               
             </div>
         </div>
@@ -35,6 +35,8 @@ export default {
 
 .title{
     margin-top: 100px;
+    animation-duration: 1s;
+    animation-delay: 1s;
 }
 
 @media only screen and (max-width: 600px) {
@@ -49,6 +51,8 @@ export default {
 .btn-search{
     border: none;
     outline: none;
+    animation-duration: 1.4s;
+    animation-delay: 1.4s;
 }
 .btn-search:hover{
     background: #4960bb;
