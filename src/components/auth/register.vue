@@ -63,7 +63,7 @@
          </el-col>
        </el-row>
        <el-form-item>
-              <el-button type="primary" v-loading="loading" class="btn btn-block btn-login " @click="submitForm('ruleForm')">Entrar</el-button>
+              <el-button type="primary" v-loading="loading" class="btn btn-block btn-login " @click="submitForm('ruleForm')">Registrar</el-button>
           </el-form-item>
        <!-- <el-row class="mt-4">
               <el-col>
@@ -142,7 +142,7 @@ export default {
               .register(self.ruleForm)
               .then(r => {
                 self.loading = false;
-               
+                self.redirect('/email/validacion')
               })
               .catch(e => {
                 self.$notify.error({
@@ -172,10 +172,15 @@ export default {
   background-color: #5a75e6;
   color: white;
   outline: none;
+  border: none;
 }
 .btn-login:hover {
   background-color: rgb(140, 161, 245);
   color: white;
+}
+.btn-login:focus{
+  background-color: #8c9de2;
+
 }
 .span-register {
   color: #5a75e6;

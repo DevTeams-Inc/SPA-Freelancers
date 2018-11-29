@@ -53,7 +53,6 @@
                 </el-form-item>
               </el-col>
           </el-row> -->
-
       <span @click="redirect('/registro')" class="span-register">¿No tienes cuenta? Click aquí.</span>
     </el-form>
     </el-card>
@@ -84,10 +83,11 @@ export default {
           { required: true, message: "Ingrese la contraseña", trigger: "blur" }
         ]
       },
-        loading: false,
-        token:localStorage.getItem('access_token') || null,
-        user:localStorage.getItem('user_info') || null,
-        idUser:localStorage.getItem('user_id') || null
+      token: localStorage.getItem("access_token") || null,
+      user: localStorage.getItem("user_info") || null,
+      idUser: localStorage.getItem("user_id") || null,
+      role: localStorage.getItem("user_role") || null,
+      email: localStorage.getItem("user_email") || null
     };
   },
   methods: {
@@ -107,15 +107,37 @@ export default {
               self.token = r.data.token;
               self.user = `${r.data.user.name} ${r.data.user.lastName}`;
               self.idUser = r.data.user.id;
-              self.loading = false;
+              self.role = r.data.user.role;
+              self.email = r.data.user.email;
               //guardamos en el localStorage
               //accedemos al state y le asignamos el token
-              self.$store.state.token = localStorage.setItem("access_token",self.token);
-              self.$store.state.user = localStorage.setItem("user_info",self.user);
-              self.$store.state.idUser = localStorage.setItem('user_id', self.idUser);
+              self.$store.state.token = localStorage.setItem(
+                "access_token",
+                self.token
+              );
+              self.$store.state.user = localStorage.setItem(
+                "user_info",
+                self.user
+              );
+              self.$store.state.idUser = localStorage.setItem(
+                "user_id",
+                self.idUser
+              );
+              self.$store.state.role = localStorage.setItem(
+                "user_role",
+                self.role
+              );
+              self.$store.state.userEmail = localStorage.setItem(
+                "user_email",
+                self.email
+              );
             })
-            .then(e => {
-                self.redirect('/proyectos')
+            .then(r => {
+              if (self.role == 1) {
+                self.redirect("/freelancers");
+              } else if (self.role == 2) {
+                self.redirect("/dashboardAdmin");
+              }
             })
             .catch(e => {
               self.$notify.error({
@@ -133,7 +155,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .spam-title {
   font-family: Roboto;
 }

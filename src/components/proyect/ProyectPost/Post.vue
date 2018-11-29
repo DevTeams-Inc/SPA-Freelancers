@@ -61,7 +61,7 @@
 
                      </div>
                        <div class="categorias" >
-                         <div class="item" v-for="l in 10">
+                         <div class="item" :v-for="l in 10">
                        <input type="radio" name="radio1" :id="l" value="Idcategoria"><label class="categoria-label" :for="l">	<br><span>icon</span><br> Categoria {{l}}</label>
                             </div>
                        </div>
@@ -80,7 +80,6 @@
                          </el-input>
                        </el-form-item>
                           <el-form-item prop="price">
-                   
                           <el-select style="width:100%;"  placeholder="Precio estimado" v-model="ruleForm.price" >
                            <el-option  value="Menos de RD$ 15,000"></el-option>
                            <el-option  value="RD$ 20,000-25,000"></el-option>
@@ -92,7 +91,6 @@
                        <div class="button-siguiente">
                        <el-button v-if="publicar" @click="submitForm2('ruleForm2')" type="primary">Siguiente</el-button>
                        </div>
-
                    </el-form>
             </el-col>
           </el-row>
@@ -101,8 +99,6 @@
 </template>
 
 <style>
-.ContainerProyectPost{
-}
 .Etiqueta{
   padding-top:10px;
   padding-bottom: 10px; 

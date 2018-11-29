@@ -1,24 +1,25 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from "@/components/home/Home"
+import Vue from "vue";
+import Router from "vue-router";
+import Home from "@/components/home/Home";
 
-import Login from '@/components/auth/Login'
-import Register from "@/components/auth/Register"
-import completeRegister from "@/components/freelancers/completeRegister"
+import Login from "@/components/auth/Login";
+import Register from "@/components/auth/Register";
+import completeRegister from "@/components/freelancers/completeRegister";
 
-import googlemap from "@/components/location/googleMap"
+import googlemap from "@/components/location/googleMap";
+import autocomplete from "@/components/location/autocomplete";
 
-import Proyects from "@/components/proyect/Proyects"
-import ProyectPost from "@/components/proyect/ProyectPost/Post"
+import Proyects from "@/components/proyect/Proyects";
+import ProyectPost from "@/components/proyect/ProyectPost/Post";
 
-import FreelancerUser from '@/components/user/FreelancerUser'
-import Freelancers from '@/components/freelancers/Freelancers'
+import FreelancerUser from "@/components/user/FreelancerUser";
+import Freelancers from "@/components/freelancers/Freelancers";
 
-import SendEmail from '@/components/email/SendEmail'
+import SendEmail from "@/components/email/SendEmail";
 import EmailValidation from "@/components/email/EmailConfirmed";
 
-import DashboardAdmin  from "@/components/dashboardAdmin/Dashboard";
-import DashboardIndex  from "@/components/dashboardAdmin/PageIndex/Index";
+import DashboardAdmin from "@/components/dashboardAdmin/Dashboard";
+import DashboardIndex from "@/components/dashboardAdmin/PageIndex/Index";
 import DashboardProyects from "@/components/dashboardAdmin/PageProyects/Proyects";
 import DashboardFreelancers from "@/components/dashboardAdmin/PageFreelancers/Freelancers";
 import DashboardCategories from "@/components/dashboardAdmin/PageCategories/Categories";
@@ -27,7 +28,6 @@ import DashboardReports from "@/components/dashboardAdmin/PageReports/Reports";
 import SearchFreelancer from '@/components/location/SearchFreelancer'
 
 Vue.use(Router);
-
 
 export default new Router({
   routes: [
@@ -60,7 +60,8 @@ export default new Router({
       name: "ProyectPost",
       component: ProyectPost,
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresVisitor: false
       }
     },
     {
@@ -96,6 +97,14 @@ export default new Router({
       }
     },
     {
+      path: "/autocomplete",
+      name: "autocomplete",
+      component: autocomplete,
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
       path: "/freelancers",
       name: "freelancers",
       component: Freelancers,
@@ -106,7 +115,7 @@ export default new Router({
     {
       path: "/freelancer/:id",
       name: "freelancer",
-      props:true,
+      props: true,
       component: FreelancerUser,
       meta: {
         requiresAuth: true
@@ -124,7 +133,7 @@ export default new Router({
       path: "/email/confirmacion/val=:id",
       name: "email/confirmed",
       component: EmailValidation,
-      props:true,
+      props: true,
       meta: {
         requiresVisitor: true
       }
@@ -139,78 +148,83 @@ export default new Router({
     {
       path: "/dashboardAdmin",
       name: "dashboardAdmin",
-      redirect:"/dashboardAdmin/inicio",
+      redirect: "/dashboardAdmin/inicio",
       component: DashboardAdmin,
-      props:true,
+      props: true,
       meta: {
         hideFooter: true,
-        requiresVisitor: false
+        requiresAuth: true,
+        adminAuth: true //adminAuth si se necesita autenticacion como administrador
       },
-      children:[
+      children: [
         {
-            path:"inicio",
-            name:"dashboardInicio",
-            component:DashboardIndex,
-            meta:{
-              hideFooter:true,
-              requiresVisitor:false
-            }
+          path: "inicio",
+          name: "dashboardInicio",
+          component: DashboardIndex,
+          meta: {
+            hideFooter: true,
+            requiresVisitor: false,
+            adminAuth: true,
+            requiresAuth: true
+          }
         },
         {
           path: "proyectos",
           name: "dashboardProyects",
           component: DashboardProyects,
-            meta:{
+          meta: {
             hideFooter: true,
-            requiresVisitor: false
+            requiresVisitor: false,
+            adminAuth: true,
+            requiresAuth: true
           }
-    
         },
         {
           path: "freelancers",
           name: "dashboardFreelancers",
           component: DashboardFreelancers,
-            meta:{
+          meta: {
             hideFooter: true,
-            requiresVisitor: false
+            requiresVisitor: false,
+            adminAuth: true,
+            requiresAuth: true
           }
-    
         },
         {
           path: "categorias",
           name: "dashboardCategories",
           component: DashboardCategories,
-            meta:{
+          meta: {
             hideFooter: true,
-            requiresVisitor: false
+            requiresVisitor: false,
+            adminAuth: true,
+            requiresAuth: true
           }
-    
         },
         {
           path: "habilidades",
           name: "dashboardHabilidades",
           component: DashboardHabilidades,
-            meta:{
+          meta: {
             hideFooter: true,
-            requiresVisitor: false
+            requiresVisitor: false,
+            adminAuth: true,
+            requiresAuth: true
           }
-    
         },
         {
           path: "/dashboardAdmin/reportes",
           name: "dashboardReports",
           component: DashboardReports,
-            meta:{
+          meta: {
             hideFooter: true,
-            requiresVisitor: false
+            requiresVisitor: false,
+            adminAuth: true,
+            requiresAuth: true
           }
-    
-        },
-      
+        }
       ]
-    },
-    //Page Inicio//
-
+    }
   ],
   mode: "history"
 });

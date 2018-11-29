@@ -6,14 +6,42 @@
         </el-switch>
      </div>
      <div class="right-search">
-             <el-input placeholder="Palabras claves, Ejemplo: pintar casa"
-              v-model="search" class="input-with-select"  >
+             <el-input @change="search()" placeholder="Palabras claves, Ejemplo: pintar casa"
+              v-model="query" class="input-with-select"  >
              <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
      </div>
    </div>
 </template>
-<style scoped>
+
+<script>
+import {EventBus} from '../../helpers/event-bus'
+export default {
+  data() {
+    return {
+      query: '',
+      FreelancerPresencial:false, 
+    }
+  },
+  created(){
+   this.cambiarRuta();
+  },
+  methods:{
+    redirect() 
+    {
+         if(this.FreelancerPresencial===true){ this.$router.push('/proyectos');}else if(this.FreelancerPresencial===false){  this.$router.push('/freelancers');}
+    },
+    cambiarRuta()
+    {
+         if( this.$router.currentRoute.fullPath==='/proyectos'){return this.FreelancerPresencial=true;}else if(this.$router.currentRoute.fullPath==='/freelancers'){return this.FreelancerPresencial=false}  
+    },
+    search(){
+        EventBus.$emit('search', this.query );
+    }
+  },
+}
+</script>
+<style>
 .SearchContainer{
     color: white;
     display: flex;
@@ -73,33 +101,3 @@ height: 36px;
 
 
 </style>
-
-<script>
-export default {
-
-  data() {
-    return {
-      search: '',
-      FreelancerPresencial:false,
-      
-    }
-  },
-  created(){
-   this.cambiarRuta();
-
- 
-  },
-  methods:{
-    redirect() 
-    {
-         this.FreelancerPresencial ? this.$router.push('/proyectos') : this.$router.push('/freelancers')
-    },
-    cambiarRuta()
-     {
-         this.$router.currentRoute.fullPath === '/proyectos' ? this.FreelancerPresencial = true : this.FreelancerPresencial = false
-     },
-
-  },
-
-}
-</script>

@@ -9,7 +9,7 @@
                             Nesciunt dolorem similique reiciendis voluptatibus molestiae. 
                             Reiciendis eveniet dolores placeat nihil fugiat esse officia ab, 
                             deserunt similique quod illo eum nemo repellat.</p>
-                            <button class="btn btn-primary">Publicar Proyecto</button>
+                            <button class="btn btn-primary btn-search">Buscar Freelancers</button>
                     </div>
             </div>
             <div class="col">
@@ -45,5 +45,13 @@ export default {
         margin-top: 50px;
         width: 300px;
     }
+}
+.btn-search{
+    border: none;
+    outline: none;
+}
+.btn-search:hover{
+    background: #4960bb;
+
 }
 </style>

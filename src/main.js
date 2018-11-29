@@ -6,6 +6,7 @@ import router from './router'
 import store from './store/index'
 // ElementUi
 import ElementUI from "element-ui";
+import locale from 'element-ui/lib/locale/lang/es'
 import "element-ui/lib/theme-chalk/index.css";
 import 'element-ui/lib/theme-chalk/display.css';
 //Bootstrap
@@ -15,6 +16,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import * as VueGoogleMaps from 'vue2-google-maps'
  
+//google maps
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyBGX9Idq22bpPlt-WOXv_py3SfeNhLgEhk',
@@ -23,7 +25,7 @@ Vue.use(VueGoogleMaps, {
 })
 
 
-Vue.use(ElementUI)
+Vue.use(ElementUI,{locale})
 
 Vue.config.productionTip = false
 
@@ -36,15 +38,26 @@ router.beforeEach((to, from, next) => {
       next({
         path: "/login", //este es el path al que se va a redireccionar
       });
-    } else {
+    } 
+    else {
       next();
     }
-  } else {
-    next(); // make sure to always call next()!
+  }else{
+    next()
+  } if (to.meta.adminAuth){
+     if (localStorage.getItem('user_role') != 2) {
+      next({
+        path: "/inicio",
+      });
+    }else{
+      next()
+    }
   }
+  // else {
+  //   next(); // make sure to always call next()!
+  // }
 });
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

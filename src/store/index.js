@@ -13,6 +13,8 @@ export default new Vuex.Store({
         token: localStorage.getItem('access_token'),
         userName: localStorage.getItem("user_info"),
         userId: localStorage.getItem('user_id'),
+        role: localStorage.getItem('user_role'),
+        emailUser:localStorage.getItem('user_email'),
         services:services 
     },
     //es como una propiedad computada pero compartida funciona para 
@@ -26,6 +28,9 @@ export default new Vuex.Store({
         },
         UserId(state){
             return state.userId
+        },
+        userRole(state){
+            return state.role
         }
     }
 })
