@@ -25,6 +25,7 @@ import DashboardFreelancers from "@/components/dashboardAdmin/PageFreelancers/Fr
 import DashboardCategories from "@/components/dashboardAdmin/PageCategories/Categories";
 import DashboardHabilidades from "@/components/dashboardAdmin/PageHabilidades/Habilidades";
 import DashboardReports from "@/components/dashboardAdmin/PageReports/Reports";
+import SearchFreelancer from '@/components/location/SearchFreelancer'
 
 Vue.use(Router);
 
@@ -137,6 +138,12 @@ export default new Router({
         requiresVisitor: true
       }
     },
+    {
+      path: '/buscar/freelancers',
+      name: '/buscar/freelancer',
+      component: SearchFreelancer
+    },
+
     //Ruteo de administrador//
     {
       path: "/dashboardAdmin",

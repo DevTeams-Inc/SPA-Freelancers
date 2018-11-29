@@ -1,7 +1,7 @@
     <template>
 <el-row :gutter="10" class="mt-5 p-3 " justify="space-around" type="flex">
     <el-col class="hidden-sm-and-down">
-        <img  src="@/assets/img/logindesing.svg" width="550px" alt="" >
+        <img class="animated fadeInUp" src="@/assets/img/logindesing.svg" width="550px" alt="" >
     </el-col>
 <el-col>
 <el-row type="flex" justify="center">
@@ -41,7 +41,7 @@
                 
             </el-form-item>
             <el-form-item>
-                    <el-button type="primary" class="btn btn-block btn-login " @click="submitForm('ruleForm')">Entrar</el-button>
+                    <el-button type="primary" v-loading="loading" class="btn btn-block btn-login " @click="submitForm('ruleForm')">Entrar</el-button>
             </el-form-item>
          </el-col>
        </el-row>
@@ -99,6 +99,7 @@ export default {
       let self = this;
       self.$refs[formName].validate(valid => {
         if (valid) {
+          self.loading = true;
           self.$store.state.services.authService
             .login(self.ruleForm)
             .then(r => {

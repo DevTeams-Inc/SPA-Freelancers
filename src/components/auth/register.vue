@@ -1,6 +1,6 @@
 <template>
 <el-row :gutter="10" class="mt-5 p-2 " justify="space-around" type="flex">
- <el-col class="hidden-sm-and-down">
+ <el-col class="hidden-sm-and-down animated fadeInLeft">
         <img  src="@/assets/img/speedwork.svg" width="100%" alt="" >
     </el-col> 
 <el-col>
