@@ -68,12 +68,13 @@
 
                   <div class="section-FiltroHabilidades-freelancers">
                     <h4>Habilidades</h4>
-                    <el-select v-model="searchHability" filterable placeholder="Habilidad">
+                    <el-select v-model="searchHability" @change="search(searchHability)" filterable placeholder="Habilidad">
                     <el-option
                       v-for="(hability, index) in habilities"
                       :key="index"
                       :label="hability.title"
-                      :value="hability.id">
+                      :value="hability.title"
+                      >
                     </el-option>
                   </el-select>
                    </div>
@@ -86,30 +87,22 @@
                          <el-option  v-for="item in Rangos" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
                       </el-select>
                      </div> -->
-                    <div class="section-FiltroRating-freelancers">
-                      <h4>Clasificacion</h4>
-                      <el-checkbox style="display:none;" :label="city" > </el-checkbox>
-                      <el-checkbox  :label="city" >
-                        <el-rate v-model="rating1" disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
-                     </el-checkbox>
-                     <el-checkbox  :label="city" >
-                       <el-rate v-model="rating2" disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
-                     </el-checkbox>
-                    <el-checkbox  :label="city">
-                       <el-rate v-model="rating3" disabled  show-score text-color="#ff9900"  score-template="{value} puntos"></el-rate>
-                    </el-checkbox>    
+                    <div class="mt-5 section-FiltroRating-freelancers">
+                      <h4 class="">Filtrar por clasificacion</h4>
+                      <div class="ml-2 mblock">
+                        <el-rate @change="search(rating)" v-model="rating"></el-rate>
+                      </div>  
                    </div>
              </div>
    </div>
   </div>
 </template>
 <script>
+import { EventBus } from '../../helpers/event-bus';
 export default {
   data() {
     return {
-      rating1: 3.5,
-      rating2: 4.0,
-      rating3: 5,
+      rating: 0,
       searchHability: '',
       Actividades: [
         {
@@ -188,6 +181,12 @@ export default {
       }).catch(e => {
         
       });
+    },
+    search(value){
+      EventBus.$emit('search', value);
+    },
+    ya(){
+      console.log(this.rating)
     }
 
   }
