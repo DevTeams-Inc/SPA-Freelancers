@@ -60,7 +60,8 @@ export default new Router({
       component: ProyectPost,
       meta: {
         requiresAuth: true,
-        requiresVisitor: false
+        requiresVisitor: false,
+        hideFooter: true,
       }
     },
     {

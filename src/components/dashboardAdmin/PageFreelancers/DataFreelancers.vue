@@ -13,24 +13,24 @@
                  <template slot-scope="scope">
                    <div class="botones-table">
                      <el-button  size="mini"  @click="dialogFormBloquearVisible=true">Bloquear</el-button>
-                     <el-button size="mini" type="danger"  @click="dialogFormEliminarVisible=true">Eliminar</el-button>
+                     <el-button size="mini" type="danger"  @click="dialogFormEliminarVisible=true,id=scope.row.freelancerId">Eliminar</el-button>
                    </div>
                   </template>
                  </el-table-column>
-               </el-table>
+               </el-table> 
                <div class="DialogInterative">
-                <!-- Dialogo de eliminar -->
+                <!-- Dialogo de ocultar -->
                  <el-dialog title="Realmente deseas bloquear este freelancer?" :visible.sync="dialogFormBloquearVisible">
                     <div class="botones-dialog">
                      <el-button  id="botonesDialog" @click="dialogFormBloquearVisible = false">No</el-button>
                      <el-button  id="botonesDialog" @click="submitForm('ruleForm')" type="primary">Si</el-button>
                     </div>
                  </el-dialog>
-                   <!-- dialogo de Ocultar -->
+                   <!-- dialogo de Eliminar -->
                  <el-dialog title="Realmente deseas eliminar este freelancer?" :visible.sync="dialogFormEliminarVisible">
                    <div class="botones-dialog">
                     <el-button id="botonesDialog" @click="dialogFormEliminarVisible = false">No</el-button>
-                    <el-button id="botonesDialog" @click="submitForm('ruleForm')" type="primary">Si</el-button>
+                    <el-button id="botonesDialog" @click="dialogFormEliminarVisible = false, remove()" type="primary">Si</el-button>
                    </div>
                  </el-dialog>
               </div>
@@ -97,7 +97,7 @@ margin-top:20px;
       return {
         dialogFormBloquearVisible:false,
         dialogFormEliminarVisible:false,
-        
+        id:0,
         tableData: [],
         search: ''
       }
@@ -107,6 +107,9 @@ margin-top:20px;
 
      this.getAll();  
 
+    },
+    updated(){
+      this.getAll();
     },
     methods: {
       handleEdit(index, row) {
@@ -119,14 +122,35 @@ margin-top:20px;
 
       getAll() {
       let self = this;
-      self.$store.state.services.accountService
-        .getAll()
+      self.$store.state.services.freelancerService
+        .getAdmin()
         .then(r => {
           self.tableData = r.data;
+  
         })
 
 
      },
+     remove(){
+       let self =this;
+       console.log(self.id);
+       self.$store.state.services.freelancerService
+       .remove(self.id)
+       .then(r=>{
+         self.$notify({
+           title:"Eliminado",
+           message:"Se ha eliminado el freelancer",
+           type:"success"
+         });
+       })
+       .catch(e=>{
+         self.$notify({
+           title:"Error",
+           message:"No se ha podido eliminar el freelancer",
+           type:"Error"
+         });
+       });
+     }
     },
 
 
