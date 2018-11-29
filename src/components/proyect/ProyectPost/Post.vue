@@ -1,6 +1,6 @@
 <template>
 
-     <el-row class=" p-0" :style="{background: '#f7f7f7'}" :gutter="40">
+        <el-row class=" p-0" :style="{position:'absolute',width:'100%',background: '#f7f7f7'}" :gutter="40">
          <div class="Etiqueta">
            <div class="texto-etiqueta">
              <h2 class="h2-etiqueta">Publicar Proyecto</h2>
@@ -37,18 +37,6 @@
                             size="medium" type="textarea">
                          </el-input>
                        </el-form-item>
-                    
-                       <el-form-item label="Tipo de Proyecto" prop="modoProyecto">
-                         <div @click="VerificandoModoProyecto">
-                         <el-radio-group v-model="ruleForm.modoProyecto">
-                           <el-radio label="Presencial"></el-radio>
-                           <el-radio label="Remoto"></el-radio>
-                        </el-radio-group>
-                           <div v-if="modoPresencial" class="ubicacion">
-                              aqui de alguna manera obtendremos la ublicacion del cliente
-                           </div>
-                         </div>
-                      </el-form-item>
                    </div>
                     <div class="button-siguiente">
                      <el-button v-if="publicar===false" @click="submitForm('ruleForm')"  type="primary">Siquiente</el-button>
@@ -94,8 +82,10 @@
                    </el-form>
             </el-col>
           </el-row>
-         </div>  
+         </div>    
+              <Footer style="margin-top:13px;"></Footer>
      </el-row>
+      
 </template>
 
 <style>
@@ -181,20 +171,21 @@ input[type="radio"] {
 }
 </style>
 <script>
+import Footer from "@/components/shared/Footer";
 export default {
+    components:{Footer},
       data() {
     return {
       optionPrice:[],
       mostrarPaso2:false,
       mostrarPaso1:true,
       publicar:false,
-       modoPresencial:false,
        active:1,
 
       ruleForm: {
         nombreProyecto: null,
         descripcion: null,
-        modoProyecto:null,
+
 
       },
           ruleForm2: {
@@ -214,10 +205,7 @@ export default {
         descripcion: [
           { required: true, message: "Descripcion del proyecto", trigger: "blur" }
         ],
-     
-        modoProyecto: [
-          { required: true, message: "Seleccion el modo del proyect", trigger: "blur" }
-        ],
+    
       },
       rules2:{
          requiredSkill: [

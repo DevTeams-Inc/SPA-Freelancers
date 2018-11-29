@@ -15,7 +15,8 @@ import 'popper.js'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import * as VueGoogleMaps from 'vue2-google-maps'
- 
+//Animate.css
+import 'animate.css'
 //google maps
 Vue.use(VueGoogleMaps, {
   load: {

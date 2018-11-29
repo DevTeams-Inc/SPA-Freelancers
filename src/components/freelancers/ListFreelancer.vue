@@ -1,13 +1,14 @@
 <template>
     <div v-loading="loading" class="containerListaFreelancer">
+              {{noData}}  <el-button v-show="noData" class="btn-home" @click="getAll(1) , noData = null" size="mini">volver </el-button> 
         <div   v-for="(i , index) in data" :key="index" class="Item-Freelancer">
             <div class="top-Item-Freelancer">
                 <div class="top-left-item-Freelancer">
                    <div class="texto-freelancer">
                        <router-link tag="a" :to="`/freelancer/${i.applicationUserId}`">
-                       <h2 @click="sendId(i.id)">{{i.name}} {{i.lastName}}</h2>
+                       <h2 >{{i.name}} {{i.lastName}}</h2>
                         </router-link>
-                        <div class="frase"><p>Contactame</p></div>
+                        <div class="frase"><p>{{i.profesion}}</p></div>
                         <div class="descripcionMini-Freelancer">
                           <P>{{i.biography}}
                         </P>
@@ -33,7 +34,7 @@
             <div class="bottom-Item-Freelancer">
                 <div class="skills">
                     <h4>Habilidades</h4>
-                    <el-tag size="mini" v-for="hability in i.habilities" :key="hability"><a href="">
+                    <el-tag size="mini" v-for="(hability , index) in i.habilities" :key="index"><a href="">
                         {{hability.title}}
                     </a></el-tag>
                 </div>
@@ -46,6 +47,9 @@
         <div class="row justify-content-center mt-5">
             <div class="col-2">
                 <el-button type="primary" @click="beforePage()"  id="boton-freelancer">Anterior</el-button>
+                <!-- propiedad computada que se activa cuando se va a 
+                traer mas datos para evitar que se sigan haciendo gets a la 
+                api si no hay mas datos -->
                 {{i}}
             </div>
             <div class="col-2">
@@ -63,14 +67,15 @@ export default {
       data: [],
       totalOfRegister: null,
       index: 1,
-      loading: true
+      loading: true,
+      noData: null
     };
   },
   mounted() {
     this.getAll(this.index);
   },
   updated() {
-    EventBus.$on("search", query => {
+    EventBus.$once("search", query => {
       this.search(query);
     });
   },
@@ -104,18 +109,35 @@ export default {
       self.$store.state.services.freelancerService
         .search(query)
         .then(r => {
-          if (query != "") {
+          if (query != null) {
+            if(r.data.length == 0){
+              self.data = null;
+              self.loading = false;
+              self.noData = 'no se encontraron resultados';
+            }else{
             self.loading = false;
+            /**
+             * este filtro es para traer los que son diferentes del usuario 
+             * logueado
+             */
             self.data = r.data.filter((value, i, arr) => {
               return value.applicationUserId != localStorage.getItem("user_id");
             });
             self.totalOfRegister = r.data.totalOfRegister;
-          } else {
+            self.noData = null;
+            }
+          } 
+          else {
             self.getAll(1);
+            self.loading = false;
           }
         })
         .catch(e => {
-          console.log(e);
+          if (e.response.data) {
+            self.data = null;
+            self.loading = false;
+            self.noData = e.response.data;
+          }
         });
     },
     /**
@@ -152,6 +174,9 @@ export default {
 };
 </script>
 <style scoped>
+.btn-home {
+  width: 85px;
+}
 .containerListaFreelancer {
   width: 70%;
 }

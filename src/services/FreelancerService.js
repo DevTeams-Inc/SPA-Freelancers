@@ -23,6 +23,14 @@ class FreelancerService{
         return this.axios.post(`${this.apiUrl}`,model , file);
       }
 
+    //Request Admin
+    getAdmin(){
+        return this.axios.get(`${this.apiUrl}/admin/getall`);
+    }
+    
+    remove(id){
+        return this.axios.delete(`${this.apiUrl}/${id}`)
+  }
 }
 
 export default FreelancerService

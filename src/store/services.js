@@ -4,10 +4,14 @@ import FreelancerService from '../services/FreelancerService';
 import HomeService from '../services/HomeService';
 import HabilityService from '../services/HabilityService';
 import AccountService from '../services/AccountService';
+import ProyectService from  '../services/ProyectService';
 
 //Axios configuration
 Axios.defaults.headers.common.Accept = "application/json";
 
+//residencia
+// let apiUrl = "http://192.168.96.117:45455/";
+//devteams
 let apiUrl = "http://192.168.1.139:45455/";
 // let apiUrl = "http://192.168.96.117:45455/";
 //local
@@ -19,5 +23,7 @@ export default {
   freelancerService: new FreelancerService(Axios, apiUrl),
   homeService: new HomeService(Axios , apiUrl),
   habilityService: new HabilityService(Axios , apiUrl),
-  accountService: new AccountService(Axios, apiUrl)
+  accountService: new AccountService(Axios, apiUrl),
+  proyectService:new ProyectService(Axios,apiUrl)
+
 };
