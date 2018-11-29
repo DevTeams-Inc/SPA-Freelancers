@@ -129,6 +129,7 @@ export default {
           } 
           else {
             self.getAll(1);
+            self.loading = false;
           }
         })
         .catch(e => {

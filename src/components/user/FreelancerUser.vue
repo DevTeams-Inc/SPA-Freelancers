@@ -1,7 +1,7 @@
 <template>
 <div class="pt-5">
 <el-row type="flex" class="pl-4" justify="start">
-    <el-col :span="18" class="mt-4">
+    <el-col v-loading="loadingprofile" :span="18" class="mt-4">
         <el-row type="flex">
             <el-card class="box-card">
     <el-col :span="5">
@@ -27,8 +27,11 @@
             </div>
         </div>
     </el-col>
-      <el-button type="primary" v-show="id == UserId" icon="el-icon-edit" circle></el-button>
-    <el-col span="12" class="mb-3 mt-2">
+    <router-link  :to="`/completar/registro/${data.id}/${data.applicationUserId}`">
+      <el-button type="primary" v-show="id == UserId" icon="el-icon-edit" circle></el-button>    
+    </router-link>
+      <!-- <el-button type="primary" v-show="id == UserId" icon="el-icon-edit" circle></el-button> -->
+    <el-col :span="12" class="mb-3 mt-2">
       <el-row type="flex" class="" justify="end">
         <el-col :span="26">
           <p><b>Valoracion</b></p>
@@ -96,7 +99,7 @@
                 <h5 class="mt-2 ml-4">Proyectos Realizados</h5>
                 <div class="hability-tag mt-3 mb-4">
                     <el-row type="flex" justify="start">
-                        <el-col span="10" class="ml-5">
+                        <el-col :span="10" class="ml-5">
                             <el-card shadow="hover">
                                 <slot>
                                     <img src="@/assets/logo.png" height="45px">
@@ -104,7 +107,7 @@
                                 </slot>
                             </el-card>
                         </el-col>
-                        <el-col span="10" class="ml-5">
+                        <el-col :span="10" class="ml-5">
                             <el-card shadow="hover">
                                 <slot>
                                     <img src="@/assets/logo.png" height="45px">
@@ -112,7 +115,7 @@
                                 </slot>
                             </el-card>
                         </el-col>
-                        <el-col span="10" class="ml-5">
+                        <el-col :span="10" class="ml-5">
                             <el-card shadow="hover">
                                 <slot>
                                     <img src="@/assets/logo.png" height="45px">
@@ -157,6 +160,7 @@ export default {
     return {
          dialogFormVisible: false,
         infoContent:'',
+        loadingprofile:false,
         infoImg:'',
         loading:false,
         infoWindowPos:{
@@ -194,7 +198,8 @@ export default {
   mounted() {
     this.getUser(this.id)
     this.getLocation()
-    EventBus.$on('profile', (id) =>{
+    EventBus.$once('profile', (id) =>{
+        this.loadingprofile = true;
         this.getUser(id)
     })
   },
@@ -215,6 +220,7 @@ export default {
           self.center.lng = r.data.long
           self.markers[1].position.lng = r.data.long
           self.markers[1].position.lat = r.data.lat
+          this.loadingprofile = false
         })
         .catch(e => {});
     },

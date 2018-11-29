@@ -38,7 +38,7 @@
                          <el-option  v-for="item in Rangos" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
                       </el-select>
                      </div> -->
-                    <div class="section-FiltroRating-freelancers">
+                    <!-- <div class="section-FiltroRating-freelancers">
                       <h4>Clasificacion</h4>
                       <el-checkbox style="display:none;" :label="city" > </el-checkbox>
                       <el-checkbox  :label="city" >
@@ -50,7 +50,7 @@
                     <el-checkbox  :label="city">
                        <el-rate v-model="rating3" disabled  show-score text-color="#ff9900"  score-template="{value} puntos"></el-rate>
                     </el-checkbox>    
-                   </div>
+                   </div> -->
              </div>
                     </el-collapse-item>
                   </el-collapse>
