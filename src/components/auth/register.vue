@@ -142,7 +142,7 @@ export default {
               .register(self.ruleForm)
               .then(r => {
                 self.loading = false;
-                self.redirect("/email/validacion");
+               
               })
               .catch(e => {
                 self.$notify.error({
@@ -151,6 +151,7 @@ export default {
                   offset: 50,
                   duration: 3000
                 });
+                self.loading=false;
               });
           } else {
             return false;

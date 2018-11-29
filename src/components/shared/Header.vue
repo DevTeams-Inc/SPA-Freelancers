@@ -55,9 +55,9 @@ Mi Perfil
     {{UserName}}<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
   <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item ><router-link tag="span" :to="`/freelancer/${UserId}`">
-Mi Perfil
-</router-link></el-dropdown-item>
+   <el-dropdown-item >
+<span @click="profile">Perfil</span>
+</el-dropdown-item>
     <el-dropdown-item><span @click="logout()">Salir</span></el-dropdown-item>
     <el-dropdown-item>Action 3</el-dropdown-item>
     <el-dropdown-item disabled>Action 4</el-dropdown-item>
@@ -74,7 +74,7 @@ Mi Perfil
 </div>
 </template>
 <script>
-import $ from "jquery";
+import {EventBus} from '../../helpers/event-bus'
 export default {
   name: "Nav1",
   data() {
@@ -89,7 +89,6 @@ export default {
       if (path === undefined) return;
       this.$router.push(path);
     },
-
     redirecProfileOrLogin() {
       this.path =
         this.$store.getters.loggedIn != false ? "/freelancer/nombre" : "/login";
@@ -115,6 +114,14 @@ export default {
       }else{
         console.log('ocurrio un error')
       }
+    },
+    /**
+     * envia un evento al momento de ir al perfil
+     * para hacer una nueva peticion de los datos
+     */
+    profile(){
+      EventBus.$emit('profile' , this.UserId)
+      this.$router.push(`/freelancer/${this.UserId}`);
     }
 
   },
@@ -129,6 +136,11 @@ export default {
     register() {
       return this.UserName != "Inicia Sesion" ? false : true;
     },
+    /**
+     * esta funcion es para traer el id que esta en
+     * el estado de los componenetes y se encuentra en el 
+     * localStorage
+     */
     UserId(){
       let name =
         this.$store.getters.loggedIn != false
@@ -139,12 +151,6 @@ export default {
   }
 };
 
-$(function() {
-  $(document).scroll(function() {
-    var $nav = $(" .logo");
-    $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
-  });
-});
 </script>
 <style scoped>
 .nav-text.scrolled {

@@ -41,7 +41,7 @@
                 
             </el-form-item>
             <el-form-item>
-                    <el-button type="primary" class="btn btn-block btn-login " @click="submitForm('ruleForm')">Entrar</el-button>
+                    <el-button type="primary" v-loading="loading" class="btn btn-block btn-login " @click="submitForm('ruleForm')">Entrar</el-button>
             </el-form-item>
          </el-col>
        </el-row>
@@ -84,6 +84,7 @@ export default {
           { required: true, message: "Ingrese la contraseña", trigger: "blur" }
         ]
       },
+        loading: false,
         token:localStorage.getItem('access_token') || null,
         user:localStorage.getItem('user_info') || null,
         idUser:localStorage.getItem('user_id') || null
@@ -98,6 +99,7 @@ export default {
       let self = this;
       self.$refs[formName].validate(valid => {
         if (valid) {
+          self.loading = true;
           self.$store.state.services.authService
             .login(self.ruleForm)
             .then(r => {
@@ -105,6 +107,7 @@ export default {
               self.token = r.data.token;
               self.user = `${r.data.user.name} ${r.data.user.lastName}`;
               self.idUser = r.data.user.id;
+              self.loading = false;
               //guardamos en el localStorage
               //accedemos al state y le asignamos el token
               self.$store.state.token = localStorage.setItem("access_token",self.token);

@@ -61,6 +61,7 @@
                 :zoom="10"
                 style="height: 300px;"
             >
+        {{this.UserId}}
             <gmap-marker
                 :key="index"
                 v-for="(m, index) in markers"
@@ -137,6 +138,7 @@
 </div>
 </template>
 <script>
+import {EventBus} from '../../helpers/event-bus'
 export default {
   props: ["id"],
   data() {
@@ -178,7 +180,9 @@ export default {
   mounted() {
     this.getUser(this.id)
     this.getLocation()
-    this.route()
+    EventBus.$on('profile', (id) =>{
+        this.getUser(id)
+    })
   },
   methods: {
     getUser(id) {
@@ -197,6 +201,9 @@ export default {
         })
         .catch(e => {});
     },
+    /**
+     * obtienen la ubicacion de donde estas conectado
+     */
     getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.showPosition);
@@ -214,6 +221,10 @@ export default {
            lng : position.coords.longitude
        }
     },
+    /**
+     * me permite mostrar una pequeña descripcion 
+     * en el mapa del usuario y mi posicion
+     */
     toggleInfoWindow(marker , idx){
         this.infoWindowPos = marker.position
         this.infoContent = marker.name
@@ -231,6 +242,10 @@ export default {
 
   },
   computed: {
+      /**
+       * me permite obtener el id del estado de los componenetes
+       * Vuex!
+       */
     UserId() {
       return this.$store.getters.UserId;
     }
