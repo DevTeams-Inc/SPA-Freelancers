@@ -1,17 +1,24 @@
 class AccountService {
+  axios;
+  apiUrl;
 
-    axios
-    apiUrl
+  constructor(axios, apiUrl) {
+    this.axios = axios;
+    this.apiUrl = `${apiUrl}api/accounts`;
+  }
 
-    constructor(axios,apiUrl){
-        this.axios = axios
-        this.apiUrl = `${apiUrl}api/accounts`
-    }
-    
-    getAll(){
-        return this.axios.get(`${this.apiUrl}/getall`);
-    
-    }
+  getAll() {
+    return this.axios.get(`${this.apiUrl}/getall`);
+  }
+
+  submitImg(file) {
+    return this.axios
+        .post(`${this.apiUrl}/img/upload`, file , {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+  }
 }
 
-export default AccountService
+export default AccountService;

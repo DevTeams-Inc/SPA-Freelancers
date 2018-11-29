@@ -7,8 +7,9 @@
     <el-col :span="5">
         <div class="grid-content bg-purple mt-4">
             <slot>
-            <img class="freelancer-image" :src="data.avatar" height="75px">
+            <img class="freelancer-image" v-loading="loading" :src="data.avatar" height="75px">
             </slot>
+                  <el-button type="primary" @click="dialogFormVisible=true" v-show="id == UserId" icon="el-icon-edit" circle></el-button>
         </div>
     </el-col>
     <el-col :span="12">
@@ -135,6 +136,17 @@
         </div>
     </el-col>    
 </el-row>
+            <!-- el form para la imagen -->
+<el-dialog title="Actualizar Imagen" :visible.sync="dialogFormVisible">
+<div class="large-12 medium-12 small-12 cell">
+      <label>Imagen
+      </label>
+      <div>
+        <input type="file" id="file" ref="file" @change="handleFileUpload()"/>
+      </div>
+        <button class="btn mt-4 el-button primary" @click="submitFile()">Submit</button>
+    </div>
+</el-dialog>
 </div>
 </template>
 <script>
@@ -143,8 +155,10 @@ export default {
   props: ["id"],
   data() {
     return {
+         dialogFormVisible: false,
         infoContent:'',
         infoImg:'',
+        loading:false,
         infoWindowPos:{
             lat: 0,
             lng: 0 
@@ -157,7 +171,7 @@ export default {
                 height:-35
             }
         },
-
+        file:'',
       latitude: null,
       longitude:null,
       rating: 0,
@@ -183,6 +197,9 @@ export default {
     EventBus.$on('profile', (id) =>{
         this.getUser(id)
     })
+  },
+  updated(){
+      this.getUser(this.id)
   },
   methods: {
     getUser(id) {
@@ -238,8 +255,32 @@ export default {
             this.infoWindowOpen = false;
             this.currentMidx = idx
         }
-    }
-
+    },
+    /**
+     * metodo para asignarle el valor del input a la variable de tipo file
+     */
+    handleFileUpload(){
+     this.file = this.$refs.file.files[0];
+    },
+    submitFile(){
+        let self = this
+        self.loading = false
+        //creamos un form data
+        let formData = new FormData();
+        formData.append('file', self.file);
+        formData.append('id' , localStorage.getItem('user_id'))
+        //utilizamos axios para subirla
+        self.$store.state.services.accountService
+        .submitImg(formData)
+        .then(r =>{
+            self.dialogFormVisible = false;
+            self.file = null
+            self.loading = false;
+        })
+        .catch(e =>{
+            console.log('no funciono')
+        })
+    }   
   },
   computed: {
       /**
