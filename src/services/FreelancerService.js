@@ -19,6 +19,9 @@ class FreelancerService{
     search(query){
         return this.axios.get(`${this.apiUrl}/search?query=${query}`)
     }
+    add(model , file){
+        return this.axios.post(`${this.apiUrl}`,model , file);
+      }
 
 }
 

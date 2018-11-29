@@ -1,10 +1,10 @@
 <template>
   <div>
-    <el-card class="mt-5 p-1 m-4">
+    <el-card class="mt-5 p-2 m-4">
       <el-row class="p-1 m-4">
         <el-row class="mb-5">
           <el-col :span="12" :offset="6">
-            <span class="title-register">Completar Registro</span>
+            <span class="title-register">{{addOrDelete}}</span>
           </el-col>
         </el-row>
         <el-form
@@ -13,63 +13,15 @@
           ref="ruleForm"
           label-width="120px"
           class="demo-ruleForm"
-        >
+          enctype="multiple/form-data">
           <el-col :span="12">
-            <el-form-item label="Foto" prop="foto">
-              <el-upload
-                class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :show-file-list="false"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload"
-              >
-                <img v-if="ruleForm.avatar" :src="ruleForm.avatar" class="avatar">
-                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              </el-upload>
-            </el-form-item>
             <el-row>
-              <el-col :span="12">
-                <el-form-item label="Ubicacion" prop="ubicacion">
-                  <div>
-                    <label>
-                      {{markers}}
-                      <gmap-autocomplete
-                        class="ubicacion"
-                        v-model="ruleForm.ubicacion"
-                        @place_changed="setPlace"
-                      ></gmap-autocomplete>
-                    </label>
-                  </div>
-                  {{ruleForm.lat}}
-                  {{ruleForm.long}}
-
+              <el-col>
+                <el-form-item label="Biografia" prop="biography" class="mb-5">
+                  <el-input type="textarea" :rows="4" v-model="ruleForm.biography"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
-            <el-col :span="12">
-              <el-form-item label="Habilidad" prop="habilities">
-                <el-select v-model="searchHability" filterable multiple placeholder="Seleciona">
-                  <el-option
-                    v-for="hability in habilities"
-                    :key="hability.id"
-                    :label="hability.title"
-                    :value="hability.id"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="Interes" prop="interest">
-                <el-select v-model="ruleForm.interest" placeholder="Seleciona">
-                  <el-option
-                    v-for="hability in habilities"
-                    :key="hability.id"
-                    :label="hability.title"
-                    :value="hability.title"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
             <el-col :span="12">
               <el-form-item label="Idioma" prop="lenguaje">
                 <el-select v-model="ruleForm.lenguaje" placeholder="Seleciona">
@@ -79,16 +31,70 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="Telefono" prop="telefono">
-                <el-input v-model="ruleForm.telefono"></el-input>
+              <el-form-item label="Interes" prop="interest">
+                <el-select v-model="ruleForm.interest" placeholder="Seleciona">
+                  <el-option
+                    v-for="hability in allHabilities"
+                    :key="hability.id"
+                    :label="hability.title"
+                    :value="hability.title"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="Habilidad" prop="habilities">
+                <el-select
+                  v-model="id"
+                  @change="ya(id)"
+                  filterable
+                  multiple
+                  placeholder="Seleciona">
+                  <el-option
+                    v-for="hability in allHabilities"
+                    :key="hability.id"
+                    :label="`${hability.title}`"
+                    :value="hability.id"
+                  ></el-option>
+                </el-select>
+                <div class="counter">
+                  {{i}}
+                  <span v-if="i > 1">habilidades</span>
+                  <span v-else>habilidad</span>
+                </div>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="Telefono" prop="phoneNumber">
+                <el-input v-model="ruleForm.phoneNumber"></el-input>
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="12" class="coll">
-            <el-form-item label="biografia" prop="biography" class="mb-5">
-              <el-input type="textarea" :rows="4" v-model="ruleForm.biography"></el-input>
+            <div v-if="keyUser == ruleForm.applicationUserId && keyFreelancer > 0">
+              <el-col :span="12" >
+              <el-form-item label="Nombre" prop="name">
+                <el-input v-model="ruleForm.name"></el-input>
+              </el-form-item>
+            </el-col>
+              <el-col :span="12">
+              <el-form-item label="Apellido" prop="lastName">
+                <el-input v-model="ruleForm.lastName"></el-input>
+              </el-form-item>
+            </el-col>
+            </div>
+            <el-form-item label="Ubicacion" prop="ubicacion">
+              <div>
+                <label>
+                   <gmap-autocomplete
+                    class="ubicacion"
+                    v-model="ruleForm.ubicacion"
+                    @place_changed="setPlace"
+                  ></gmap-autocomplete>
+                </label>
+              </div>
             </el-form-item>
-            <el-form-item label="profesion" prop="profesion">
+            <el-form-item label="Profesion" prop="profesion">
               <el-input v-model="ruleForm.profesion" placeholder="e.j Web developer"></el-input>
             </el-form-item>
             <el-row>
@@ -115,33 +121,39 @@
         </el-form>
       </el-row>
       <span
-        class="nota"
-      >Nota: si no introduce una ubicacion, se tomará la ubicacion por defecto de su dispositivo.</span>
+        class="nota">Nota: si no introduce una ubicacion, se tomará la ubicacion por defecto de su dispositivo.</span>
     </el-card>
   </div>
 </template>
 <script>
 export default {
+  props:["keyFreelancer","keyUser"],
   data() {
     return {
       center: { lat: 45.508, lng: -73.587 },
       markers: [],
       places: [],
-      habilities: [],
-      HabilidadesSelect: [],
+      allHabilities: [],
       currentPlace: null,
-      searchHability: "",
+      id: 0,
+      i: 0,
+      habi: [],
+      file: null,
       ruleForm: {
-        lenguaje: "",
-        telefono: "",
-        biography: "",
-        profesion: "",
-        interest: "",
-        priceHour: "",
-        ubicacion: "",
-        avatar: "",
-        long: "",
-        lat: ""
+        name: null,
+        lastName: null,
+        habilities: [],
+        direccion: null,
+        lenguaje: null,
+        phoneNumber: null,
+        biography: null,
+        profesion: null,
+        interest: null,
+        priceHour: null,
+        ubicacion: null,
+        long: null,
+        lat: null,
+        applicationUserId: localStorage.getItem("user_id")
       },
       rules: {
         habilities: [
@@ -159,9 +171,9 @@ export default {
             trigger: "blur"
           }
         ],
-        telefono: [
+        phoneNumber: [
           {
-            required: true,
+            // required: true,
             message: "Ingrese un numero de telefono.",
             trigger: "blur"
           }
@@ -194,18 +206,59 @@ export default {
       }
     };
   },
-
+  created() {
+    this.getAll();
+  },
   mounted() {
-    let self = this;
-    self.geolocate();
-    self.getAll();
+    this.geolocate();
+  },
+    computed: {
+    addOrDelete() {
+      let self = this;
+      return self.keyUser == self.ruleForm.applicationUserId && self.keyFreelancer > 0
+        ? "Editar Registro"
+        : "Completar Registro";
+    }
   },
   methods: {
+    ya(c) {
+      /**
+       * let p guardo el elemento que me manda el select
+       */
+      let p = c.pop();
+
+      if (this.habilityExist(p)) {
+        //si existe obtenemos el valor que teniamos
+        var index = this.ruleForm.habilities.indexOf(p);
+        //si retorna mayor a => -1 existe
+        if (index >= -1) {
+          //como existe con splice lo eliminamos
+          /**
+           * @param index indica en la posicion que esta
+           * ponemos 1 por defecto
+           */
+          this.i--;
+          this.ruleForm.habilities.splice(index, 1);
+        }
+      } else {
+        this.i++;
+        this.ruleForm.habilities.push({ id: p });
+      }
+    },
+    /**
+     * verifica si existe en el array
+     * @param id indica el valor que verificara si existe
+     */
+    habilityExist(id) {
+      return this.ruleForm.habilities.some(el => {
+        return el.id === id;
+      });
+    },
     /**
      * Obtener foto
      */
     handleAvatarSuccess(res, file) {
-      this.ruleForm.avatar = URL.createObjectURL(file.raw);
+      this.file = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
@@ -229,6 +282,9 @@ export default {
       }
       return isJPG && isLt2M;
     },
+    /**
+     * Obtener todas las habilidades
+     */
     getAll() {
       let self = this;
       self.$store.state.services.habilityService
@@ -237,12 +293,41 @@ export default {
           /**
            * r respuesta del servidor
            */
-          self.habilities = r.data;
-          console.log(self.habilities.id);
+          self.allHabilities = r.data;
+          console.log(self.allHabilities.id);
         })
         .catch(e => {
-          alert("error" + e);
+          alert("Error en obtener allHabilities " + e);
         });
+    },
+    /**
+     * Obtener freelancer por id
+     */
+    getById(key){
+      if (key == undefined) {
+        return
+      }
+      let self = this;
+      self.$store.state.services.freelancerService
+      .getById(key)
+      .then(r=>{
+        self.ruleForm.name = r.data.name;
+        self.ruleForm.lastName = r.data.lastName;
+        self.ruleForm.biography = r.data.biography;
+        self.ruleForm.lat = r.data.lat;
+        self.ruleForm.long = r.data.long;
+        self.ruleForm.interest = r.data.interest;
+        self.ruleForm.habilities = r.data.habilities;
+        self.ruleForm.lenguaje = r.data.lenguaje;
+        self.ruleForm.profesion = r.data.profesion;
+        self.ruleForm.priceHour = r.data.priceHour;
+        self.ruleForm.phoneNumber =r.data.phoneNumber;
+      }).catch(e=>{
+        self.$notify.error({
+          title: 'title',
+          message: 'string|VNode'
+        });
+      })
     },
     /**
      *Agrega la ubicacion al input
@@ -264,38 +349,55 @@ export default {
           lng: position.coords.longitude
         };
         this.markers.push({ position: p });
+        this.ruleForm.long = position.coords.longitude;
+        this.ruleForm.lat = position.coords.latitude;
       });
     },
-    submitForm(formhabilities) {
-      this.$refs[formhabilities].validate(valid => {
+
+    submitForm(form) {
+      let self= this;
+      self.$refs[form].validate(valid => {
         if (valid) {
-          alert("submit!");
+          /**
+           * Agregar freelancers
+           */
+          self.$store.state.services.freelancerService
+            .add(self.ruleForm, self.file)
+            .then(r => {
+            self.$router.push(`/freelancer/${self.ruleForm.applicationUserId}`);
+            });
         } else {
-          console.log("error submit!!");
+          self.$notify.error({
+            message: 'Error al completar registro, intente de nuevo!',
+            offset: 45
+          });
           return false;
         }
       });
-      if (this.currentPlace) {
+      if (self.currentPlace) {
         const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng()
+          lat: self.currentPlace.geometry.location.lat(),
+          lng: self.currentPlace.geometry.location.lng()
         };
-        if (this.markers == null) {
-          this.markers.push({ position: marker });
+        if (self.markers == null) {
+          self.markers.push({ position: marker });
         } else {
-          this.markers.shift();
-          this.markers.push({ position: marker });
-          this.ruleForm.lat = marker.lat;
-          this.ruleForm.long = marker.lng;          
-          this.zoom = 15;
+          self.markers.shift();
+          self.markers.push({ position: marker });
+          self.ruleForm.lat = marker.lat;
+          self.ruleForm.long = marker.lng;
+          self.zoom = 15;
         }
-        this.places.push(this.currentPlace);
-        this.center = marker;
-        this.currentPlace = null;
+        self.places.push(self.currentPlace);
+        self.center = marker;
+        self.currentPlace = null;
       }
     },
-    resetForm(formhabilities) {
-      this.$refs[formhabilities].resetFields();
+    resetForm(formallHabilities) {
+      let self = this;
+
+      self.$refs[formallHabilities].resetFields();
+      // this.id = 0
     }
   }
 };
@@ -311,37 +413,18 @@ export default {
   color: rgb(105, 105, 105);
 }
 .complete {
-  background-color: #5a75e6;
-  color: white;
+  background: #5a75e6;
+  color: #fff;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  outline: none;
 }
 .complete:hover {
   background-color: #5a76e6ec;
   color: white;
 }
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 108px;
-  height: 108px;
-  line-height: 108px;
-  text-align: center;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
 .ubicacion {
+  position: relative;
   -webkit-appearance: none;
   background-color: #fff;
   background-image: none;
@@ -358,7 +441,8 @@ export default {
   padding: 0 15px;
   -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-  width: 422px;
+  width: 418px;
+  /* right: 42px; */
 }
 .ubicacion:hover {
   color: #909399;
@@ -369,5 +453,10 @@ export default {
 .nota {
   color: #8c939d;
   font-size: 11px;
+}
+.counter {
+  background: #f5f7fa;
+  color: #909399;
+  border-radius: 4%;
 }
 </style>
