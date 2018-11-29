@@ -17,9 +17,9 @@
                    <h4>Categoria</h4>
                    <a  href="#">Rep. Dom.</a>
                    </div>
-                     <div class="botones">
-                         <el-button type="primary" >Aplicar</el-button><br><br>
-                         <el-button type="secondary" >Ubicacion</el-button>
+                     <div class="botones-proyect">
+                         <el-button id="boton-proyect" type="primary" >Aplicar</el-button><br><br>
+                         <el-button id="boton-proyect" type="secondary" >Ubicacion</el-button>
                      </div>
                  </div>
                 <div class="CenterRight-Item">
@@ -49,9 +49,9 @@
                    <h4>Categoria</h4>
                    <a  href="#">Rep. Dom.</a>
                    </div>
-                     <div class="botones">
-                         <el-button type="primary" >Aplicar</el-button><br><br>
-                         <el-button type="secondary" >Ubicacion</el-button>
+                     <div class="botones-proyect">
+                         <el-button id="boton-proyect" type="primary" >Aplicar</el-button><br><br>
+                         <el-button id="boton-proyect" type="secondary" >Ubicacion</el-button>
                      </div>
                  </div>
                 <div class="CenterRight-Item">
@@ -81,9 +81,9 @@
                    <h4>Categoria</h4>
                    <a  href="#">Rep. Dom.</a>
                    </div>
-                     <div class="botones">
-                         <el-button type="primary" >Aplicar</el-button><br><br>
-                         <el-button type="secondary" >Ubicacion</el-button>
+                     <div class="botones-proyect">
+                         <el-button id="boton-proyect" type="primary" >Aplicar</el-button><br><br>
+                         <el-button id="boton-proyect" type="secondary" >Ubicacion</el-button>
                      </div>
                  </div>
                 <div class="CenterRight-Item">
@@ -155,12 +155,12 @@ text-align: right;
   margin-top: 10px;
 }
 
-.botones{
+.botones-proyect{
     width: 100%;
     text-align: center;
     margin-top: 30px;
 }
-.el-button{
+#boton-proyect{
  
     width: 100%;
 }
@@ -183,7 +183,7 @@ text-align: right;
 .Left-Item h4{
   font-size: 15px;
 }
-.botones{
+.botones-proyect{
     
     margin-top: 15px;
 }
@@ -201,7 +201,7 @@ text-align: right;
 .Left-Item a{
   font-size: 12px;
 }
-.botones{
+.botones-proyect{
     
     margin-top: 10px;
 }
@@ -285,7 +285,7 @@ width: 100%;
  .details-item{
      margin-top: 5px;
  }
- .botones{
+ .botones-proyect{
      margin-top: 5px;
      width: 50%;
      margin-left: 70px;
