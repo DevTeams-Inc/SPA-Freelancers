@@ -20,7 +20,7 @@
             </div>
         </div>
       </div>  
-      <div class="container-proyect" v-loading="loading"> 
+      <div class="container-proyect" v-loading="loading" element-loading-text="Estamos obteniendo información..."> 
             <gmap-map
                 :center="center"
                 :zoom="10"

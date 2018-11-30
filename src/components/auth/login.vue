@@ -66,6 +66,7 @@
 export default {
   data() {
     return {
+      loading: false,
       ruleForm: {
         email: null,
         password: null
@@ -131,6 +132,7 @@ export default {
                 "user_email",
                 self.email
               );
+              self.loading = false;
             })
             .then(r => {
               if (self.role == 1) {
