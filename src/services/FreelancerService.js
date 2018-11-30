@@ -19,6 +19,12 @@ class FreelancerService{
     search(query){
         return this.axios.get(`${this.apiUrl}/search?query=${query}`)
     }
+    add(model){
+        return this.axios.post(`${this.apiUrl}`,model);
+      }
+    update(model){
+        return this.axios.put(`${this.apiUrl}`,model);
+    }
 
     //Request Admin
     getAdmin(){
@@ -27,7 +33,11 @@ class FreelancerService{
     
     remove(id){
         return this.axios.delete(`${this.apiUrl}/${id}`)
-  }
+    }
+
+    getMap(){
+        return this.axios.get(`${this.apiUrl}/map`)
+    }
 }
 
 export default FreelancerService

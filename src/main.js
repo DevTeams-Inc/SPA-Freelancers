@@ -17,6 +17,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import * as VueGoogleMaps from 'vue2-google-maps'
 //Animate.css
 import 'animate.css'
+// valida input para telefono
+import VueTelInput from 'vue-tel-input'
+import 'vue-tel-input/dist/vue-tel-input.css';
 //google maps
 Vue.use(VueGoogleMaps, {
   load: {
@@ -24,9 +27,10 @@ Vue.use(VueGoogleMaps, {
     libraries: 'places'
   },
 })
-
-
-Vue.use(ElementUI,{locale})
+Vue.use(VueTelInput)
+Vue.use(ElementUI, {
+  locale
+})
 
 Vue.config.productionTip = false
 
@@ -39,18 +43,18 @@ router.beforeEach((to, from, next) => {
       next({
         path: "/login", //este es el path al que se va a redireccionar
       });
-    } 
-    else {
+    } else {
       next();
     }
-  }else{
+  } else {
     next()
-  } if (to.meta.adminAuth){
-     if (localStorage.getItem('user_role') != 2) {
+  }
+  if (to.meta.adminAuth) {
+    if (localStorage.getItem('user_role') != 2) {
       next({
         path: "/inicio",
       });
-    }else{
+    } else {
       next()
     }
   }
@@ -63,7 +67,8 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })
-
