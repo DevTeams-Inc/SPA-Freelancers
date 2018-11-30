@@ -22,7 +22,7 @@
                   circle
                 ></el-button>
                 <el-row>
-                  <el-col class="mt-2">
+                  <el-col class="mt-2" v-if="this.UserId">
                     <p
                       class="text-color el-icon-phone"
                       style="font-size: 12px;"
@@ -30,7 +30,7 @@
                       v-if="data.phoneNumber !== null"
                     >{{data.phoneNumber}}</p>
                   </el-col>
-                  <el-col class=" mt-2">
+                  <el-col class=" mt-2" v-if="this.UserId">
                       <i class="fas fa-language"><small> {{data.lenguaje}}</small></i>
                       </el-col>
                 </el-row>
@@ -85,7 +85,7 @@
             </el-col>
           </el-card>
         </el-row>
-        <el-row type="flex" class justify="space-center">
+        <el-row type="flex" class justify="space-center" v-if="this.UserId">
           <el-col :span="24" class="mt-4">
             <el-card class="box-card-habilities">
               <el-col :span="24">
@@ -317,11 +317,10 @@ export default {
   },
   computed: {
     /**
-     * me permite obtener el id del estado de los componenetes
-     * Vuex!
+     * Me permite obtener el id del usuario logeado del localStorage
      */
     UserId() {
-      return this.$store.getters.UserId;
+      return localStorage.getItem('user_id');
     }
   }
 };

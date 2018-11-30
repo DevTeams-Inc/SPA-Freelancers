@@ -120,7 +120,7 @@ export default new Router({
       props: true,
       component: FreelancerUser,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
@@ -145,7 +145,7 @@ export default new Router({
       name: '/buscar/freelancer',
       component: SearchFreelancer,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
 
