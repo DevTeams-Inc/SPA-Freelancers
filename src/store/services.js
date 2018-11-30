@@ -10,6 +10,9 @@ import CategoryService from '../services/CategoryService';
 //Axios configuration
 Axios.defaults.headers.common.Accept = "application/json";
 
+//residencia
+// let apiUrl = "http://192.168.96.117:45455/";
+//devteams
 let apiUrl = "http://192.168.1.139:45455/";
 //local
 // let apiUrl = "http://localhost:57455/";
