@@ -257,6 +257,7 @@ export default {
      * me permite mostrar una pequeña descripcion
      * en el mapa del usuario y mi posicion
      */
+<<<<<<< HEAD
     toggleInfoWindow(marker, idx) {
       this.infoWindowPos = marker.position;
       this.infoContent = marker.name;
@@ -268,6 +269,20 @@ export default {
         this.infoWindowOpen = false;
         this.currentMidx = idx;
       }
+=======
+    toggleInfoWindow(marker , idx){
+        this.infoWindowPos = marker.position
+        this.infoContent = marker.name
+        this.infoImg = marker.img
+
+        if(this.currentMidx == idx){
+            this.infoWindowOpen = !this.infoWindowOpen
+        }
+        else{
+            this.infoWindowOpen = false;
+            this.currentMidx = idx
+        }
+>>>>>>> 9bc8232afe30c3b8758c18d6e42930b6705c93ae
     },
     /**
      * metodo para asignarle el valor del input a la variable de tipo file

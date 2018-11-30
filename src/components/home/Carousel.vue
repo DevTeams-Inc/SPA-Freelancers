@@ -4,7 +4,7 @@
         <div class="row justify-content-around">
             <div class="col mt-5">
                 <div class="title animated fadeInRight" >
-                            <h1>Eslogan de la pagina web</h1>
+                            <h2>Los freelancers más rápidos del mundo.</h2>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
                             Nesciunt dolorem similique reiciendis voluptatibus molestiae. 
                             Reiciendis eveniet dolores placeat nihil fugiat esse officia ab, 
