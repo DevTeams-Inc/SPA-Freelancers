@@ -1,14 +1,15 @@
 <template>
 <div class="pt-5">
 <el-row type="flex" class="pl-4" justify="start">
-    <el-col :span="18" class="mt-4">
+    <el-col v-loading="loadingprofile" :span="18" class="mt-4">
         <el-row type="flex">
             <el-card class="box-card">
     <el-col :span="5">
         <div class="grid-content bg-purple mt-4">
             <slot>
-            <img class="freelancer-image" :src="data.avatar" height="75px">
+            <img class="freelancer-image" v-loading="loading" :src="data.avatar" height="75px">
             </slot>
+                  <el-button type="primary" @click="dialogFormVisible=true" v-show="id == UserId" icon="el-icon-edit" circle></el-button>
         </div>
     </el-col>
     <el-col :span="12">
@@ -26,8 +27,11 @@
             </div>
         </div>
     </el-col>
-      <el-button type="primary" v-show="id == UserId" icon="el-icon-edit" circle></el-button>
-    <el-col span="12" class="mb-3 mt-2">
+    <router-link  :to="`/completar/registro/${data.id}/${data.applicationUserId}`">
+      <el-button type="primary" v-show="id == UserId" icon="el-icon-edit" circle></el-button>    
+    </router-link>
+      <!-- <el-button type="primary" v-show="id == UserId" icon="el-icon-edit" circle></el-button> -->
+    <el-col :span="12" class="mb-3 mt-2">
       <el-row type="flex" class="" justify="end">
         <el-col :span="26">
           <p><b>Valoracion</b></p>
@@ -95,7 +99,7 @@
                 <h5 class="mt-2 ml-4">Proyectos Realizados</h5>
                 <div class="hability-tag mt-3 mb-4">
                     <el-row type="flex" justify="start">
-                        <el-col span="10" class="ml-5">
+                        <el-col :span="10" class="ml-5">
                             <el-card shadow="hover">
                                 <slot>
                                     <img src="@/assets/logo.png" height="45px">
@@ -103,7 +107,7 @@
                                 </slot>
                             </el-card>
                         </el-col>
-                        <el-col span="10" class="ml-5">
+                        <el-col :span="10" class="ml-5">
                             <el-card shadow="hover">
                                 <slot>
                                     <img src="@/assets/logo.png" height="45px">
@@ -111,7 +115,7 @@
                                 </slot>
                             </el-card>
                         </el-col>
-                        <el-col span="10" class="ml-5">
+                        <el-col :span="10" class="ml-5">
                             <el-card shadow="hover">
                                 <slot>
                                     <img src="@/assets/logo.png" height="45px">
@@ -135,6 +139,17 @@
         </div>
     </el-col>    
 </el-row>
+            <!-- el form para la imagen -->
+<el-dialog title="Actualizar Imagen" :visible.sync="dialogFormVisible">
+<div class="large-12 medium-12 small-12 cell">
+      <label>Imagen
+      </label>
+      <div>
+        <input type="file" id="file" ref="file" @change="handleFileUpload()"/>
+      </div>
+        <button class="btn mt-4 el-button primary" @click="submitFile()">Submit</button>
+    </div>
+</el-dialog>
 </div>
 </template>
 <script>
@@ -143,8 +158,11 @@ export default {
   props: ["id"],
   data() {
     return {
+         dialogFormVisible: false,
         infoContent:'',
+        loadingprofile:false,
         infoImg:'',
+        loading:false,
         infoWindowPos:{
             lat: 0,
             lng: 0 
@@ -157,7 +175,7 @@ export default {
                 height:-35
             }
         },
-
+        file:'',
       latitude: null,
       longitude:null,
       rating: 0,
@@ -180,9 +198,13 @@ export default {
   mounted() {
     this.getUser(this.id)
     this.getLocation()
-    EventBus.$on('profile', (id) =>{
+    EventBus.$once('profile', (id) =>{
+        this.loadingprofile = true;
         this.getUser(id)
     })
+  },
+  updated(){
+      this.getUser(this.id)
   },
   methods: {
     getUser(id) {
@@ -198,6 +220,7 @@ export default {
           self.center.lng = r.data.long
           self.markers[1].position.lng = r.data.long
           self.markers[1].position.lat = r.data.lat
+          this.loadingprofile = false
         })
         .catch(e => {});
     },
@@ -238,8 +261,32 @@ export default {
             this.infoWindowOpen = false;
             this.currentMidx = idx
         }
-    }
-
+    },
+    /**
+     * metodo para asignarle el valor del input a la variable de tipo file
+     */
+    handleFileUpload(){
+     this.file = this.$refs.file.files[0];
+    },
+    submitFile(){
+        let self = this
+        self.loading = false
+        //creamos un form data
+        let formData = new FormData();
+        formData.append('file', self.file);
+        formData.append('id' , localStorage.getItem('user_id'))
+        //utilizamos axios para subirla
+        self.$store.state.services.accountService
+        .submitImg(formData)
+        .then(r =>{
+            self.dialogFormVisible = false;
+            self.file = null
+            self.loading = false;
+        })
+        .catch(e =>{
+            console.log('no funciono')
+        })
+    }   
   },
   computed: {
       /**

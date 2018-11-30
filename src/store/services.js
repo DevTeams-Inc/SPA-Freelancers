@@ -5,11 +5,15 @@ import HomeService from '../services/HomeService';
 import HabilityService from '../services/HabilityService';
 import AccountService from '../services/AccountService';
 import ProyectService from  '../services/ProyectService';
+import CategoryService from '../services/CategoryService';
 
 //Axios configuration
 Axios.defaults.headers.common.Accept = "application/json";
 
-let apiUrl = "http://192.168.1.139:45455/";
+//residencia
+// let apiUrl = "http://192.168.96.117:45455/";
+//devteams
+let apiUrl = "http://192.168.96.117:45456/";
 //local
 // let apiUrl = "http://localhost:57455/";
 
@@ -20,6 +24,6 @@ export default {
   homeService: new HomeService(Axios , apiUrl),
   habilityService: new HabilityService(Axios , apiUrl),
   accountService: new AccountService(Axios, apiUrl),
-  proyectService:new ProyectService(Axios,apiUrl)
-
+  proyectService:new ProyectService(Axios,apiUrl),
+  categoryService: new CategoryService(Axios,apiUrl)
 };

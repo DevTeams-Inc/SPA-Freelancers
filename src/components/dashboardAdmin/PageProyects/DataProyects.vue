@@ -3,11 +3,15 @@
          <h4>Proyectos publicados</h4>
          <div class="table-proyects">
                <el-table empty-text="No se encontraron resultados" height="280" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"  style="width: 98%;margin-left:10px;;">
-                  <el-table-column label="Date" prop="date"></el-table-column>
-                  <el-table-column  label="Name"  prop="name"> </el-table-column>
-                  <el-table-column  label="Name"  prop="name"> </el-table-column>
-                  <el-table-column  label="Name"  prop="name"> </el-table-column>
-         
+                  
+                  <el-table-column  label="Fecha"  prop="createdAt"> </el-table-column>
+                  <el-table-column label="Titulo" prop="title"></el-table-column>
+                  <el-table-column  label="Descripcion"  prop="description"> </el-table-column>
+                  <el-table-column  label="Habilidad Requerida"  prop="required_Skill"> </el-table-column>
+                  <el-table-column  label="Alcance"  prop="scope"> </el-table-column>
+                  <el-table-column  label="Precio"  prop="price"> </el-table-column>
+                  
+
                   <el-table-column align="right">
                     <template slot="header" slot-scope="scope">
                       <el-input v-model="search" size="mini" placeholder="buscar"/>
@@ -99,45 +103,41 @@ margin-top:20px;
       return {
         dialogFormEliminarVisible:false,
         dialogFormOcultarVisible:false,
-        tableData: [
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        }, 
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        }, 
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        }, 
-        {
-          date: '2016-05-04',
-          name: 'John',
-          address: 'No. 189, Grove St, Los Angeles',
-        }, {
-          date: '2016-05-01',
-          name: 'Morgan',
-          address: 'No. 189, Grove St, Los Angeles',
-        }, {
-          date: '2016-05-03',
-          name: 'Jessy',
-          address: 'No. 189, Grove St, Los Angeles',
-        }],
+        tableData: [],
         search: ''
       }
     },
+
+
+       mounted (){
+
+     this.getAll();  
+
+    },
+
+
+
     methods: {
       handleEdit(index, row) {
         console.log(index, row);
       },
       handleDelete(index, row) {
         console.log(index, row);
-      }
+      },
+
+         getAll(){
+
+      let self = this;
+      self.$store.state.services.proyectService
+        .getAll()
+        .then(r => {
+          self.tableData = r.data;
+          
+          })
+
+
+     },
+
     },
   }
 </script>

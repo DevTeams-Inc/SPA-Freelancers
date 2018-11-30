@@ -6,21 +6,27 @@
         </el-switch>
      </div>
      <div class="right-search">
-             <el-input @change="search()" placeholder="Palabras claves, Ejemplo: pintar casa"
+         <!-- esta barra de busqueda es para los freelancers -->
+             <el-input v-show="FreelancerPresencial == false" @change="search" placeholder="Palabras claves, Ejemplo: mecanico"
+              v-model="query" class="input-with-select"  >
+             <el-button slot="append" icon="el-icon-search"></el-button>
+            </el-input>
+            <!-- esta barra de busqueda es para los proyectos -->
+            <el-input v-show="FreelancerPresencial == true" placeholder="Palabras claves, Ejemplo: pintar casa"
               v-model="query" class="input-with-select"  >
              <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
      </div>
    </div>
 </template>
-
 <script>
 import {EventBus} from '../../helpers/event-bus'
 export default {
   data() {
     return {
-      query: '',
+      query: null,
       FreelancerPresencial:false, 
+      searchBar:false
     }
   },
   created(){
@@ -36,7 +42,13 @@ export default {
          if( this.$router.currentRoute.fullPath==='/proyectos'){return this.FreelancerPresencial=true;}else if(this.$router.currentRoute.fullPath==='/freelancers'){return this.FreelancerPresencial=false}  
     },
     search(){
-        EventBus.$emit('search', this.query );
+        if(this.query == ''){
+            console.log(this.query)
+            this.query = "";
+          EventBus.$emit('search', this.query);
+        }else{
+         EventBus.$emit('search', this.query);
+        }
     }
   },
 }

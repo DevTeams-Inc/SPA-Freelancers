@@ -17,7 +17,7 @@
               </el-steps>
              </div>
                 <el-form class="form " :model="ruleForm" :rules="rules" ref="ruleForm">
-                     <div class="indicador-Paso1 " v-if="mostrarPaso1">
+                     <div class="indicador-Paso1  " v-if="mostrarPaso1">
                         <p>Llena los siguientes campos</p>
                          <el-form-item prop="Title">
                            <el-input   v-model="ruleForm.Title" placeholder="Nombre del proyecto"   size="medium"> </el-input>
@@ -33,11 +33,11 @@
 
                </el-form>
                  <div v-show="mostrarPaso2" class="Section-Paso2 ">
-                     <div class="indicador-Paso2">
+                     <div class="indicador-Paso2" animated fadeInRight>
                      </div>
                      <div class="categorias" >
-                       <div class="item" v-for="categoriaId in 10">
-                         <input @click="validCategorie"  type="radio" name="radio1" :id="categoriaId" value="Idcategoria"><label class="categoria-label" :for="categoriaId">	<br><span>icon</span><br> Categoria {{categoriaId}}</label>
+                       <div class="item" v-for="categoria in categories">
+                         <input @click="validCategorie"  type="radio" name="radio1" :id="categoria.id" value="Idcategoria"><label class="categoria-label" :for="categoria.id">	<br><span>icon</span><br>{{categoria.name}}</label>
                        </div>
                      </div>
                 </div>
@@ -120,11 +120,12 @@ margin-bottom: 20px;
 .categoria-label{
 background-color: white;
 border: 1px solid gainsboro;
- width: 110px;
+ width: 130px;
 margin-top: 5px;
 cursor: pointer;
 margin-bottom: 5px;
-
+padding-left:5px;
+padding-right: 5px;
 height: 100px;
 margin-left: 10px;
  border: 1px solid rgb(240, 240, 240);
@@ -206,12 +207,14 @@ input[type="radio"] {
 </style>
 <script>
 import Footer from "@/components/shared/Footer";
+import { type } from 'os';
 export default {
     components:{Footer},
       data() {
     return {
       skills:[],
       optionPrice:[],
+      categories:[],
       categoriaId:0,
       mostrarPaso2:false,
       mostrarPaso3:false,
@@ -268,6 +271,7 @@ export default {
   },
   mounted(){
     this.getHabilidades();
+    this.getCategorias();
     console.log(localStorage.getItem("user_id"));
   },
   methods:{
@@ -285,7 +289,7 @@ export default {
               this.model.price=this.ruleForm2.Price;
               this.model.CategoryId=this.categoriaId;
                this.postProyect(this.model);
-               this.resetForm();
+        
               console.log("hecho");
             }
            else { return false;}
@@ -328,13 +332,21 @@ export default {
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
+      getCategorias(){
+       let self= this;
+       self.$store.state.services.categoryService
+       .getAll()
+       .then(r=>{
+          this.categories= r.data;
+          console.log(this.categories);
+       })
+      },
       getHabilidades(){
        let self = this;
       self.$store.state.services.habilityService
         .getAll()
         .then(r => {
           self.skills = r.data;
-          console.log(self.skills);
         })
         .catch(e => {});
       },
@@ -349,10 +361,12 @@ export default {
         }).catch(e=>{this.ErrorPost=true;})
       },
       BackP2(){
+            this.active--;  
        this.mostrarPaso2=false;
       this.mostrarPaso1=true;
       },
       BackP3(){
+           this.active--;  
        this.mostrarPaso2=true;
       this.mostrarPaso3=false;
       }
