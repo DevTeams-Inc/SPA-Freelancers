@@ -6,7 +6,6 @@ import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
 import completeRegister from "@/components/freelancers/completeRegister";
 
-import googlemap from "@/components/location/googleMap";
 import autocomplete from "@/components/location/autocomplete";
 
 import Proyects from "@/components/proyect/Proyects";
@@ -86,14 +85,6 @@ export default new Router({
       props:true,
       name: "completeregister",
       component: completeRegister,
-      meta: {
-        requiresVisitor: true
-      }
-    },
-    {
-      path: "/map",
-      name: "map",
-      component: googlemap,
       meta: {
         requiresVisitor: true
       }
