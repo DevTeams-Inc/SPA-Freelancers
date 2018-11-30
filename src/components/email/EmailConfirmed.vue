@@ -1,23 +1,27 @@
 <template>
-    <div class="size text">
-        <el-row :gutter="10" class="text" >
-          <el-col :xs="24" :sm="12" :md="40" :lg="40" :xl="12" >
-              <img v-if="img === 1" src="@/assets/img/imglogin.svg" class="img-logo" width="50%" alt="">
-              <img v-else src="@/assets/img/cross.svg" class="img-logo" width="30%" alt="">
-
-         </el-col> 
-          <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="text-1">
-                <div class="">
-                  <h2 class="head">{{text1}}</h2>
-                  <el-row>
-                    <span class="span">{{text2}}</span>
-                    <span class="span">{{text3}}</span>
-                      <br><button v-show="btn" class="btn btn-primary mt-2" @click="$router.push('/login')">Ir al login</button>
-                  </el-row> 
-                </div>
-          </el-col>
-        </el-row>
-    </div>
+  <div class="size text">
+    <el-row :gutter="10" class="text">
+      <el-col :xs="24" :sm="12" :md="40" :lg="40" :xl="12">
+        <img v-if="img === 1" src="@/assets/img/imglogin.svg" class="img-logo" width="50%" alt>
+        <img v-else src="@/assets/img/cross.svg" class="img-logo" width="30%" alt>
+      </el-col>
+      <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="text-1">
+        <div class>
+          <h2 class="head">{{text1}}</h2>
+          <el-row>
+            <span class="span">{{text2}}</span>
+            <span class="span">{{text3}}</span>
+            <br>
+            <button
+              v-show="btn"
+              class="btn btn-primary mt-2"
+              @click="$router.push('/login')"
+            >Ir al login</button>
+          </el-row>
+        </div>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -25,11 +29,11 @@ export default {
   props: ["id"],
   data() {
     return {
-      text1:'',
-      text2:'',
-      text3:'',
-      btn:null,
-      img:null
+      text1: "",
+      text2: "",
+      text3: "",
+      btn: null,
+      img: null
     };
   },
   mounted() {
@@ -37,18 +41,18 @@ export default {
     self.$store.state.services.authService
       .email(self.id)
       .then(result => {
-        this.text1 = 'Gracias por confirmar'
-        this.text2 = 'Animo ya estas listo,'
-        this.text3 = 'logueate y comienza a encontrar trabajo o freelancers como tu'
-        this.btn = true,
-        this.img = 1
+        this.text1 = "Gracias por confirmar";
+        this.text2 = "Animo ya estas listo,";
+        this.text3 =
+          "logueate y comienza a encontrar trabajo o freelancers como tu";
+        (this.btn = true), (this.img = 1);
       })
       .catch(err => {
-        this.text1 = 'Lo sentimos!'
-        this.text2 = ''
-        this.text3 = 'ha ocurrido un problema intenta de nuevo'
+        this.text1 = "Lo sentimos!";
+        this.text2 = "";
+        this.text3 = "ha ocurrido un problema intenta de nuevo";
         this.btn = false;
-        this.img = 2
+        this.img = 2;
       });
   }
 };

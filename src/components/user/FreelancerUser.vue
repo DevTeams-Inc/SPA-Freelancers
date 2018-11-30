@@ -18,16 +18,29 @@
                   type="primary"
                   @click="dialogFormVisible=true"
                   v-show="id == UserId"
-                  icon="el-icon-edit"
+                  icon="el-icon-picture-outline"
                   circle
                 ></el-button>
+                <el-row>
+                  <el-col class="mt-2">
+                    <p
+                      class="text-color el-icon-phone"
+                      style="font-size: 12px;"
+                      
+                      v-if="data.phoneNumber !== null"
+                    >{{data.phoneNumber}}</p>
+                  </el-col>
+                  <el-col class=" mt-2">
+                      <i class="fas fa-language"><small> {{data.lenguaje}}</small></i>
+                      </el-col>
+                </el-row>
               </div>
             </el-col>
             <el-col :span="12">
               <div class="grid-content bg-purple-light">
                 <h5 class="mt-2">{{data.name}} {{data.lastName}}</h5>
-                <p>P/H : ${{data.priceHour}}</p>
-                <p>
+                <p class="text-color">P/H : ${{data.priceHour}}</p>
+                <p class="text-color">
                   <small>{{data.biography}}</small>
                 </p>
               </div>
@@ -45,27 +58,33 @@
                 </div>
               </div>
             </el-col>
-            <router-link :to="`/completar/registro/${data.id}/${data.applicationUserId}`">
-              <el-button type="primary" v-show="id == UserId" icon="el-icon-edit" circle></el-button>
-            </router-link>
-            <!-- <el-button type="primary" v-show="id == UserId" icon="el-icon-edit" circle></el-button> -->
-            <el-col :span="12" class="mb-3 mt-2">
-              <el-row type="flex" class justify="end">
-                <el-col :span="26">
-                  <p>
+            <el-col :span="24" class="mb-3 mt-2">
+              <el-row type="flex" class justify="center">
+                <el-col :span="12">
+                  <span>
                     <b>Valoracion</b>
-                  </p>
+                  </span>
                   <el-rate v-model="rating" disabled show-score text-color="#ff9900" score-template></el-rate>
                 </el-col>
-
-                <el-col :span="2" class="ml-4">
-                  <el-button type="primary" round>Contáctame</el-button>
+                <el-col :span="2" class="ml-4" v-if="id != UserId">
+                  <el-button
+                    type="primary"
+                    class="contact-button"
+                    @click="dialogTableVisible = true"
+                    round>
+                    Contáctame</el-button>
+                </el-col>
+              </el-row>
+              <el-row type="flex" justify="end">
+                <el-col :span="26">
+                  <router-link :to="`/completar/registro/${data.id}/${data.applicationUserId}`">
+                    <el-button type="info" v-if="id == UserId" icon="el-icon-setting" circle></el-button>
+                  </router-link>
                 </el-col>
               </el-row>
             </el-col>
           </el-card>
         </el-row>
-
         <el-row type="flex" class justify="space-center">
           <el-col :span="24" class="mt-4">
             <el-card class="box-card-habilities">
@@ -76,14 +95,14 @@
                     <gmap-map :center="center" :zoom="10" style="height: 300px;">
                       {{this.UserId}}
                       <gmap-marker
-                        v-for="(m, index) in markers"
                         :key="index"
+                        v-for="(m, index) in markers"
                         :position="m.position"
                         :clickable="true"
                         :draggable="false"
                         @click="center=m.position , toggleInfoWindow(m, index)"
-                      >                      
-                      </gmap-marker>
+                      ></gmap-marker>
+
                       <gmap-info-window
                         :options="infoOptions"
                         :position="infoWindowPos"
@@ -308,6 +327,24 @@ export default {
 };
 </script>
 <style scoped>
+h6 {
+  color: #808695;
+  font-family: "Roboto", sans-serif;
+}
+h5,
+span b {
+  color: #606266;
+}
+i span{
+    font-size: 12px;
+}
+.fa-language{
+  /* font-size: 22px; */
+  color: #606266;
+}
+.text-color {
+  color: #606266;
+}
 .img-map {
   height: 60px;
   border-radius: 40%;
@@ -323,17 +360,16 @@ export default {
   width: 120px;
 }
 .contact-button {
-  margin-left: 75px;
+  outline: none;
+}
+.contact-button:hover {
+  font-size: 14.2px;
 }
 .box-card {
   width: 95%;
 }
 .box-card-habilities {
   width: 95%;
-}
-h6 {
-  color: #808695;
-  font-family: "Roboto", sans-serif;
 }
 .btn-nav {
   background: #5a75e6;

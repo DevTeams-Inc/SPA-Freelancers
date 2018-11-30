@@ -19,6 +19,12 @@ class FreelancerService{
     search(query){
         return this.axios.get(`${this.apiUrl}/search?query=${query}`)
     }
+    add(model){
+        return this.axios.post(`${this.apiUrl}`,model);
+      }
+    update(model){
+        return this.axios.put(`${this.apiUrl}`,model);
+    }
 
     //Request Admin
     getAdmin(){
