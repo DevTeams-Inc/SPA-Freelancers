@@ -26,13 +26,14 @@
                     <p
                       class="text-color el-icon-phone"
                       style="font-size: 12px;"
-                      
                       v-if="data.phoneNumber !== null"
                     >{{data.phoneNumber}}</p>
                   </el-col>
-                  <el-col class=" mt-2" v-if="this.UserId">
-                      <i class="fas fa-language"><small> {{data.lenguaje}}</small></i>
-                      </el-col>
+                  <el-col class="mt-2" v-if="this.UserId">
+                    <i class="fas fa-language">
+                      <small>{{data.lenguaje}}</small>
+                    </i>
+                  </el-col>
                 </el-row>
               </div>
             </el-col>
@@ -73,8 +74,8 @@
                     type="primary"
                     class="contact-button"
                     @click="dialogTableVisible = true"
-                    round>
-                    Contáctame</el-button>
+                    round
+                  >Contáctame</el-button>
                 </el-col>
               </el-row>
               <el-row type="flex" justify="end">
@@ -102,7 +103,7 @@
                         :position="m.position"
                         :clickable="true"
                         :draggable="false"
-                        @click="center=m.position , toggleInfoWindow(m, index)"
+                        @click=" toggleInfoWindow(m, index)"
                       ></gmap-marker>
 
                       <gmap-info-window
@@ -184,15 +185,17 @@
 </template>
 <script>
 import { EventBus } from "../../helpers/event-bus";
+// import map from "../location/googleMaps";
 export default {
   props: ["id"],
   data() {
     return {
       dialogFormVisible: false,
-      infoContent: "",
       loadingprofile: false,
-      infoImg: "",
       loading: false,
+      file: "",
+      infoContent: "",
+      infoImg: "",
       infoWindowPos: {
         lat: 0,
         lng: 0
@@ -205,7 +208,6 @@ export default {
           height: -35
         }
       },
-      file: "",
       latitude: null,
       longitude: null,
       rating: 0,
@@ -282,18 +284,17 @@ export default {
      * me permite mostrar una pequeña descripcion
      * en el mapa del usuario y mi posicion
      */
-    toggleInfoWindow(marker , idx){
-        this.infoWindowPos = marker.position
-        this.infoContent = marker.name
-        this.infoImg = marker.img
+    toggleInfoWindow(marker, idx) {
+      this.infoWindowPos = marker.position;
+      this.infoContent = marker.name;
+      this.infoImg = marker.img;
 
-        if(this.currentMidx == idx){
-            this.infoWindowOpen = !this.infoWindowOpen
-        }
-        else{
-            this.infoWindowOpen = false;
-            this.currentMidx = idx
-        }
+      if (this.currentMidx == idx) {
+        this.infoWindowOpen = !this.infoWindowOpen;
+      } else {
+        this.infoWindowOpen = false;
+        this.currentMidx = idx;
+      }
     },
     /**
      * metodo para asignarle el valor del input a la variable de tipo file
@@ -343,7 +344,7 @@ export default {
      * Me permite obtener el id del usuario logeado del localStorage
      */
     UserId() {
-      return localStorage.getItem('user_id');
+      return localStorage.getItem("user_id");
     }
   }
 };
@@ -357,10 +358,10 @@ h5,
 span b {
   color: #606266;
 }
-i span{
-    font-size: 12px;
+i span {
+  font-size: 12px;
 }
-.fa-language{
+.fa-language {
   /* font-size: 22px; */
   color: #606266;
 }
