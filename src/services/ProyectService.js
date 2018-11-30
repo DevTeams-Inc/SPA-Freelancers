@@ -1,13 +1,21 @@
 class ProyectService{
     axios
     apiUrl
-    constructor(axios, apiUrl){
-        this.axios=axios;
-        this.apiUrl=`${apiUrl}api/`;
+
+        constructor(axios, apiUrl){
+        this.axios = axios;
+        this.apiUrl =`${apiUrl}api/proyects`;
     }
 
     add(model){
         return this.axios.post(`${this.apiUrl}`,model);
     }
+
+      
+    getAll() {
+        return this.axios.get(`${this.apiUrl}/admin/getall`)
+    }
+
+
 }
 export default ProyectService
