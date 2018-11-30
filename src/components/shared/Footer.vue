@@ -1,5 +1,5 @@
 <template>
-    <div class=" p-3 layout-footer-center">
+    <div class="p-3 layout-footer-center">
         <footer>
         {{time}} &copy; DevTeams Inc.
         </footer>

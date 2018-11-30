@@ -255,7 +255,6 @@ export default {
 
         if(this.currentMidx == idx){
             this.infoWindowOpen = !this.infoWindowOpen
-
         }
         else{
             this.infoWindowOpen = false;
