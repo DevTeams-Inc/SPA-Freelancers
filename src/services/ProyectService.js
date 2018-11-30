@@ -15,7 +15,9 @@ class ProyectService{
     getAll() {
         return this.axios.get(`${this.apiUrl}/admin/getall`)
     }
-
+    getAllProyects(){
+        return this.axios.get(`${this.apiUrl}`)
+    }
 
 }
 export default ProyectService

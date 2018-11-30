@@ -144,8 +144,10 @@ export default {
             .catch(e => {
               self.$notify.error({
                 title: "Error",
-                message: "Porfavor revise sus credenciales"
+                message: "Porfavor revise sus credenciales",
+                offset: 40
               });
+              self.loading = false;
             });
         } else {
           console.log("error submit!!");

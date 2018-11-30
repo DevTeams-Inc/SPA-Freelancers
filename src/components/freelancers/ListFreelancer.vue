@@ -212,9 +212,10 @@ export default {
 }
 .containerListaFreelancer {
   width: 70%;
+  margin-top: -20px;
 }
 .Item-Freelancer:nth-child(1) {
-  margin-top: 0px;
+  margin-top: -30px;
 }
 .Item-Freelancer {
   background: white;
@@ -270,6 +271,9 @@ export default {
   margin-bottom: -5px;
   font-size: 12px;
 }
+.skills h4{
+  font-size: 15px;
+}
 .skills a:hover {
   text-decoration: none;
 }
@@ -297,6 +301,7 @@ export default {
     width: 100%;
     font-size: 14px;
   }
+
 }
 @media (max-width: 1105px) {
   .descripcionMini-Freelancer p {
@@ -317,6 +322,9 @@ export default {
 }
 
 @media (max-width: 929px) {
+    .containerListaFreelancer{
+    margin-top: 10px;
+  }
   .containerListaFreelancer {
     width: 100%;
   }

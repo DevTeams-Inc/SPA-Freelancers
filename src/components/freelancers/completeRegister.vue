@@ -213,8 +213,7 @@ export default {
      * de lo contrario se reedireciona al inicio
      * */
     if (
-      self.keyUser == self.ruleForm.applicationUserId &&
-      self.keyFreelancer > 0
+      self.keyUser == self.ruleForm.applicationUserId
     ) {
       self.getById(self.keyUser);
     } else {
