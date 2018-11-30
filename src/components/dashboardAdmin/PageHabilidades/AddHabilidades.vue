@@ -107,13 +107,14 @@ export default {
   margin-top: 100px;
   font-size: 30px;
   color: white;
-  background-color: #5a75e6;
+     background-color: rgb(226, 226, 226);
   
   border-radius: 100%;
   padding: 10px;
 }
 .add-icon i:hover {
-  background-color: #b1bff5; }
+  background-color: #7992f8;
+  }
 .botones-dialog {
   display: flex;
   width: 100%;

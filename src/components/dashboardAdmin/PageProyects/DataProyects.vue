@@ -74,14 +74,14 @@
   width: 10px;
 }
 .el-table__body-wrapper::-webkit-scrollbar-track {
-  background-color: #fce8e8;
+       background-color: #f5f5f5;
   border-radius: 10px;
 }
 .el-table__body-wrapper::-webkit-scrollbar-thumb {
-  background-color: rgb(245, 108, 108);
+ background-color: rgb(226, 226, 226);
   border-radius: 10px;
 }
-.botones-table {
+.botones-table{
   display: flex;
 }
 .botones-dialog {

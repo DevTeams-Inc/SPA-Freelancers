@@ -4,13 +4,16 @@
         <div class="row justify-content-around">
             <div class="col mt-5">
                 <div class="title animated fadeInRight" >
-                            <h1>Eslogan de la pagina web</h1>
+                            <h2>Los freelancers más rápidos del mundo.</h2>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
                             Nesciunt dolorem similique reiciendis voluptatibus molestiae. 
                             Reiciendis eveniet dolores placeat nihil fugiat esse officia ab, 
                             deserunt similique quod illo eum nemo repellat.</p>
                     </div>
-                    <button class="btn btn-primary btn-search animated fadeInLeft">Buscar Freelancers</button>
+                    <button 
+                    class="btn btn-primary btn-search animated fadeInLeft"
+                    @click="$router.push('/freelancers')"
+                    >Buscar Freelancers</button>
             </div>
             <div class="col animated fadeInRight">
             <img class="img-carousel" src="@/assets/img/3.svg" alt="" width="685px">               

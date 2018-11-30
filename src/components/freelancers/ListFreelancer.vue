@@ -10,12 +10,12 @@
                         </router-link>
                         <div class="frase"><p>{{i.profesion}}</p></div>
                         <div class="descripcionMini-Freelancer">
-                          <P>{{i.biography}}
-                        </P>
+                          <p>{{i.biography}}
+                        </p>
                         </div>
                    </div>
                    <div class="botones-Freelancer">
-                         <el-button type="primary"  id="boton-freelancer">Contactar</el-button>
+                         <el-button type="primary" @click="openDialog(), freelancer = i.name + ' ' + i.lastName" id="boton-freelancer">Contactar</el-button>
                    </div>
                 </div>
                 <div class="top-right-item-Freelancer">
@@ -56,13 +56,43 @@
                 <el-button type="primary" @click="nextPage()" id="boton-freelancer">Siguiente</el-button>
             </div>
         </div>
+
+        <div>
+        <el-dialog :title="`Contactar a ${freelancer}`" :visible.sync="contactForm" ref="contactForm">
+          <el-form :model="form">
+              <el-form-item label="Nombre Completo:">
+                <el-input v-model="form.fullName" autocomplete="off" placeholder="Batman"></el-input>
+              </el-form-item>
+              <el-form-item label="Mensaje:">
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="Eres un ser asombroso..."
+                  v-model="form.message">
+                </el-input>
+              </el-form-item>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+              <el-button @click="contactForm = false">Cancelar</el-button>
+              <el-button type="primary" @click="contactForm = false">Enviar</el-button>
+          </span>
+          </el-dialog>
+      </div>
     </div>
+    
 </template>
 <script>
 import { EventBus } from "../../helpers/event-bus";
 export default {
   data() {
     return {
+      contactForm: false,
+      form: {
+        fullName: '',
+        message: '',
+        emailDestiny: ''
+      },
+      freelancer:null,
       ratingFreelancer: 4.5,
       data: [],
       totalOfRegister: null,
@@ -159,6 +189,9 @@ export default {
       } else {
         this.beforePage();
       }
+    },
+    openDialog(){
+        this.contactForm = true
     }
   },
   computed: {
@@ -179,9 +212,10 @@ export default {
 }
 .containerListaFreelancer {
   width: 70%;
+  margin-top: -20px;
 }
 .Item-Freelancer:nth-child(1) {
-  margin-top: 0px;
+  margin-top: -30px;
 }
 .Item-Freelancer {
   background: white;
@@ -237,6 +271,9 @@ export default {
   margin-bottom: -5px;
   font-size: 12px;
 }
+.skills h4{
+  font-size: 15px;
+}
 .skills a:hover {
   text-decoration: none;
 }
@@ -264,6 +301,7 @@ export default {
     width: 100%;
     font-size: 14px;
   }
+
 }
 @media (max-width: 1105px) {
   .descripcionMini-Freelancer p {
@@ -284,6 +322,9 @@ export default {
 }
 
 @media (max-width: 929px) {
+    .containerListaFreelancer{
+    margin-top: 10px;
+  }
   .containerListaFreelancer {
     width: 100%;
   }

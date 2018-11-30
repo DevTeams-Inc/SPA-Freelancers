@@ -9,24 +9,7 @@
       <div class="search">  
         <div class="SearchContainer">
             <div class="left-search">
-                 <!-- <div class="container-filtro">
-                        <div class="container-FiltroProyectsResponsive">
-                            <el-collapse >
-                                <el-collapse-item title="Filtro" name="1">
-                                        <div class="All-filtro">
-                                    <el-select v-model="value" placeholder="Radio en millas">
-                                            <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                            </el-option>
-                                        </el-select>
-                                        </div>
-                                </el-collapse-item>
-                            </el-collapse>
-                        </div>
-                 </div> -->
+                
             </div>
             <div class="right-search">
                     <gmap-autocomplete
@@ -37,26 +20,34 @@
             </div>
         </div>
       </div>  
-      <div class="container-proyect"> 
-          <div class="Container-ListaProyect">
-              <div class="Item-Proyect">
-              <GmapMap
-                  :center="center"
-                  :zoom="7"
-                  style="width: 100%; height: 100%"
+      <div class="container-proyect" v-loading="loading" element-loading-text="Estamos obteniendo información..."> 
+            <gmap-map
+                :center="center"
+                :zoom="10"
+                style="height: 400px; width: 100%;"
+            >
+            <gmap-marker
+                :key="index"
+                v-for="(m, index) in markers"
+                :position="m.position"
+                :clickable="true"
+                :draggable="false"
+                @click="center=m.position , toggleInfoWindow(m, index)"
                 >
-                  <GmapMarker
-                    :key="index"
-                    v-for="(m, index) in markers"
-                    :position="m.position"
-                    :clickable="true"
-                    :draggable="true"
-                    @click="center=m.position"
-                  />
-                </GmapMap>
-          </div>
-          </div>   
+                </gmap-marker>
+
+                <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWindowOpen"
+                @closeclick="infoWindowOpen=false">
+                <img :src="infoImg" class="img-map" alt="user-avatar">
+                <router-link tag="a" :to="`/freelancer/${freelancerId}`">
+                <p class="mt-1">{{infoContent}}</p>
+                </router-link>
+                <p class="mt-1"><b>Profesión:</b> <el-tag>{{infoProfession}}</el-tag></p>
+                </gmap-info-window>
+
+            </gmap-map>
       </div>
+      <br><br><br>
      <Footer></Footer>
     </el-row>
 </template>
@@ -70,6 +61,7 @@ export default {
 components:{FilterProyects,Footer, ListProyect, SearchProyect},
  data() {
      return {
+         loading:false,
          options: [{
           value: 10,
           label: '10 millas'
@@ -85,9 +77,37 @@ components:{FilterProyects,Footer, ListProyect, SearchProyect},
         }],
         value: '',
         center: {lat: 42.363211, lng: -105.071875},
+        markers: [
+        {
+          position: { lat: 0, lng: 0 },
+          name:'Mi Posicion',
+          img:'',
+        }
+      ],
         radiusOptions: [10, 30, 50, 100],
-        radius: 50
+        radius: 50,
+        freelancerMap: [],
+         infoWindowPos:{
+            lat: 0,
+            lng: 0 
+        },
+        infoWindowOpen:false,
+        currentMidx: null,
+        infoOptions:{
+            pixelOffeset:{
+                width:0,
+                height:-35
+            }
+        },
+        infoImg:'',
+        infoContent:'',
+        infoProfession: '',
+        freelancerId: null,
      }
+ },
+ mounted() {
+     this.getMap(),
+     this.getLocation()
  },
  methods: {
      getFreelancer(place){
@@ -96,7 +116,61 @@ components:{FilterProyects,Footer, ListProyect, SearchProyect},
              lng: place.geometry.location.lng()
          }
          this.center = center;
-     }
+     },
+     getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition);
+      }
+    },
+    /**
+     * muestra mi posicion y la centra en el mapa
+     * y luego le asigna a markers[0].position 
+     * a mi primera posicion mi longitud y latitud para ubicarme en el mapa
+     * @param position posicion 
+     */
+    showPosition(position){  
+       this.markers[0].position = {
+           lat : position.coords.latitude,
+           lng : position.coords.longitude
+       }
+       this.center.lat = position.coords.latitude
+       this.center.lng = position.coords.longitude
+    },
+
+    getMap(){
+        let self = this
+        self.loading = true,
+        self.$store.state.services.freelancerService.getMap()
+        .then((result) => {
+            self.freelancerMap = result.data 
+            self.freelancerMap.forEach(element => {
+                self.markers.push({
+                    position: {lat: element.lat, lng: element.long}, 
+                    name: element.fullName,
+                    img: element.avatar,
+                    profession: element.profession,
+                    freelancerId: element.id
+                })
+            });
+            self.loading = false
+        }).catch((err) => {
+            
+        });
+    },
+    toggleInfoWindow(marker , idx){
+        this.infoWindowPos = marker.position
+        this.infoContent = marker.name
+        this.infoImg = marker.img
+        this.infoProfession = marker.profession
+        this.freelancerId = marker.freelancerId
+        if(this.currentMidx == idx){
+            this.infoWindowOpen = !this.infoWindowOpen
+        }
+        else{
+            this.infoWindowOpen = false;
+            this.currentMidx = idx
+        }
+    },
  }
 }
 </script>
@@ -106,13 +180,17 @@ components:{FilterProyects,Footer, ListProyect, SearchProyect},
     color: white;
     display: flex;
 }
+.img-map{
+    height: 60px;
+    border-radius: 40%;
+}
 .left-search{
  background-color: #304ab3;
  width: 30.5%;
-
 }
 .right-search{
-    width: 69.5%;
+    width: 65.5%;
+    padding-left: 10px;
 }
 .right-search .el-input__inner{
     border: none;
@@ -460,9 +538,9 @@ width: 100%;
   padding: 0 15px;
   -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-  width: 55%;
+  width: 100%;
   position: relative;
-  right: 160px;
+  right: px;
 }
 .ubicacion:hover {
   color: #909399;

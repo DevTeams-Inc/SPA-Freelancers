@@ -1,7 +1,7 @@
     <template>
 <el-row :gutter="10" class="mt-5 p-3 " justify="space-around" type="flex">
     <el-col class="hidden-sm-and-down">
-        <img class="animated fadeInUp" src="@/assets/img/logindesing.svg" width="550px" alt="" >
+        <img class="animated fadeInRight" src="@/assets/img/logindesing.svg" width="550px" alt="" >
     </el-col>
 <el-col>
 <el-row type="flex" justify="center">
@@ -66,6 +66,7 @@
 export default {
   data() {
     return {
+      loading: false,
       ruleForm: {
         email: null,
         password: null
@@ -131,6 +132,7 @@ export default {
                 "user_email",
                 self.email
               );
+              self.loading = false;
             })
             .then(r => {
               if (self.role == 1) {

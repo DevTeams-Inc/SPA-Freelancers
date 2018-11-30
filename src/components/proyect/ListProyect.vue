@@ -1,20 +1,19 @@
 
 <template>
     <div class="Container-ListaProyect">
-           <div class="Item-Proyect">
-              <div class="Top-Item">
-                  <h2>Programador en Asp.net C# y Vue.js</h2>
+           <div class="Item-Proyect" v-for="(i,index) in proyects" :key="index">
+              <div class="Top-Item" >
+                  <h2>{{i.title}}</h2>
                   <div class="Top-Left-Img">
                        <!-- Aqui va un div o una etiqueta img(Proximamente) -->
-                        <h4>Soitsa</h4>
+                        <h4>{{i.userName}}</h4>
                   </div>
               </div>
-          
               <div class="Center-Item">
                  <div class="Left-Item">
                      <div class="details-item">
                    <h4>Publicado el 6 de Agosto</h4>
-                   <h4>Categoria</h4>
+                   <h4>{{i.nameCategory}}</h4>
                    <a  href="#">Rep. Dom.</a>
                    </div>
                      <div class="botones-proyect">
@@ -23,53 +22,21 @@
                      </div>
                  </div>
                 <div class="CenterRight-Item">
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus delectus eligendi natus maxime, libero, 
-                      explicabo rerum atque aspernatur at non possimus deserunt incidunt fuga, ut veritatis numquam sapiente ex velit?Lorem ipsum dolor sit amet 
-                      consectetur adipisicing elit. Beatae reprehenderit corporis quibusdam sed necessitatibus praesentium totam in, labore inventore minima quod accusamus, ducimus architecto nam. Unde debitis mollitia consectetur fugiat.</p>
+                    <p>
+                     {{i.description}}
+                    </p>
                     <div class="Tag-Habilidades">
-                          <h4><b>Habilidades Requeridas</b> <a class="a-jobs-badge" href="">Comer mucho  </a></h4>
+                          <h4><b>Habilidades Requeridas</b> <a class="a-jobs-badge" href="">{{i.required_Skill}} </a></h4>
                          
                     </div>
                 </div>
               </div>  
           </div>
-           <div class="Item-Proyect">
+           <!-- <div class="Item-Proyect">
               <div class="Top-Item">
                   <h2>Programador en Asp.net C# y Vue.js</h2>
                   <div class="Top-Left-Img">
-                       <!-- Aqui va un div o una etiqueta img(Proximamente) -->
-                        <h4>Soitsa</h4>
-                  </div>
-              </div>
-            
-              <div class="Center-Item">
-                 <div class="Left-Item">
-                     <div class="details-item">
-                   <h4>Publicado el 6 de Agosto</h4>
-                   <h4>Categoria</h4>
-                   <a  href="#">Rep. Dom.</a>
-                   </div>
-                     <div class="botones-proyect">
-                         <el-button id="boton-proyect" type="primary" >Aplicar</el-button><br><br>
-                         <el-button id="boton-proyect" type="secondary" >Ubicacion</el-button>
-                     </div>
-                 </div>
-                <div class="CenterRight-Item">
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus delectus eligendi natus maxime, libero, 
-                      explicabo rerum atque aspernatur at non possimus deserunt incidunt fuga, ut veritatis numquam sapiente ex velit?Lorem ipsum dolor sit amet 
-                      consectetur adipisicing elit. Beatae reprehenderit corporis quibusdam sed necessitatibus praesentium totam in, labore inventore minima quod accusamus, ducimus architecto nam. Unde debitis mollitia consectetur fugiat.</p>
-                    <div class="Tag-Habilidades">
-                          <h4><b>Habilidades Requeridas</b> <a class="a-jobs-badge" href="">Comer mucho  </a></h4>
-                         
-                    </div>
-                </div>
-              </div>  
-          </div>
-           <div class="Item-Proyect">
-              <div class="Top-Item">
-                  <h2>Programador en Asp.net C# y Vue.js</h2>
-                  <div class="Top-Left-Img">
-                       <!-- Aqui va un div o una etiqueta img(Proximamente) -->
+                     
                         <h4>Soitsa</h4>
                   </div>
               </div>
@@ -97,6 +64,38 @@
                 </div>
               </div>  
           </div>
+           <div class="Item-Proyect">
+              <div class="Top-Item">
+                  <h2>Programador en Asp.net C# y Vue.js</h2>
+                  <div class="Top-Left-Img">
+            
+                        <h4>Soitsa</h4>
+                  </div>
+              </div>
+            
+              <div class="Center-Item">
+                 <div class="Left-Item">
+                     <div class="details-item">
+                   <h4>Publicado el 6 de Agosto</h4>
+                   <h4>Categoria</h4>
+                   <a  href="#">Rep. Dom.</a>
+                   </div>
+                     <div class="botones-proyect">
+                         <el-button id="boton-proyect" type="primary" >Aplicar</el-button><br><br>
+                         <el-button id="boton-proyect" type="secondary" >Ubicacion</el-button>
+                     </div>
+                 </div>
+                <div class="CenterRight-Item">
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus delectus eligendi natus maxime, libero, 
+                      explicabo rerum atque aspernatur at non possimus deserunt incidunt fuga, ut veritatis numquam sapiente ex velit?Lorem ipsum dolor sit amet 
+                      consectetur adipisicing elit. Beatae reprehenderit corporis quibusdam sed necessitatibus praesentium totam in, labore inventore minima quod accusamus, ducimus architecto nam. Unde debitis mollitia consectetur fugiat.</p>
+                    <div class="Tag-Habilidades">
+                          <h4><b>Habilidades Requeridas</b> <a class="a-jobs-badge" href="">Comer mucho  </a></h4>
+                         
+                    </div>
+                </div>
+              </div>  
+          </div> -->
 
     </div>
 </template>
@@ -301,7 +300,26 @@ width: 100%;
 <script>
 
 export default {
-    
+     data(){
+         return{
+             proyects:[],
+         }
+     },
+     mounted(){
+         this.getProyects();
+     },
+    methods:{
+        getProyects(){
+            let self = this;
+            self.$store.state.services.proyectService
+            .getAllProyects()
+            .then(r=>{
+                this.proyects= r.data.entities;
+                console.log(this.proyects);
+            })
+        }
+    }
 }
+
 </script>
 
