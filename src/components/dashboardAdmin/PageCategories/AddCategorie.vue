@@ -64,12 +64,12 @@
     margin-top: 100px;
     font-size: 30px;
     color:white;
-    background-color:  rgb(245, 108, 108);
+   background-color: rgb(226, 226, 226);
     border-radius:100%; 
     padding: 10px;
 }
 .add-icon i:hover{
-    background-color:rgb(235, 149, 149)
+  background-color: #7992f8;
 }
 .botones-dialog{
   display: flex;

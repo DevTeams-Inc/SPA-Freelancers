@@ -271,6 +271,9 @@ export default {
   margin-bottom: -5px;
   font-size: 12px;
 }
+.skills h4{
+  font-size: 15px;
+}
 .skills a:hover {
   text-decoration: none;
 }
