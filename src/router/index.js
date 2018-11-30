@@ -142,7 +142,10 @@ export default new Router({
     {
       path: '/buscar/freelancers',
       name: '/buscar/freelancer',
-      component: SearchFreelancer
+      component: SearchFreelancer,
+      meta: {
+        requiresAuth: true
+      }
     },
 
     //Ruteo de administrador//

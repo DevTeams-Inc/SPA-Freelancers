@@ -67,7 +67,7 @@
                   </div> -->
 
                   <div class="section-FiltroHabilidades-freelancers">
-                    <h4>Habilidades</h4>
+                    <h4>Habilidades:</h4>
                     <el-select v-model="searchHability" @change="search(searchHability)" filterable placeholder="Habilidad">
                     <el-option
                       v-for="(hability, index) in habilities"
@@ -88,7 +88,7 @@
                       </el-select>
                      </div> -->
                     <div class="mt-5 section-FiltroRating-freelancers">
-                      <h4 class="">Filtrar por clasificacion</h4>
+                      <h4 class="">Filtrar por clasificación:</h4>
                       <div class="ml-2 mblock">
                         <el-rate @change="search(rating)" v-model="rating"></el-rate>
                       </div>  
