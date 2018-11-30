@@ -12,7 +12,7 @@
                           <template slot-scope="scope">
                             <div class="botones-table-habilidad" prop="id">
                               <el-button id="botonesDialog" size="mini" @click="dialogFormEditarVisible=true , id = scope.row.id , getById()">editar</el-button>
-                              <el-button  id="botonesDialog" size="mini"   class="btn-eliminar" @click="dialogFormEliminarVisible=true , id = scope.row.id" >Eliminar</el-button>
+                              <el-button  id="botonesDialog" size="mini" type="danger"  @click="dialogFormEliminarVisible=true , id = scope.row.id" >Eliminar</el-button>
                             </div>
                           </template>
                           
@@ -29,7 +29,7 @@
                             <el-form-item prop="title">
                                <el-input   v-model="model.title"   placeholder="Nombre de la habilidad"   size="medium">
                                </el-input>
-                             </el-form-item>
+                     s        </el-form-item>
                             <el-form-item prop="description">
                                  <el-input  v-model="model.description"  placeholder="Descripcion de la habilidad"  size="medium"  type="textarea">
                                  </el-input>
@@ -166,11 +166,11 @@ export default {
   width: 10px;
 }
 .el-table__body-wrapper::-webkit-scrollbar-track {
-  background-color: #c5d5ff;
+       background-color: #f5f5f5;
   border-radius: 10px;
 }
 .el-table__body-wrapper::-webkit-scrollbar-thumb {
-  background-color: #5a76e69a;
+ background-color: rgb(226, 226, 226);
   border-radius: 10px;
 }
 .botones-table-habilidad {
@@ -183,7 +183,6 @@ export default {
   width: 100%;
 }
 .btn-eliminar{
-  background: #5a75e6;
 color: white;
 border: none;
 outline: none;
