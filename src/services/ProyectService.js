@@ -3,7 +3,7 @@ class ProyectService{
     apiUrl
     constructor(axios, apiUrl){
         this.axios=axios;
-        this.apiUrl=`${apiUrl}api/`;
+        this.apiUrl=`${apiUrl}api/proyects`;
     }
 
     add(model){
