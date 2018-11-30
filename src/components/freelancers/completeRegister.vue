@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="mt-5 p-2 m-4">
+    <el-card class="mt-5 p-2 m-4" v-loading="loading">
       <el-row class="p-1 m-4">
         <el-row class="mb-5">
           <el-col :span="12" :offset="6">
@@ -13,7 +13,8 @@
           ref="ruleForm"
           label-width="120px"
           class="demo-ruleForm"
-          enctype="multiple/form-data">
+          enctype="multiple/form-data"
+        >
           <el-col :span="12">
             <el-row>
               <el-col>
@@ -44,12 +45,18 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="Habilidad" prop="habilities">
+                <div class="counter" v-if="i >0">
+                  {{i}}
+                  <span v-if="i > 1">habilidades</span>
+                  <span v-else>habilidad</span>
+                </div>
                 <el-select
                   v-model="id"
                   @change="ya(id)"
                   filterable
                   multiple
-                  placeholder="Seleciona">
+                  placeholder="Seleciona"
+                >
                   <el-option
                     v-for="hability in allHabilities"
                     :key="hability.id"
@@ -57,36 +64,34 @@
                     :value="hability.id"
                   ></el-option>
                 </el-select>
-                <div class="counter">
-                  {{i}}
-                  <span v-if="i > 1">habilidades</span>
-                  <span v-else>habilidad</span>
-                </div>
               </el-form-item>
             </el-col>
+
             <el-col :span="12">
-              <el-form-item label="Telefono" prop="phoneNumber">
-                <el-input v-model="ruleForm.phoneNumber"></el-input>
+              <el-form-item label="Precio por hora" prop="priceHour">
+                <el-input type="number" v-model="ruleForm.priceHour" min="0" placeholder="e.j 520"></el-input>
               </el-form-item>
             </el-col>
           </el-col>
           <el-col :span="12" class="coll">
             <div v-if="keyUser == ruleForm.applicationUserId && keyFreelancer > 0">
-              <el-col :span="12" >
-              <el-form-item label="Nombre" prop="name">
-                <el-input v-model="ruleForm.name"></el-input>
-              </el-form-item>
-            </el-col>
-              <el-col :span="12">
-              <el-form-item label="Apellido" prop="lastName">
-                <el-input v-model="ruleForm.lastName"></el-input>
-              </el-form-item>
-            </el-col>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="Nombre" prop="name">
+                    <el-input v-model="ruleForm.name"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="Apellido" prop="lastName">
+                    <el-input v-model="ruleForm.lastName"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
             </div>
             <el-form-item label="Ubicacion" prop="ubicacion">
               <div>
                 <label>
-                   <gmap-autocomplete
+                  <gmap-autocomplete
                     class="ubicacion"
                     v-model="ruleForm.ubicacion"
                     @place_changed="setPlace"
@@ -99,13 +104,13 @@
             </el-form-item>
             <el-row>
               <el-col>
-                <el-form-item label="Precio por hora" prop="priceHour">
-                  <el-input
-                    type="number"
-                    v-model="ruleForm.priceHour"
-                    min="0"
-                    placeholder="e.j 520"
-                  ></el-input>
+                <el-form-item label="Telefono" prop="phoneNumber">
+                  <vue-tel-input
+                    v-model="ruleForm.phoneNumber"
+                    class="phone"
+                    @onInput="onInput"
+                    placeholder
+                  ></vue-tel-input>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -121,25 +126,28 @@
         </el-form>
       </el-row>
       <span
-        class="nota">Nota: si no introduce una ubicacion, se tomará la ubicacion por defecto de su dispositivo.</span>
+        class="nota"
+      >Nota: si no introduce una ubicacion, se tomará la ubicacion por defecto de su dispositivo.</span>
     </el-card>
   </div>
 </template>
 <script>
 export default {
-  props:["keyFreelancer","keyUser"],
+  props: ["keyFreelancer", "keyUser"],
   data() {
     return {
-      center: { lat: 45.508, lng: -73.587 },
+      center: { lat: 18.4855, lng: -69.8731 },
       markers: [],
       places: [],
       allHabilities: [],
+      loading: true,
       currentPlace: null,
       id: 0,
       i: 0,
       habi: [],
       file: null,
       ruleForm: {
+        id: 0,
         name: null,
         lastName: null,
         habilities: [],
@@ -156,66 +164,71 @@ export default {
         applicationUserId: localStorage.getItem("user_id")
       },
       rules: {
-        habilities: [
-          {
+        name: { 
+          required: true, 
+          message: "Ingrese un nombre", 
+          trigger: "blur" 
+        },
+        habilities: {
+          required: true,
+          message: "Ingrese una habilidad",
+          trigger: "blur"
+        },
+        lenguaje: {
+          required: true,
+          message: "Selecione un idioma.",
+          trigger: "blur"
+        },
+        phoneNumber: {
+          required: true,
+          message: "Ingrese un numero de telefono.",
+          trigger: "blur"
+        },
+        biography: {
+          required: true,
+          min: 8,
+          max: 200,
+          message: "Debes tener de 8 a 200 caracteres.",
+          trigger: "blur"
+        },
+        profesion: {
+          required: true,
+          message: "Ingrese su profesion.",
+          trigger: "blur"
+        },
+        priceHour: {
             required: true,
-            message: "Ingrese una habilidad",
-            trigger: "blur"
-          }
-          // { min: 3, max: 30, message: 'Length should be 3 to 5', trigger: 'change' }
-        ],
-        lenguaje: [
-          {
-            required: true,
-            message: "Selecione un idioma.",
-            trigger: "blur"
-          }
-        ],
-        phoneNumber: [
-          {
-            // required: true,
-            message: "Ingrese un numero de telefono.",
-            trigger: "blur"
-          }
-          // {type: 'number', message: 'El telefono solo debe tener numeros.',trigger: 'blur'}
-        ],
-        biography: [
-          {
-            required: true,
-            min: 5,
-            max: 200,
-            message: "Debes tener de 5 a 200 caracteres.",
-            trigger: "blur"
-          }
-        ],
-        profesion: [
-          {
-            required: true,
-            message: "Ingrese su profesion.",
-            trigger: "blur"
-          }
-        ],
-        priceHour: [
-          {
-            required: true,
-
             message: "Ingrese un precio por hora.",
-            trigger: "change"
+            trigger: "blur"
           }
-        ]
       }
     };
   },
   created() {
-    this.getAll();
+    let self = this;
+
+    self.getHabilities();
+    /**
+     * Solo se obtiene los datos si existe el id del freelancer
+     * de lo contrario se reedireciona al inicio
+     * */
+    if (
+      self.keyUser == self.ruleForm.applicationUserId &&
+      self.keyFreelancer > 0
+    ) {
+      self.getById(self.keyUser);
+    } else {
+      self.$router.push("/inicio");
+    }
   },
   mounted() {
     this.geolocate();
   },
-    computed: {
+  computed: {
     addOrDelete() {
       let self = this;
-      return self.keyUser == self.ruleForm.applicationUserId && self.keyFreelancer > 0
+      return self.keyUser == self.ruleForm.applicationUserId &&
+        self.keyFreelancer > 0
         ? "Editar Registro"
         : "Completar Registro";
     }
@@ -285,7 +298,7 @@ export default {
     /**
      * Obtener todas las habilidades
      */
-    getAll() {
+    getHabilities() {
       let self = this;
       self.$store.state.services.habilityService
         .getAll()
@@ -294,7 +307,6 @@ export default {
            * r respuesta del servidor
            */
           self.allHabilities = r.data;
-          console.log(self.allHabilities.id);
         })
         .catch(e => {
           alert("Error en obtener allHabilities " + e);
@@ -303,31 +315,32 @@ export default {
     /**
      * Obtener freelancer por id
      */
-    getById(key){
-      if (key == undefined) {
-        return
-      }
+    getById(key) {
       let self = this;
       self.$store.state.services.freelancerService
-      .getById(key)
-      .then(r=>{
-        self.ruleForm.name = r.data.name;
-        self.ruleForm.lastName = r.data.lastName;
-        self.ruleForm.biography = r.data.biography;
-        self.ruleForm.lat = r.data.lat;
-        self.ruleForm.long = r.data.long;
-        self.ruleForm.interest = r.data.interest;
-        self.ruleForm.habilities = r.data.habilities;
-        self.ruleForm.lenguaje = r.data.lenguaje;
-        self.ruleForm.profesion = r.data.profesion;
-        self.ruleForm.priceHour = r.data.priceHour;
-        self.ruleForm.phoneNumber =r.data.phoneNumber;
-      }).catch(e=>{
-        self.$notify.error({
-          title: 'title',
-          message: 'string|VNode'
+        .getById(key)
+        .then(r => {
+          self.loading = false;
+          self.ruleForm.name = r.data.name;
+          self.ruleForm.lastName = r.data.lastName;
+          self.ruleForm.biography = r.data.biography;
+          self.ruleForm.lat = r.data.lat;
+          self.ruleForm.long = r.data.long;
+          self.ruleForm.interest = r.data.interest;
+          self.ruleForm.id = r.data.id;
+          r.data.habilities.forEach(element => {
+            self.ruleForm.habilities.push({ id: element.id });
+            this.i++;
+          });
+
+          self.ruleForm.lenguaje = r.data.lenguaje;
+          self.ruleForm.profesion = r.data.profesion;
+          self.ruleForm.priceHour = r.data.priceHour;
+          self.ruleForm.phoneNumber = r.data.phoneNumber;
+        })
+        .catch(e => {
+          self.$router.push("/inicio");
         });
-      })
     },
     /**
      *Agrega la ubicacion al input
@@ -355,20 +368,54 @@ export default {
     },
 
     submitForm(form) {
-      let self= this;
+      let self = this;
       self.$refs[form].validate(valid => {
         if (valid) {
           /**
-           * Agregar freelancers
+           * Editar freelancers
            */
-          self.$store.state.services.freelancerService
-            .add(self.ruleForm, self.file)
-            .then(r => {
-            self.$router.push(`/freelancer/${self.ruleForm.applicationUserId}`);
-            });
+          if (
+            self.keyUser == self.ruleForm.applicationUserId &&
+            self.keyFreelancer > 0
+          ) {
+            self.$store.state.services.freelancerService
+              .update(self.ruleForm)
+              .then(r => {
+                self.$notify.success({
+                  message: "Su registro ha sido actualizado!",
+                  offset: 45
+                });
+                self.$router.push(
+                  `/freelancer/${self.ruleForm.applicationUserId}`
+                );
+              })
+              .catch(e => {
+                self.$notify.erro({
+                  message: "Su registro no ha sido actualizado!",
+                  offset: 45
+                });
+              });
+          } else {
+            /**
+             * Agregar freelancers
+             */
+            self.$store.state.services.freelancerService
+              .add(self.ruleForm)
+              .then(r => {
+                self.$router.push(
+                  `/freelancer/${self.ruleForm.applicationUserId}`
+                );
+              })
+              .catch(e => {
+                self.$notify.error({
+                  message: "Error al completar registro, intente de nuevo!",
+                  offset: 45
+                });
+              });
+          }
         } else {
           self.$notify.error({
-            message: 'Error al completar registro, intente de nuevo!',
+            message: "Intente de nuevo!",
             offset: 45
           });
           return false;
@@ -398,6 +445,9 @@ export default {
 
       self.$refs[formallHabilities].resetFields();
       // this.id = 0
+    },
+    onInput({ number, isValid, country }) {
+      console.log(number, isValid, country);
     }
   }
 };
@@ -443,6 +493,24 @@ export default {
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   width: 418px;
   /* right: 42px; */
+}
+.phone {
+  -webkit-appearance: none;
+  background-color: #fff;
+  background-image: none;
+  border-radius: 4px;
+  border: 1px solid #dcdfe6;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #606266;
+  display: inline-block;
+  font-size: 14px;
+  height: 40px;
+  line-height: 40px;
+  outline: 0;
+  padding: 0 15px;
+  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .ubicacion:hover {
   color: #909399;
