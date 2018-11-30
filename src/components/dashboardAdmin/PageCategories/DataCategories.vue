@@ -3,8 +3,9 @@
         <h4>Categorias existentes</h4>
              <div class="table-categories">
                  <el-table empty-text="No se encontraron resultados" height="280" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"  style="width: 98%;margin-left:10px;;">
-                     <el-table-column  label="Nombre" prop="date"> </el-table-column>
-                     <el-table-column  label="Descripcion"  prop="name"></el-table-column>
+                  <el-table-column label="Nombre" prop="name"></el-table-column>
+                  <el-table-column  label="Descripcion"  prop="descripcion"> </el-table-column>
+                  <el-table-column  label="Icono"  prop="img"> </el-table-column>
 
                      <el-table-column  align="right">
                           <template slot="header" slot-scope="scope">
@@ -113,35 +114,7 @@ width: 70%;
       return {
         dialogFormEditarVisible:false,
         dialogFormEliminarVisible:false,
-        tableData: [
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        }, 
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        }, 
-        {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles',
-        }, 
-        {
-          date: '2016-05-04',
-          name: 'John',
-          address: 'No. 189, Grove St, Los Angeles',
-        }, {
-          date: '2016-05-01',
-          name: 'Morgan',
-          address: 'No. 189, Grove St, Los Angeles',
-        }, {
-          date: '2016-05-03',
-          name: 'Jessy',
-          address: 'No. 189, Grove St, Los Angeles',
-        }],
+        tableData: [],
         search: '',
         ruleForm:{
             nombreCategoria:null,
@@ -150,13 +123,32 @@ width: 70%;
         }
       }
     },
+
+    mounted (){
+
+     this.getAll();  
+
+    },
+
+
     methods: {
       handleEdit(index, row) {
         console.log(index, row);
       },
       handleDelete(index, row) {
         console.log(index, row);
-      }
+      },
+
+      getAll() {
+      let self = this;
+      self.$store.state.services.categoryService
+        .getAll()
+        .then(r => {
+          self.tableData = r.data;
+       
+    
+        })
+           }
     },
   }
 </script>

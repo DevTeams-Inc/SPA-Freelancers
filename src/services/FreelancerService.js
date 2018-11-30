@@ -33,7 +33,11 @@ class FreelancerService{
     
     remove(id){
         return this.axios.delete(`${this.apiUrl}/${id}`)
-  }
+    }
+
+    getMap(){
+        return this.axios.get(`${this.apiUrl}/map`)
+    }
 }
 
 export default FreelancerService

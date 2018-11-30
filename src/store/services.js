@@ -5,6 +5,7 @@ import HomeService from '../services/HomeService';
 import HabilityService from '../services/HabilityService';
 import AccountService from '../services/AccountService';
 import ProyectService from  '../services/ProyectService';
+import CategoryService from '../services/CategoryService';
 
 //Axios configuration
 Axios.defaults.headers.common.Accept = "application/json";
@@ -24,6 +25,6 @@ export default {
   homeService: new HomeService(Axios , apiUrl),
   habilityService: new HabilityService(Axios , apiUrl),
   accountService: new AccountService(Axios, apiUrl),
-  proyectService:new ProyectService(Axios,apiUrl)
-
+  proyectService:new ProyectService(Axios,apiUrl),
+  categoryService: new CategoryService(Axios,apiUrl)
 };
