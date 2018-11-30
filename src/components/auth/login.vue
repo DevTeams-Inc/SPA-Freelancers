@@ -1,7 +1,7 @@
     <template>
 <el-row :gutter="10" class="mt-5 p-3 " justify="space-around" type="flex">
     <el-col class="hidden-sm-and-down">
-        <img class="animated fadeInUp" src="@/assets/img/logindesing.svg" width="550px" alt="" >
+        <img class="animated fadeInRight" src="@/assets/img/logindesing.svg" width="550px" alt="" >
     </el-col>
 <el-col>
 <el-row type="flex" justify="center">

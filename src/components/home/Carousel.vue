@@ -10,7 +10,10 @@
                             Reiciendis eveniet dolores placeat nihil fugiat esse officia ab, 
                             deserunt similique quod illo eum nemo repellat.</p>
                     </div>
-                    <button class="btn btn-primary btn-search animated fadeInLeft">Buscar Freelancers</button>
+                    <button 
+                    class="btn btn-primary btn-search animated fadeInLeft"
+                    @click="$router.push('/freelancers')"
+                    >Buscar Freelancers</button>
             </div>
             <div class="col animated fadeInRight">
             <img class="img-carousel" src="@/assets/img/3.svg" alt="" width="685px">               
