@@ -52,6 +52,8 @@
                   <el-tag
                     v-for="(hability, index) in data.habilities"
                     :key="index"
+                    closable
+                    @close="removeHability(hability.id , data.id)"
                     class="mb-2"
                     type="success"
                   >{{hability.title}}</el-tag>
@@ -220,7 +222,11 @@ export default {
           name: "",
           img: ""
         }
-      ]
+      ],
+      deleteHability:{
+          freelancer:null,
+          hability:null
+      }
     };
   },
   mounted() {
@@ -313,6 +319,23 @@ export default {
         .catch(e => {
           console.log("no funciono");
         });
+    },
+    removeHability(hability , freelancer){
+      let self =  this
+      self.deleteHability.freelancer = freelancer
+      self.deleteHability.hability = hability
+      self.$store.state.services.freelancerService
+      .deleteHability(self.deleteHability)
+      .then(r =>{})
+      .catch(e =>{
+        self.$notify.error({
+          title: "Error",
+          message: "No se pudo eliminar la habilida",
+          offset: 50,
+          duration: 2200
+        });
+      })
+
     }
   },
   computed: {

@@ -38,6 +38,10 @@ class FreelancerService{
     getMap(){
         return this.axios.get(`${this.apiUrl}/map`)
     }
+    
+    deleteHability(model){
+        return this.axios.post(`${this.apiUrl}/delete/hability`,model);
+    }
 }
 
 export default FreelancerService

@@ -187,8 +187,8 @@ export default {
         biography: {
           required: true,
           min: 8,
-          max: 200,
-          message: "Debes tener de 8 a 200 caracteres.",
+          max: 260,
+          message: "Debes tener de 8 a 260 caracteres.",
           trigger: "blur"
         },
         profesion: {
