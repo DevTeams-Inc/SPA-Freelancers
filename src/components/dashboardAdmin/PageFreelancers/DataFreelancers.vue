@@ -109,9 +109,6 @@ margin-top:20px;
      this.getAll();  
 
     },
-    updated(){
-      this.getAll();
-    },
     methods: {
       handleEdit(index, row) {
         console.log(index, row);
@@ -143,6 +140,7 @@ margin-top:20px;
            message:"Se ha eliminado el freelancer",
            type:"success"
          });
+         self.getAll()
        })
        .catch(e=>{
          self.$notify({

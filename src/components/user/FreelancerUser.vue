@@ -185,6 +185,7 @@
 </template>
 <script>
 import { EventBus } from "../../helpers/event-bus";
+import { setTimeout } from 'timers';
 // import map from "../location/googleMaps";
 export default {
   props: ["id"],
@@ -231,16 +232,15 @@ export default {
       }
     };
   },
-  mounted() {
+  created(){
     this.getUser(this.id);
+  },
+  mounted() {
     this.getLocation();
     EventBus.$once("profile", id => {
       this.loadingprofile = true;
-      this.getUser(id);
+      this.getUser(this.id);
     });
-  },
-  updated() {
-    this.getUser(this.id);
   },
   methods: {
     getUser(id) {
@@ -327,7 +327,9 @@ export default {
       self.deleteHability.hability = hability
       self.$store.state.services.freelancerService
       .deleteHability(self.deleteHability)
-      .then(r =>{})
+      .then(r =>{
+        self.getUser(this.id);
+      })
       .catch(e =>{
         self.$notify.error({
           title: "Error",

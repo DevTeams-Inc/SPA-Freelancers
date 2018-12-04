@@ -164,10 +164,10 @@ export default {
         applicationUserId: localStorage.getItem("user_id")
       },
       rules: {
-        name: { 
-          required: true, 
-          message: "Ingrese un nombre", 
-          trigger: "blur" 
+        name: {
+          required: true,
+          message: "Ingrese un nombre",
+          trigger: "blur"
         },
         habilities: {
           required: true,
@@ -197,10 +197,10 @@ export default {
           trigger: "blur"
         },
         priceHour: {
-            required: true,
-            message: "Ingrese un precio por hora.",
-            trigger: "blur"
-          }
+          required: true,
+          message: "Ingrese un precio por hora.",
+          trigger: "blur"
+        }
       }
     };
   },
@@ -212,9 +212,7 @@ export default {
      * Solo se obtiene los datos si existe el id del freelancer
      * de lo contrario se reedireciona al inicio
      * */
-    if (
-      self.keyUser == self.ruleForm.applicationUserId
-    ) {
+    if (self.keyUser == localStorage.getItem('user_id')) {
       self.getById(self.keyUser);
     } else {
       self.$router.push("/inicio");
@@ -338,7 +336,8 @@ export default {
           self.ruleForm.phoneNumber = r.data.phoneNumber;
         })
         .catch(e => {
-          self.$router.push("/inicio");
+          //si no me trae dato estamos completando registro
+         // self.$router.push("/inicio");
         });
     },
     /**

@@ -74,10 +74,6 @@ export default {
     let self = this;
     self.getAll();
   },
-  updated() {
-    let self = this;
-    self.getAll();
-  },
   methods: {
     getAll() {
       let self = this;
@@ -98,6 +94,7 @@ export default {
             message: "Se ha eliminado la habilidad",
             type: "success"
           });
+          self.getAll();
         })
         .catch(e => {
           self.$notify({
@@ -133,6 +130,7 @@ export default {
                 message: "Habilidad editada con exito",
                 type: "success"
               });
+                self.getAll();
             })
             .catch(e => {
               self.$notify({

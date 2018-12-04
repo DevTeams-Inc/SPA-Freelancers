@@ -2,13 +2,16 @@ class FreelancerService{
 
     axios
     apiUrl
+    autenticacion
 
     constructor(axios,apiUrl){
         this.axios = axios
         this.apiUrl = `${apiUrl}api/freelancers`
+        //this.autenticacion = this.axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("access_token")
     }
 
     getAll(page) {
+      //  this.autenticacion
         return this.axios.get(`${this.apiUrl}/getall/${page}`)
     }
 
