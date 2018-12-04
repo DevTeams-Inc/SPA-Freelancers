@@ -2,7 +2,7 @@
     <div class="container-dataFreelancers">
          <h4>Freelancers registrados</h4>
          <div class="table-freelancers">
-             <el-table empty-text="No se encontraron resultados" height="280" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"  style="width: 98%;margin-left:10px;;">
+             <el-table empty-text="No se encontraron resultados" height="280" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"  v-loading="loading" style="width: 98%;margin-left:10px;;">
                  <el-table-column label="Nombre" prop="name"> </el-table-column>
                  <el-table-column label="Apellido" prop="lastName"> </el-table-column>
                  <el-table-column label="Email" prop="email"> </el-table-column>
@@ -138,6 +138,7 @@ margin-top:20px;
        self.$store.state.services.freelancerService
        .remove(self.id)
        .then(r=>{
+      
          self.$notify({
            title:"Eliminado",
            message:"Se ha eliminado el freelancer",
@@ -151,6 +152,9 @@ margin-top:20px;
            type:"Error"
          });
        });
+
+               loading: true
+
      }
     },
 

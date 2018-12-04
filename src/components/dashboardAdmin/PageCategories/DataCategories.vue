@@ -4,7 +4,7 @@
              <div class="table-categories">
                  <el-table empty-text="No se encontraron resultados" height="280" :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"  style="width: 98%;margin-left:10px;">
                   <el-table-column label="Nombre" prop="name"></el-table-column>
-                  <el-table-column  label="Descripcion"  prop="descripcion"> </el-table-column>
+                  <el-table-column  label="descripcion"  prop="descripcion"> </el-table-column>
                   <el-table-column  label="Icono"  prop="img"> </el-table-column>
 
                      <el-table-column  align="right">
@@ -13,7 +13,7 @@
                           </template>
 
                           <template slot-scope="scope">
-                            <div class="botones-table-categorie">
+                            <div class="botones-table-categorie" prop="id">
                               <el-button id="botonesDialog" size="mini" @click="dialogFormEditarVisible=true, id = scope.row.id , getById()">editar</el-button>
                               <el-button  id="botonesDialog" size="mini"  type="danger"  @click="dialogFormEliminarVisible=true, id=scope.row.id">Eliminar</el-button>
                             </div>
@@ -23,23 +23,23 @@
                
                    <el-dialog title="Editar Categoria" :visible.sync="dialogFormEditarVisible">
                         <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-                            <el-form-item prop="nombreCategoria">
+                            <el-form-item prop="name">
                                <el-input   v-model="ruleForm.name"   placeholder="Nombre de la categoria"   size="medium">
                                </el-input>
                              </el-form-item>
-                            <el-form-item prop="descripcionCategoria">
-                                 <el-input  v-model="ruleForm.Descripcion"  placeholder="Descripcion de la categoria"  size="medium"  type="textarea">
+                            <el-form-item prop="descripcion">
+                                 <el-input  v-model="ruleForm.descripcion"  placeholder="descripcion de la categoria"  size="medium"  type="textarea">
                                  </el-input>
                             </el-form-item>
-                            <el-form-item prop="iconoCategoria">
-                               <el-input  v-model="ruleForm.Img"  placeholder="icono de la categoria"  size="medium">
+                            <el-form-item prop="img">
+                               <el-input  v-model="ruleForm.img"  placeholder="icono de la categoria"  size="medium">
                                </el-input>
                              </el-form-item>
                         </el-form>
                         <span slot="footer" class="dialog-footer">
                           <div class="botones-dialog">
                             <el-button id="botonesDialog" @click="dialogFormEditarVisible = false">Cancel</el-button>
-                            <el-button id="botonesDialog" @click=" edit('model'), dialogoFormEditarVisible=false" type="primary">Guardar Cambios</el-button>
+                            <el-button id="botonesDialog" @click=" edit('ruleForm') , dialogoFormEditarVisible=false" type="primary">Guardar Cambios</el-button>
                           </div>
                         </span>
                  </el-dialog>
@@ -49,6 +49,7 @@
                     <el-button id="botonesDialog" @click="remove(), dialogFormEliminarVisible = false" type="primary">Si</el-button>
                    </div>
                  </el-dialog>
+                 
                       </div>
               </div>
 </template>
@@ -114,23 +115,17 @@ width: 70%;
       return {
         dialogFormEditarVisible:false,
         dialogFormEliminarVisible:false,
-         id: 0,
+              id: 0,
        tableData: [],
         search: '',
-       
-    
-      
-      model: {
-        id: 0,
-         name: null,
-        Description: null
-      },
+
 
 
         ruleForm:{
-            nombreCategoria:null,
-            descripcionCategoria:null,
-            iconoCategoria:null,
+            id: 0,
+            name:null,
+            descripcion:null,
+            img:null,
         },   rules: {
           
           name: {
@@ -138,12 +133,12 @@ width: 70%;
           message: "nombre categoria no puede estar vacio",
           trigger: "blur"
         },
-            Descripcion: {
+            descripcion: {
           required: true,
-          message: "Descripcion categoria no puede estar vacio",
+          message: "descripcion categoria no puede estar vacio",
           trigger: "blur"
         },
-           Img: {
+           img: {
           required: true,
           message: "La imagen categoria no puede estar vacio",
           trigger: "blur"
@@ -158,10 +153,10 @@ width: 70%;
     mounted (){
 
      this.getAll();  
-
-    },
+      
+      },
     
- updated() {
+ beforeUpdate() {
     this.getAll();
   },
 
@@ -184,6 +179,7 @@ width: 70%;
     
         })
            },
+
       remove() {
       let self = this;
       self.$store.state.services.categoryService
@@ -203,24 +199,41 @@ width: 70%;
           });
         });
     },
+
+     getById() {
+      let self = this;
+      self.$store.state.services.categoryService
+        .getById(this.id)
+        .then(r => {
+                    
+          self.ruleForm.id = r.data.id;
+          self.ruleForm.name = r.data.name;
+          self.ruleForm.descripcion = r.data.descripcion;
+          self.ruleForm.img = r.data.img;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+
         edit(formName) {
       let self = this;
       self.$refs[formName].validate(valid => {
         if (valid) {
           let self = this;
           self.$store.state.services.categoryService
-            .edit(self.model)
+            .edit(self.ruleForm)
             .then(r => {
               self.$notify({
                 title: "Exito",
-                message: "Habilidad editada con exito",
+                message: "Categoria editada con exito",
                 type: "success"
               });
             })
             .catch(e => {
               self.$notify({
                 title: "Error",
-                message: "No se ha podido editar la habilidad",
+                message: "No se ha podido editar la categoria",
                 type: "Error"
               });
             });

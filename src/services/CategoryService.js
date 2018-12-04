@@ -21,9 +21,15 @@ class CategoryService {
         return this.axios.delete(`${this.apiUrl}/${id}`)
     }
 
+    getById(id){
+        return this.axios.get(`${this.apiUrl}/${id}`)
+    }
+
     edit(model){
         return this.axios.put(`${this.apiUrl}`,model)
     }
+
+
 
 }
 

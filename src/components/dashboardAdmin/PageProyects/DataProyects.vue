@@ -6,8 +6,7 @@
         empty-text="No se encontraron resultados"
         height="280"
         :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-        style="width: 98%;margin-left:10px;;"
-      >
+        style="width: 98%;margin-left:10px;;">
         <el-table-column label="Fecha" prop="createdAt"></el-table-column>
         <el-table-column label="Titulo" prop="title"></el-table-column>
         <el-table-column label="Alcance" prop="scope"></el-table-column>
