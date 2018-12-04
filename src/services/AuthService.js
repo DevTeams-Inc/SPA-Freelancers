@@ -5,7 +5,7 @@ class AuthService{
         this.axios = axios;
         this.apiUrl = `${apiUrl}api/accounts`;
         //recordar colocar esto en cada servicio
-        // this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
+         //this.axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
     }
 
     login(user){

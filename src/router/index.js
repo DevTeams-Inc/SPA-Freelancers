@@ -6,7 +6,6 @@ import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
 import completeRegister from "@/components/freelancers/completeRegister";
 
-import googlemap from "@/components/location/googleMap";
 import autocomplete from "@/components/location/autocomplete";
 
 import Proyects from "@/components/proyect/Proyects";
@@ -14,6 +13,7 @@ import ProyectPost from "@/components/proyect/ProyectPost/Post";
 
 import FreelancerUser from "@/components/user/FreelancerUser";
 import Freelancers from "@/components/freelancers/Freelancers";
+import PerfilFreelancer from "@/components/user/perfilFreelancerTest/Freelanceruser";
 
 import SendEmail from "@/components/email/SendEmail";
 import EmailValidation from "@/components/email/EmailConfirmed";
@@ -91,14 +91,6 @@ export default new Router({
       }
     },
     {
-      path: "/map",
-      name: "map",
-      component: googlemap,
-      meta: {
-        requiresVisitor: true
-      }
-    },
-    {
       path: "/autocomplete",
       name: "autocomplete",
       component: autocomplete,
@@ -123,6 +115,17 @@ export default new Router({
         requiresAuth: false
       }
     },
+    //PerfilFreelancerTest//
+    {
+      path: "/Perfilfreelancer",
+      name: "perfilfreelancer",
+      props: true,
+      component: PerfilFreelancer,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    ////////////////////////////
     {
       path: "/email/validacion",
       name: "email/validate",
