@@ -41,15 +41,9 @@ class FreelancerService{
     getMap(){
         return this.axios.get(`${this.apiUrl}/map`)
     }
-<<<<<<< HEAD
-
-    sendMessage(model){
-        return this.axios.post(`${this.apiUrl}/contact`, model)
-=======
     
     deleteHability(model){
         return this.axios.post(`${this.apiUrl}/delete/hability`,model);
->>>>>>> 3ebe08ebf88d16bf19b21d975e48b382be101fbe
     }
 }
 
