@@ -42,7 +42,7 @@
             id="botonesDialog"
             @click="remove() , dialogFormEliminarVisible = false"
             type="primary"
- >Si</el-button>
+          >Si</el-button>
         </div>
       </el-dialog>
       <el-dialog title="Editar Habilidad" :visible.sync="dialogFormEditarVisible">
@@ -126,11 +126,8 @@ export default {
             message: "Se ha eliminado la habilidad",
             type: "success"
           });
-<<<<<<< HEAD
           self.getAll();
-=======
           this.loading = false;
->>>>>>> 55a095ba72f4a0afb944415bba70ad41f643957c
         })
         .catch(e => {
           self.$notify({
@@ -144,13 +141,16 @@ export default {
     getById() {
       let self = this;
       this.loading = true;
-      self.$store.state.services.habilityService.getById(this.id).then(r => {
-        self.model.title = r.data.title;
-        self.model.description = r.data.description;
-        self.model.id = r.data.id;
-      }).catch(e => {
-        console.log(e);
-      });
+      self.$store.state.services.habilityService
+        .getById(this.id)
+        .then(r => {
+          self.model.title = r.data.title;
+          self.model.description = r.data.description;
+          self.model.id = r.data.id;
+        })
+        .catch(e => {
+          console.log(e);
+        });
       this.loading = false;
     },
     edit(formName) {
@@ -167,12 +167,8 @@ export default {
                 message: "Habilidad editada con exito",
                 type: "success"
               });
-<<<<<<< HEAD
-                self.getAll();
-=======
-               
-                            this.loading = false;
->>>>>>> 55a095ba72f4a0afb944415bba70ad41f643957c
+              self.getAll();
+              this.loading = false;
             })
             .catch(e => {
               self.$notify({
@@ -180,8 +176,8 @@ export default {
                 message: "No se ha podido editar la habilidad",
                 type: "Error"
               });
-               
-                            this.loading = false;
+
+              this.loading = false;
             });
         }
       });

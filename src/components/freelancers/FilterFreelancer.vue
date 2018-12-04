@@ -31,16 +31,8 @@
             </div>
             <div class="section-FiltroRating-freelancers">
                       <h4>Clasificacion</h4>
-                      <el-checkbox style="display:none;" :label="rating" > </el-checkbox>
-                      <el-checkbox  :label="rating1" >
-                        <el-rate v-model="rating1" disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
-                     </el-checkbox>
-                     <el-checkbox  :label="rating2" >
-                       <el-rate v-model="rating2" disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
-                     </el-checkbox>
-                    <el-checkbox  :label="rating3">
-                       <el-rate v-model="rating3" disabled  show-score text-color="#ff9900"  score-template="{value} puntos"></el-rate>
-                    </el-checkbox>    
+             <el-rate  @change="search(rating)" v-model="rating"></el-rate>
+
             </div>
           </div>
         </el-collapse-item>
@@ -79,25 +71,9 @@
                  
         </div>
         <div class="mt-5 section-FiltroRating-freelancers">
-          <h4 class>Filtrar por clasificacion</h4>
+          <h4 class>filter por clasificacion</h4>
           <div class="ml-2 mblock">
-               <el-checkbox style="display:none;" :label="rating" > </el-checkbox>
-               <el-checkbox  :label="rating1" >
-                  <el-rate v-model="rating1"  disabled  show-score text-color="#ff9900" score-template="{value} punto" ></el-rate>
-               </el-checkbox>
-               <el-checkbox  :label="rating2" >
-                  <el-rate v-model="rating2"  disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
-               </el-checkbox>
-               <el-checkbox  :label="rating3" >
-                  <el-rate v-model="rating3"  disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
-               </el-checkbox>
-               <el-checkbox  :label="rating4" >
-                  <el-rate v-model="rating4"  disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
-               </el-checkbox>
-               <el-checkbox  :label="rating5" >
-                  <el-rate v-model="rating5"  disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
-               </el-checkbox>
-            <!-- <el-rate disabled @change="search(rating)" v-model="rating"></el-rate> -->
+            <el-rate  @change="search(rating)" v-model="rating"></el-rate>
           </div>
         </div>
       </div>
@@ -109,11 +85,7 @@ import { EventBus } from "../../helpers/event-bus";
 export default {
   data() {
     return {
-      rating4:4,
-      rating1:1,
-      rating2:2,
-      rating3:3,
-      rating5:5,
+      rating:0,
       searchHability: "",
       Areas:[],
       Actividades: [
@@ -202,9 +174,10 @@ export default {
         .catch(e => {});
     },
     search(value) {
-      EventBus.$emit("search", value);
+      console.log(value)
+      // EventBus.$emit("search", value);
     },
-    Filtrar(){
+    filter(){
 
     },
     ShowHabilities(idCategory){
