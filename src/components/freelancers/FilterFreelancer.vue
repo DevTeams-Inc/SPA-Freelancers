@@ -5,7 +5,7 @@
         <el-collapse-item title="Filtro " name="1">
           <h2 class="h2-Filtro">Freelancers Profesionales</h2>
           <div class="All-filtro-freelancers">
-            <!-- <div class="section-FiltroCategoria-freelancers">
+            <div class="section-FiltroCategoria-freelancers">
                    <h4 class="h4-Categoria">Actividad de freelancer</h4>
                     <el-select v-model="ActividadSelect" clearable placeholder="selecciona actividad requerida">
                           <el-option  v-for="item in Actividades" 
@@ -14,41 +14,34 @@
                           :value="item.value">
                           </el-option>
                     </el-select>   
-            </div>-->
-            <div class="section-FiltroHabilidades-freelancers">
-              <h4>Habilidades</h4>
-
-              <el-select v-model="searchHability" filterable placeholder="Habilidad">
-                <el-option
-                  v-for="hability in habilities"
-                  :key="hability.id"
-                  :label="hability.title"
-                  :value="hability.id"
-                ></el-option>
-              </el-select>
             </div>
-            <!-- <div class="section-FiltroUbicacion-freelancers">
-                      <h4>Ubicacion del Freelancer</h4>
+           <div class="section-FiltroHabilidades-freelancers">
+             <h4>Habilidades</h4>
+             <el-select v-model="searchHability" filterable placeholder="Habilidad">
+                <el-option v-for="hability in habilities" :key="hability.id" :label="hability.title" :value="hability.id"></el-option>
+              </el-select>
+           </div>
+
+           <div class="section-FiltroUbicacion-freelancers">
+              <h4>Ubicacion del Freelancer</h4>
                       <el-select v-model="CiudadSelect" clearable placeholder="selecciona la ciudad"> 
                         <el-option  v-for="item in Ciudades" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
                       </el-select><br>
-                      <el-select v-model="RangoSelect"  clearable placeholder="rango de distancia" style="margin-top:10px;"> 
-                         <el-option  v-for="item in Rangos" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
-                      </el-select>
-            </div>-->
-            <!-- <div class="section-FiltroRating-freelancers">
+                  
+            </div>
+            <div class="section-FiltroRating-freelancers">
                       <h4>Clasificacion</h4>
-                      <el-checkbox style="display:none;" :label="city" > </el-checkbox>
-                      <el-checkbox  :label="city" >
+                      <el-checkbox style="display:none;" :label="rating" > </el-checkbox>
+                      <el-checkbox  :label="rating1" >
                         <el-rate v-model="rating1" disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
                      </el-checkbox>
-                     <el-checkbox  :label="city" >
+                     <el-checkbox  :label="rating2" >
                        <el-rate v-model="rating2" disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
                      </el-checkbox>
-                    <el-checkbox  :label="city">
+                    <el-checkbox  :label="rating3">
                        <el-rate v-model="rating3" disabled  show-score text-color="#ff9900"  score-template="{value} puntos"></el-rate>
                     </el-checkbox>    
-            </div>-->
+            </div>
           </div>
         </el-collapse-item>
       </el-collapse>
@@ -56,21 +49,20 @@
     <div class="container-FiltroFreelancers">
       <h2 class="h2-Filtro">Freelancers Profesionales</h2>
       <div class="All-filtro-freelancers">
-        <!-- <div class="section-FiltroCategoria-freelancers">
-                   <h4 class="h4-Categoria">Actividad de freelancer</h4>
-                    <el-select v-model="ActividadSelect" clearable placeholder="selecciona actividad requerida">
-                          <el-option  v-for="item in Actividades" :key="item.value" :label="item.label" :value="item.value">
+        <div class="section-FiltroCategoria-freelancers">
+                   <h4 class="h4-Categoria">Area del freelancer</h4>
+                    <el-select @clear="removeHabilitySelect" @change="ShowHabilities(ActividadSelect)" v-model="ActividadSelect" clearable placeholder="selecciona actividad requerida">
+                          <el-option   v-for="item in Areas" :key="item.id" :label="item.name" :value="item.id">
                           </el-option>
-                    </el-select>   
-        </div>-->
+            </el-select>   
+        </div>
         <div class="section-FiltroHabilidades-freelancers">
           <h4>Habilidades</h4>
           <el-select
             v-model="searchHability"
             @change="search(searchHability)"
             filterable
-            placeholder="Habilidad"
-          >
+            placeholder="Habilidad"  >
             <el-option
               v-for="(hability, index) in habilities"
               :key="index"
@@ -79,19 +71,33 @@
             ></el-option>
           </el-select>
         </div>
-        <!-- <div class="section-FiltroUbicacion-freelancers">
+        <div class="section-FiltroUbicacion-freelancers">
                       <h4>Ubicacion del Freelancer</h4>
                       <el-select v-model="CiudadSelect" clearable placeholder="selecciona la ciudad"> 
                         <el-option  v-for="item in Ciudades" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
                       </el-select><br>
-                      <el-select v-model="RangoSelect"  clearable placeholder="rango de distancia" style="margin-top:10px;"> 
-                         <el-option  v-for="item in Rangos" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
-                      </el-select>
-        </div>-->
+                 
+        </div>
         <div class="mt-5 section-FiltroRating-freelancers">
           <h4 class>Filtrar por clasificacion</h4>
           <div class="ml-2 mblock">
-            <el-rate @change="search(rating)" v-model="rating"></el-rate>
+               <el-checkbox style="display:none;" :label="rating" > </el-checkbox>
+               <el-checkbox  :label="rating1" >
+                  <el-rate v-model="rating1"  disabled  show-score text-color="#ff9900" score-template="{value} punto" ></el-rate>
+               </el-checkbox>
+               <el-checkbox  :label="rating2" >
+                  <el-rate v-model="rating2"  disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
+               </el-checkbox>
+               <el-checkbox  :label="rating3" >
+                  <el-rate v-model="rating3"  disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
+               </el-checkbox>
+               <el-checkbox  :label="rating4" >
+                  <el-rate v-model="rating4"  disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
+               </el-checkbox>
+               <el-checkbox  :label="rating5" >
+                  <el-rate v-model="rating5"  disabled  show-score text-color="#ff9900" score-template="{value} puntos" ></el-rate>
+               </el-checkbox>
+            <!-- <el-rate disabled @change="search(rating)" v-model="rating"></el-rate> -->
           </div>
         </div>
       </div>
@@ -103,8 +109,13 @@ import { EventBus } from "../../helpers/event-bus";
 export default {
   data() {
     return {
-      rating: 0,
+      rating4:4,
+      rating1:1,
+      rating2:2,
+      rating3:3,
+      rating5:5,
       searchHability: "",
+      Areas:[],
       Actividades: [
         {
           value: "Option1",
@@ -166,26 +177,42 @@ export default {
   },
   mounted() {
     let self = this;
-    self.getAll();
+    self.getAllCategorias();
   },
   methods: {
     /*
      *Habilidades
      */
-    getAll() {
+    getAll(idCategory) {
       let self = this;
       self.$store.state.services.habilityService
-        .getAll()
+        .getAllCategory(idCategory)
         .then(r => {
           self.habilities = r.data;
+        })
+        .catch(e => {});
+    },
+    getAllCategorias(){
+          let self = this;
+          self.$store.state.services.categoryService
+        .getAll()
+        .then(r => {
+          self.Areas = r.data;
         })
         .catch(e => {});
     },
     search(value) {
       EventBus.$emit("search", value);
     },
-    ya() {
-      console.log(this.rating);
+    Filtrar(){
+
+    },
+    ShowHabilities(idCategory){
+      this.searchHability='';
+       this.getAll(idCategory);
+    },
+    removeHabilitySelect(){
+      this.searchHability='';
     }
   }
 };

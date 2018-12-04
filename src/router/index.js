@@ -14,6 +14,7 @@ import ProyectPost from "@/components/proyect/ProyectPost/Post";
 
 import FreelancerUser from "@/components/user/FreelancerUser";
 import Freelancers from "@/components/freelancers/Freelancers";
+import PerfilFreelancer from "@/components/user/perfilFreelancerTest/Freelanceruser";
 
 import SendEmail from "@/components/email/SendEmail";
 import EmailValidation from "@/components/email/EmailConfirmed";
@@ -123,6 +124,17 @@ export default new Router({
         requiresAuth: false
       }
     },
+    //PerfilFreelancerTest//
+    {
+      path: "/Perfilfreelancer",
+      name: "perfilfreelancer",
+      props: true,
+      component: PerfilFreelancer,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    ////////////////////////////
     {
       path: "/email/validacion",
       name: "email/validate",
