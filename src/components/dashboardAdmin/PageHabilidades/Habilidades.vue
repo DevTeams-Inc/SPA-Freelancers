@@ -1,6 +1,7 @@
 <template>
      <div class="container-AdminHabilidades">
        <div class="showYadd-Habilidades">
+
            <data-habilidades></data-habilidades>
            <add-habilidades></add-habilidades>
        </div>

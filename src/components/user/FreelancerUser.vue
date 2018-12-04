@@ -234,6 +234,8 @@ export default {
   },
   created(){
     this.getUser(this.id);
+    console.log(this.id);
+  
   },
   mounted() {
     this.getLocation();

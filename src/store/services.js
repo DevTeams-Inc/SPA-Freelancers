@@ -11,18 +11,12 @@ import CategoryService from '../services/CategoryService';
 Axios.defaults.headers.common.Accept = "application/json";
 
 //residencia
- let apiUrl = "http://192.168.1.139:45455/";
+//  let apiUrl = "http://localhost:57455/";
 //devteams
 // let apiUrl = "http://localhost:57455/";
-//let apiUrl = "http://192.168.96.117:45456/";
+// let apiUrl = "http://192.168.96.117:45455/";
 //devteams
-//let apiUrl = "http://192.168.1.139:45455/";
-<<<<<<< HEAD
-=======
-//local
- let apiUrl = "http://localhost:57455/";
-
->>>>>>> 3ebe08ebf88d16bf19b21d975e48b382be101fbe
+let apiUrl = "http://192.168.1.139:45455/";
 
 export default {
   authService: new AuthService(Axios, apiUrl),

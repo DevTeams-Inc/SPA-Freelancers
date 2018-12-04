@@ -16,6 +16,11 @@
                     <div class="category-Mini">
                           <a href=""><h4>Medicina</h4></a>
                      </div>
+                    <div class="contact-Mini">
+                        <h4> <i style="padding-right:5px;" class="el-icon-phone-outline"></i> </h4><p >80952105204</p>
+                        <h4><i style="padding-right:10px;" class="fas fa-language"></i></h4><p>Español</p>
+                     </div>
+                    
                 </div>
 
                 <div class="rightTop-MiniPerfil">
@@ -35,6 +40,7 @@
                       <el-tag size="mini" closable><a href=""> Doctor </a></el-tag>
                 </div>
                 <div class="contactar-MiniPerfil">
+           
                        <el-button style="width:45px;margin-left:90px;" type="secondary" icon="el-icon-edit" circle></el-button>
                         <!-- <el-button  style="margin-left:90px;" type="primary">Contactar</el-button>  -->
                 </div>
@@ -70,7 +76,7 @@ export default {
 }
 .miniPerfil{
      position: relative;
-     height: 270px;
+     height: 300px;
      background-color: white;
      padding: 20px;
 }
@@ -79,6 +85,17 @@ export default {
      margin-top: 20px;
      background-color: white;
      display: flex;
+}
+.contact-Mini{
+     display: flex;
+     color: #409eff;;
+}
+.contact-Mini h4{
+ font-size: 15px;
+padding-left: 20px;
+}
+.contact-Mini p{
+ font-size: 12.7px;
 }
 .price{
      padding-top: 15px;
@@ -159,6 +176,7 @@ export default {
      display: flex;
  margin-top:7px; 
 }
+
 .componenteUbicacion{
     padding-top:10px; 
     padding-left: 15px;
