@@ -33,7 +33,6 @@
                         <h4><i style="padding-right:10px;" class="fas fa-language"></i></h4><p>{{data.lenguaje}}</p>
           </div>
         </div>
-
         <div class="rightTop-MiniPerfil">
           <div class="texto-mini">
             <h4>{{data.name}} {{data.lastName}}</h4>

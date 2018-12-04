@@ -2,7 +2,8 @@
 <div>
        <el-card shadow="hover">
        <slot>
-       <img src="@/assets/logo.png" height="75px">
+         <i :class="">{{img}}</i>
+       <!-- <img src="@/assets/logo.png" height="75px"> -->
         <h6 class="mt-2">{{title}}</h6>
        </slot>
      </el-card>

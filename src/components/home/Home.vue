@@ -12,7 +12,7 @@
         <div class="col">
             <el-row  :gutter="10">
             <el-col v-for="(item , index) in categories" :key="index" class="mt-1" :xs="24" :sm="8" :md="8" :lg="8" :xl="8" >
-                <Category :title="item.name" ></Category>
+                <Category :title="item.name" :icon="item.img" ></Category>
             </el-col>
         </el-row>
         </div>  
