@@ -22,6 +22,11 @@ class FreelancerService{
     search(query){
         return this.axios.get(`${this.apiUrl}/search?query=${query}`)
     }
+
+    filter(idHability,rate){
+        return this.axios.get(`${this.apiUrl}/filter?idHability=${idHability}&rate=${rate}`)
+    }
+
     add(model){
         return this.axios.post(`${this.apiUrl}`,model);
       }
@@ -45,6 +50,12 @@ class FreelancerService{
     deleteHability(model){
         return this.axios.post(`${this.apiUrl}/delete/hability`,model);
     }
+
+    userExist(id){
+        return this.axios.get(`${this.apiUrl}/exist/${id}`)
+    }
+
+
 }
 
 export default FreelancerService

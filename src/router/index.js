@@ -62,7 +62,7 @@ export default new Router({
       meta: {
         requiresAuth: true,
         requiresVisitor: false,
-        hideFooter: true,
+        hideFooter: true
       }
     },
     {
@@ -83,7 +83,7 @@ export default new Router({
     },
     {
       path: "/completar/registro/:keyFreelancer/:keyUser",
-      props:true,
+      props: true,
       name: "completeregister",
       component: completeRegister,
       meta: {
@@ -110,22 +110,11 @@ export default new Router({
       path: "/freelancer/:id",
       name: "freelancer",
       props: true,
-      component: FreelancerUser,
-      meta: {
-        requiresAuth: false
-      }
-    },
-    //PerfilFreelancerTest//
-    {
-      path: "/Perfilfreelancer",
-      name: "perfilfreelancer",
-      props: true,
       component: PerfilFreelancer,
       meta: {
         requiresAuth: false
       }
     },
-    ////////////////////////////
     {
       path: "/email/validacion",
       name: "email/validate",
@@ -144,8 +133,8 @@ export default new Router({
       }
     },
     {
-      path: '/buscar/freelancers',
-      name: '/buscar/freelancer',
+      path: "/buscar/freelancers",
+      name: "/buscar/freelancer",
       component: SearchFreelancer,
       meta: {
         requiresAuth: false

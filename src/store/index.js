@@ -15,7 +15,8 @@ export default new Vuex.Store({
         userId: localStorage.getItem('user_id'),
         role: localStorage.getItem('user_role'),
         emailUser:localStorage.getItem('user_email'),
-        services:services 
+        services:services,
+        existe:null
     },
     //es como una propiedad computada pero compartida funciona para 
     //revisar si el usuario esta logueado o no
@@ -31,6 +32,9 @@ export default new Vuex.Store({
         },
         userRole(state){
             return state.role
+        },
+        existUser(state){
+            return state.existe
         }
     }
 })

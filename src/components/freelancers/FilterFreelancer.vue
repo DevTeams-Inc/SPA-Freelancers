@@ -31,7 +31,7 @@
             </div>
             <div class="section-FiltroRating-freelancers">
                       <h4>Clasificacion</h4>
-             <el-rate  @change="search(rating)" v-model="rating"></el-rate>
+             <el-rate  @change="filter()" v-model="rating"></el-rate>
 
             </div>
           </div>
@@ -52,14 +52,14 @@
           <h4>Habilidades</h4>
           <el-select
             v-model="searchHability"
-            @change="search(searchHability)"
+            @change="filter()"
             filterable
             placeholder="Habilidad"  >
             <el-option
               v-for="(hability, index) in habilities"
               :key="index"
               :label="hability.title"
-              :value="hability.title"
+              :value="hability.id"
             ></el-option>
           </el-select>
         </div>
@@ -68,12 +68,12 @@
                       <el-select v-model="CiudadSelect" clearable placeholder="selecciona la ciudad"> 
                         <el-option  v-for="item in Ciudades" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
                       </el-select><br>
-                 
         </div>
         <div class="mt-5 section-FiltroRating-freelancers">
-          <h4 class>filter por clasificacion</h4>
-          <div class="ml-2 mblock">
-            <el-rate  @change="search(rating)" v-model="rating"></el-rate>
+          <h4 class>Clasificacion</h4>
+          <div class="ml-2 mblock" style="display:flex;">
+            <el-rate  @change="filter()" v-model="rating"></el-rate>
+                 <i v-show="rating > 0 " @click="rating = 0 ,filter()" class="el-icon-circle-close-outline icon-clear"></i>
           </div>
         </div>
       </div>
@@ -173,24 +173,35 @@ export default {
         })
         .catch(e => {});
     },
-    search(value) {
-      console.log(value)
-      // EventBus.$emit("search", value);
-    },
-    filter(){
-
+    filter() {
+       let query = {
+         id:this.searchHability,
+         rating:this.rating
+       }
+       EventBus.$emit("filter",(query));
     },
     ShowHabilities(idCategory){
       this.searchHability='';
        this.getAll(idCategory);
     },
     removeHabilitySelect(){
+      this.habilities = null;
       this.searchHability='';
+      this.filter()
     }
   }
 };
 </script>
 <style scoped>
+.icon-clear{
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.icon-clear:hover{
+  color:crimson;
+}
+
 .container-FiltroFreelancersResponsive {
   display: none;
 }
