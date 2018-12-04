@@ -1,5 +1,5 @@
 <template  >
-    <el-row class=" p-0" :style="{position:'absolute',width:'100%',background: '#f7f7f7'}" :gutter="40">
+    <el-row class=" p-0" :style="{position:'absolute',width:'100%',height:'auto',background: '#f7f7f7'}" :gutter="40">
        <div class="Etiqueta">
          <div class="texto-etiqueta">
            <h2 class="h2-etiqueta">Proyectos</h2>
@@ -98,6 +98,7 @@ components:{FilterProyects,Footer, ListProyect, SearchProyect}
 { 
   min-width: 90%;
   display: block;
+  
 }
 .search{
       min-width: 90%;

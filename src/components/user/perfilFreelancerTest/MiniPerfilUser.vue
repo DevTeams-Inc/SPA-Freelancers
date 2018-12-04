@@ -1,4 +1,5 @@
 <template>
+ <div>
   <div v-loading="loading" v-if="existe" class="container-MiniPerfil">
     <div class="miniPerfil">
       <div class="topMiniPerfil">
@@ -30,7 +31,7 @@
           </div>
           <div class="contact-Mini">
                         <h4> <i style="padding-right:5px;" class="el-icon-phone-outline"></i> </h4><p >{{data.phoneNumber}}</p>
-                        <h4><i style="padding-right:10px;" class="fas fa-language"></i></h4><p>{{data.lenguaje}}</p>
+                        <h4 style="padding-left:10px;"><i style="padding-right:10px;" class="fas fa-language"></i></h4><p>{{data.lenguaje}}</p>
           </div>
         </div>
         <div class="rightTop-MiniPerfil">
@@ -110,6 +111,16 @@
         <button class="btn mt-4 el-button primary" @click="submitFile()">Subir imagen</button>
       </div>
     </el-dialog>
+  </div>
+      <div class="validCRegistro" v-if="existe===false">
+          <div class="img-v-R">
+               <img src="@/assets/img/avisoRegister.png" style="width:250px;" alt="">
+          </div>
+          <div class="texto-button-validR">
+               <p>Si deseas acceder a tu perfil, debes completar el registro y unirte a nuestra comunidad!</p>
+               <el-button style="margin-top:5px;">Completar registro</el-button>
+          </div>
+    </div>
   </div>
 </template>
 <script>
@@ -329,7 +340,7 @@ export default {
 }
 .contact-Mini h4{
  font-size: 15px;
-padding-left: 20px;
+
 }
 .contact-Mini p{
  font-size: 12.7px;
@@ -450,21 +461,32 @@ padding-left: 20px;
   font-size: 17px;
   color: rgb(128, 128, 128);
 }
-.contactar-MiniPerfil {
-  display: flex;
-  margin-top: 7px;
-}
+
 .componenteUbicacion {
-  padding-top: 10px;
-  padding-left: 15px;
+ padding: 15px;;
   margin-top: 20px;
   background-color: white;
-  height: 200px;
+
   border: 1px solid rgb(246, 246, 246);
 }
 .componenteUbicacion h4 {
   font-size: 17px;
   text-align: left;
   color: rgb(104, 104, 104);
+}
+.validCRegistro{
+     background-color: white;
+     margin-top: 20px;
+     padding-bottom: 50px;
+     border-radius: 3px; 
+     border: 1px solid rgb(240, 237, 255);
+}
+.texto-button-validR{
+     margin-top: 10px;
+}
+
+.texto-button-validR p {
+     width: 80%;
+     margin: 0 auto;
 }
 </style>
