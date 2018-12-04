@@ -10,12 +10,12 @@
                         </router-link>
                         <div class="frase"><p>{{i.profesion}}</p></div>
                         <div class="descripcionMini-Freelancer">
-                          <p>{{i.biography}}
+                          <p class="text-justify">{{i.biography}}
                         </p>
                         </div>
                    </div>
                    <div class="botones-Freelancer">
-                         <el-button type="primary" @click="openDialog(), freelancer = i.name + ' ' + i.lastName" id="boton-freelancer">Contactar</el-button>
+                         <el-button type="primary" @click="openDialog(), freelancer = i.name + ' ' + i.lastName, email = i.email" id="boton-freelancer">Contactar</el-button>
                    </div>
                 </div>
                 <div class="top-right-item-Freelancer">
@@ -59,22 +59,25 @@
 
         <div>
         <el-dialog :title="`Contactar a ${freelancer}`" :visible.sync="contactForm" ref="contactForm">
-          <el-form :model="form">
-              <el-form-item label="Nombre Completo:">
-                <el-input v-model="form.fullName" autocomplete="off" placeholder="Batman"></el-input>
+          <el-form :model="form" :rules="rules" ref="form">
+              <el-form-item label="Nombre Completo:" prop="fullName">
+                <el-input v-model="form.fullName" autocomplete="off" placeholder="Flash"></el-input>
               </el-form-item>
-              <el-form-item label="Mensaje:">
+              <el-form-item label="Email" prop="emailDestiny">
+                <el-input v-model="form.emailFrom" autocomplete="off" placeholder="barry@flash.com"></el-input>
+              </el-form-item>
+              <el-form-item label="Mensaje:" prop="message">
                 <el-input
                   type="textarea"
                   :rows="2"
-                  placeholder="Eres un ser asombroso..."
+                  placeholder="El hombre más veloz que existe..."
                   v-model="form.message">
                 </el-input>
               </el-form-item>
           </el-form>
           <span slot="footer" class="dialog-footer">
               <el-button @click="contactForm = false">Cancelar</el-button>
-              <el-button type="primary" @click="contactForm = false">Enviar</el-button>
+              <el-button type="primary" @click="contactFreelancer('form') ,  form.emailDestiny = email">Enviar</el-button>
           </span>
           </el-dialog>
       </div>
@@ -90,7 +93,24 @@ export default {
       form: {
         fullName: '',
         message: '',
-        emailDestiny: ''
+        emailDestiny: '',
+        emailFrom: '',
+      },
+      rules: {
+        fullName: [
+          { required: true, message: "Ingrese su nombre y apellido", trigger: "blur" }
+        ],
+        message: [
+          { required: true, message: "Ingrese un mensaje para flash", trigger: "blur" }
+        ],
+        emailDestiny: [
+          {
+            type: "email",
+            required: true,
+            message: "Ingrese su direccion email.",
+            trigger: "blur"
+          }
+        ],
       },
       freelancer:null,
       ratingFreelancer: 4.5,
@@ -119,6 +139,8 @@ export default {
       self.$store.state.services.freelancerService
         .getAll(index)
         .then(r => {
+          console.log(r.data);
+          
           this.loading = false;
           /**
            * remueve el usuario logueado de la lista de
@@ -132,6 +154,32 @@ export default {
         .catch(e => {
           console.log("error :" + e);
         });
+    },
+    contactFreelancer(form){
+        let self = this;
+        self.$refs[form].validate(valid => {
+            if(valid) {
+              self.$store.state.services.freelancerService.sendMessage(self.form)
+                .then(result => {
+                    self.contactForm = false
+                    self.$notify.success({
+                      title: "Mensaje enviado",
+                      message: "Su mensaje ha sido enviado.",
+                      offset: 50,
+                      duration: 3000
+                    });
+                }).catch(err => {
+                    self.$notify.error({
+                      title: "Lo sentimos",
+                      message: "Ha ocurrido un problema, porfavor intente de nuevo.",
+                      offset: 50,
+                      duration: 3000
+                    });
+                });
+            } else {
+              return false;
+            }
+        })
     },
     search(query) {
       let self = this;

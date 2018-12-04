@@ -44,7 +44,8 @@ Panel Administrativo
 </div>
 <div class="nav">
   <el-menu :default-active="activeIndex"  class="el-menu-demo nav-header " mode="horizontal" >
-  <el-menu-item index="1" class="logo" @click="$router.push('/inicio')"><span class="title1" >SpeedWork</span></el-menu-item>
+  <el-menu-item index="1" class="logo" @click="$router.push('/inicio')">
+  <img src="@/assets/flash.png" width="28" height="28"><span class="title1" >SpeedWork</span></el-menu-item>
   <el-menu-item index="2" class="proyect " @click="$router.push('/proyectos')" > <span class="nav-text"> Proyectos </span></el-menu-item>
   <el-menu-item index="3" class="freelancers" @click="$router.push('/freelancers')"><span class="nav-text">Freelancers</span></el-menu-item>
   <el-menu-item index="4" class="search-freelancers" @click="$router.push('/buscar/freelancers')" ><span class="">Buscar Freelancers</span></el-menu-item>
