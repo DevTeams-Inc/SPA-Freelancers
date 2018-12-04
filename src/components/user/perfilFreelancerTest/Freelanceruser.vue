@@ -10,7 +10,7 @@
         <p class="p-etiqueta">Imagina un mundo de posibilidades y nada adios</p>
       </div>
     </div>
-    <div class="container-PerfilFreelancer" v-if="existe">
+    <div class="container-PerfilFreelancer">
       <div class="left-PerfilFreelancer">
         <mini-perfil-user :id="id"></mini-perfil-user>
       </div>
@@ -19,7 +19,6 @@
         <proyects-c-p v-show="id == UserId"></proyects-c-p>
       </div>
     </div>
-    <div v-else>hola mundo charliet</div>
   </el-row>
 </template>
 

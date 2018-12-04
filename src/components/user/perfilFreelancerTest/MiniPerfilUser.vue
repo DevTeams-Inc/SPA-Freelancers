@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="loading" class="container-MiniPerfil">
+  <div v-loading="loading" v-if="existe" class="container-MiniPerfil">
     <div class="miniPerfil">
       <div class="topMiniPerfil">
         <div class="leftTop-MiniPerfil">
@@ -28,11 +28,11 @@
               <h4>{{data.profesion}}</h4>
             </a>
           </div>
-           <div class="contact-Mini">
-                        <h4> <i style="padding-right:5px;" class="el-icon-phone-outline"></i> </h4><p >80952105204</p>
-                        <h4><i style="padding-right:10px;" class="fas fa-language"></i></h4><p>Español</p>
-                     </div>
+          <div class="contact-Mini">
+                        <h4> <i style="padding-right:5px;" class="el-icon-phone-outline"></i> </h4><p >{{data.phoneNumber}}</p>
+                        <h4><i style="padding-right:10px;" class="fas fa-language"></i></h4><p>{{data.lenguaje}}</p>
           </div>
+        </div>
 
         <div class="rightTop-MiniPerfil">
           <div class="texto-mini">
@@ -111,7 +111,6 @@
         <button class="btn mt-4 el-button primary" @click="submitFile()">Subir imagen</button>
       </div>
     </el-dialog>
-    <div>no hay nada</div>
   </div>
 </template>
 <script>
@@ -315,30 +314,19 @@ export default {
      */
     UserId() {
       return localStorage.getItem("user_id");
+    },
+     existe() {
+      return this.$store.state.existe;
     }
   }
 };
 </script>
 
 <style>
-.container-MiniPerfil {
-  margin-top: 20px;
-}
-.miniPerfil{
-     position: relative;
-     height: 300px;
-     background-color: white;
-     padding: 20px;
-}
-
-.priceHour{
-     margin-top: 20px;
-     background-color: white;
-     display: flex;
-}
 .contact-Mini{
      display: flex;
      color: #409eff;;
+     width: 300px;;
 }
 .contact-Mini h4{
  font-size: 15px;
@@ -347,27 +335,41 @@ padding-left: 20px;
 .contact-Mini p{
  font-size: 12.7px;
 }
-.price{
-     padding-top: 15px;
-     text-align: left;
-     padding-left: 15px;
-     width: 92%;
-;
-     display: flex; 
+.container-MiniPerfil {
+  margin-top: 20px;
 }
-.price p{
-     font-size: 15px;
-     margin-left:10px;
+.miniPerfil {
+  position: relative;
+  height: 300px;
+  background-color: white;
+  padding: 20px;
 }
-.price h4{
-     font-size: 17px;
-    color: rgb(104, 104, 104);
+
+.priceHour {
+  margin-top: 20px;
+  background-color: white;
+  display: flex;
 }
-.icono-price{
-     width: 3.5%;
+.price {
+  padding-top: 15px;
+  text-align: left;
+  padding-left: 15px;
+  width: 92%;
+  display: flex;
 }
-.icono-price p{ 
-  color: white;   
+.price p {
+  font-size: 15px;
+  margin-left: 10px;
+}
+.price h4 {
+  font-size: 17px;
+  color: rgb(104, 104, 104);
+}
+.icono-price {
+  width: 3.5%;
+}
+.icono-price p {
+  color: white;
   background-color: #409eff;
   height: 25px;
   border-radius: 50%;
@@ -436,32 +438,34 @@ padding-left: 20px;
   font-size: 17px;
 }
 
-.bottomMiniPerfil{
-     display: flex;
-     border-top:1px solid rgb(241, 241, 241); 
-     padding-top: 10px;
+.bottomMiniPerfil {
+  display: flex;
+  border-top: 1px solid rgb(241, 241, 241);
+  padding-top: 10px;
 }
-.skills-MiniPerfil{
-     text-align: left;
-     width: 80%;
+.skills-MiniPerfil {
+  text-align: left;
+  width: 80%;
 }
-.skills-MiniPerfil h4{font-size: 17px;color: rgb(128, 128, 128);}
-.contactar-MiniPerfil{
-     display: flex;
- margin-top:7px; 
+.skills-MiniPerfil h4 {
+  font-size: 17px;
+  color: rgb(128, 128, 128);
 }
-
-.componenteUbicacion{
-    padding-top:10px; 
-    padding-left: 15px;
-    margin-top: 20px;
-    background-color: white;
-    height: 200px;
-    border: 1px solid rgb(246, 246, 246);
+.contactar-MiniPerfil {
+  display: flex;
+  margin-top: 7px;
 }
-.componenteUbicacion h4{
-    font-size: 17px;
-    text-align: left;
-    color: rgb(104, 104, 104);
+.componenteUbicacion {
+  padding-top: 10px;
+  padding-left: 15px;
+  margin-top: 20px;
+  background-color: white;
+  height: 200px;
+  border: 1px solid rgb(246, 246, 246);
+}
+.componenteUbicacion h4 {
+  font-size: 17px;
+  text-align: left;
+  color: rgb(104, 104, 104);
 }
 </style>
