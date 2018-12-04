@@ -123,9 +123,10 @@ export default {
   },
   mounted() {
     this.getAll(this.index);
-  },
-  updated() {
-    EventBus.$once("search", query => {
+    EventBus.$on("filter", (query) => {
+      this.filter(query.id,query.rating);
+    });
+    EventBus.$on("search", (query) => {
       this.search(query);
     });
   },
@@ -240,6 +241,17 @@ export default {
     },
     openDialog(){
         this.contactForm = true
+    },
+    filter(id,rating){
+      let self = this
+      self.$store.state.services.freelancerService
+      .filter(id ,rating)
+      .then(r =>{
+        self.data = r.data
+      })
+      .catch(e =>{
+      })
+
     }
   },
   computed: {

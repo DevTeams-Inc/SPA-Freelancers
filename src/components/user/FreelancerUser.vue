@@ -184,8 +184,6 @@
 </template>
 <script>
 import { EventBus } from "../../helpers/event-bus";
-import { setTimeout } from 'timers';
-// import map from "../location/googleMaps";
 export default {
   props: ["id"],
   data() {
@@ -240,7 +238,7 @@ export default {
     this.getLocation();
     EventBus.$once("profile", id => {
       this.loadingprofile = true;
-      this.getUser(this.id);
+      this.getUser(id);
     });
   },
   methods: {
@@ -304,6 +302,9 @@ export default {
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
     },
+    /**
+     * sube la imagen 
+     */
     submitFile() {
       let self = this;
       self.loading = false;
@@ -318,6 +319,7 @@ export default {
           self.dialogFormVisible = false;
           self.file = null;
           self.loading = false;
+          this.getUser(this.id);
         })
         .catch(e => {
           console.log("no funciono");
