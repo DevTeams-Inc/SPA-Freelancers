@@ -20,7 +20,7 @@ class HabilityService{
     }
 
     getById(id){
-        return this.axios.get(`${this.apiUrl}/${id}`)
+        return this.axios.get(`${this.apiUrl}/getbyid/${id}`)
     }
 
     edit(model){

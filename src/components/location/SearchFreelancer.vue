@@ -171,7 +171,15 @@ components:{FilterProyects,Footer, ListProyect, SearchProyect},
             this.currentMidx = idx
         }
     },
- }
+ },
+ computed: {
+    /**
+     * Me permite obtener el id del usuario logeado del localStorage
+     */
+    UserId() {
+      return localStorage.getItem('user_id');
+    }
+  }
 }
 </script>
 

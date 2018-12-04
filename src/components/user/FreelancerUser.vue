@@ -1,9 +1,9 @@
 <template>
   <div class="pt-5">
     <el-row type="flex" class="pl-4" justify="start">
-      <el-col v-loading="loadingprofile" :span="18" class="mt-4">
+      <el-col  :span="18" class="mt-4">
         <el-row type="flex">
-          <el-card class="box-card">
+          <el-card v-loading="loadingprofile" element-loading-text="Obteniendo información del freelancer..." class="box-card">
             <el-col :span="5">
               <div class="grid-content bg-purple mt-4">
                 <slot>
@@ -41,7 +41,7 @@
               <div class="grid-content bg-purple-light">
                 <h5 class="mt-2">{{data.name}} {{data.lastName}}</h5>
                 <p class="text-color">P/H : ${{data.priceHour}}</p>
-                <p class="text-color">
+                <p class="text-color text-justify">
                   <small>{{data.biography}}</small>
                 </p>
               </div>
@@ -56,7 +56,6 @@
                     closable
                     @close="removeHability(hability.id , data.id)"
                     class="mb-2"
-                    type="success"
                   >{{hability.title}}</el-tag>
                 </div>
               </div>
@@ -232,6 +231,8 @@ export default {
   },
   created(){
     this.getUser(this.id);
+    console.log(this.id);
+  
   },
   mounted() {
     this.getLocation();
@@ -243,6 +244,7 @@ export default {
   methods: {
     getUser(id) {
       let self = this;
+      self.loadingprofile = true;
       self.$store.state.services.freelancerService
         .getById(id)
         .then(r => {
@@ -254,7 +256,7 @@ export default {
           self.center.lng = r.data.long;
           self.markers[1].position.lng = r.data.long;
           self.markers[1].position.lat = r.data.lat;
-          this.loadingprofile = false;
+          self.loadingprofile = false;
         })
         .catch(e => {});
     },

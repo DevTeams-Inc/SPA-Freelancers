@@ -1,43 +1,46 @@
 <template>
-    <div class="container-AddHabilidad">
-         <h4>Agregar habilidad</h4>
-         <div class="item-Addhabilidad">
-             <a @click="dialogFormVisible=true" class="add-icon"><i class="el-icon-plus"></i></a>
-             <el-dialog title="Agregar Habilidad" :visible.sync="dialogFormVisible">
-               <el-form :model="model" :rules="rules" ref="model">
-                      <el-form-item prop="title">
-                         <el-input
-                            v-model="model.title"
-                            placeholder="Nombre de la habilidad"
-                            size="medium">
-                         </el-input>
-                       </el-form-item>
-                      <el-form-item prop="description">
-                         <el-input
-                            v-model="model.description"
-                            placeholder="Descripcion de la habilidad"
-                            size="medium"  type="textarea">
-                         </el-input>
-                       </el-form-item> 
-               </el-form>
-            <span slot="footer" class="dialog-footer">
-              <div class="botones-dialog">
-               <el-button id="botonesDialog" @click="dialogFormVisible = false">Cancel</el-button>
-               <el-button id="botonesDialog" @click="submitForm('model')" type="primary">Agregar</el-button>
-              </div>
-            </span>
-           </el-dialog>
-         </div>
+  <div class="container-AddHabilidad">
+    <h4>Agregar habilidad</h4>
+    <div class="item-Addhabilidad">
+      <a @click="dialogFormVisible=true" class="add-icon">
+        <i class="el-icon-plus"></i>
+      </a>
+      <el-dialog title="Agregar Habilidad" :visible.sync="dialogFormVisible">
+        <el-form :model="model" :rules="rules" ref="model">
+          <el-form-item prop="title">
+            <el-input v-model="model.title" placeholder="Nombre de la habilidad" size="medium"></el-input>
+          </el-form-item>
+          <el-form-item prop="description">
+            <el-input
+              v-model="model.description"
+              placeholder="Descripcion de la habilidad"
+              size="medium"
+              type="textarea"
+            ></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <div class="botones-dialog">
+            <el-button id="botonesDialog" @click="dialogFormVisible = false">Cancel</el-button>
+            <el-button id="botonesDialog" @click="submitForm('model')" type="primary">Agregar</el-button>
+          </div>
+        </span>
+      </el-dialog>
     </div>
+  </div>
 </template>
 <script>
+import { EventBus } from "../../../helpers/event-bus";
 export default {
   data() {
     return {
       dialogFormVisible: false,
+      addconfirmed:1,
       model: {
         title: null,
-        description: null
+        description: null,
+        categoryId: 0
+
       },
       rules: {
         title: {
@@ -53,32 +56,47 @@ export default {
       }
     };
   },
+  mounted() {
+      EventBus.$on("catId", categoryId => {
+      this.model.categoryId = categoryId;
+    }); 
+  },
   methods: {
     submitForm(formName) {
-      let self = this;
-      self.$refs[formName].validate(valid => {
-        if (valid) {
-          self.$store.state.services.habilityService
-            .add(self.model)
-            .then(r => {
-              self.$notify({
-                title: "Exito",
-                message: "Habilidad registrada",
-                type: "success"
-              });
-            })
-            .catch(e => {
+      if (this.model.categoryId > 0) {
+        let self = this;
+        self.$refs[formName].validate(valid => {
+          if (valid) {
+            self.$store.state.services.habilityService
+              .add(self.model)
+              .then(r => {
+             EventBus.$emit("agregado",(this.addconfirmed));
+                  this.$refs[formName].resetFields();
                 self.$notify({
-                title: "Error",
-                message: "No se ha podido agregar la habilidad",
-                type: "Error"
+                  title: "Exito",
+                  message: "Habilidad registrada",
+                  type: "success"
+                });
+              })
+              .catch(e => {
+                self.$notify({
+                  title: "Error",
+                  message: "No se ha podido agregar la habilidad",
+                  type: "Error"
+                });
               });
-            });
-          self.dialogFormVisible = false;
-        } else {
-          return false;
-        }
-      });
+            self.dialogFormVisible = false;                   
+          } else {
+            return false;
+          }
+        });
+      } else {
+        this.$notify({
+          title: "Error",
+          message: "Selecione una categoria",
+          type: "Error"
+        });
+      }
     }
   }
 };
@@ -107,14 +125,14 @@ export default {
   margin-top: 100px;
   font-size: 30px;
   color: white;
-     background-color: rgb(226, 226, 226);
-  
+  background-color: rgb(226, 226, 226);
+
   border-radius: 100%;
   padding: 10px;
 }
 .add-icon i:hover {
   background-color: #7992f8;
-  }
+}
 .botones-dialog {
   display: flex;
   width: 100%;

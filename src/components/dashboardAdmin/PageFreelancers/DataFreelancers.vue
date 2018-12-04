@@ -100,7 +100,8 @@ margin-top:20px;
         dialogFormEliminarVisible:false,
         id:0,
         tableData: [],
-        search: ''
+        search: '',
+        loading:false,
       }
     },
     
@@ -120,10 +121,12 @@ margin-top:20px;
 
       getAll() {
       let self = this;
+      this.loading=true;
       self.$store.state.services.freelancerService
         .getAdmin()
         .then(r => {
           self.tableData = r.data;
+          this.loading=false;
   
         })
 
@@ -131,16 +134,16 @@ margin-top:20px;
      },
      remove(){
        let self =this;
-       console.log(self.id);
+      this.loading=true;
        self.$store.state.services.freelancerService
        .remove(self.id)
        .then(r=>{
-      
          self.$notify({
            title:"Eliminado",
            message:"Se ha eliminado el freelancer",
            type:"success"
          });
+         this.loading=false;
          self.getAll()
        })
        .catch(e=>{
@@ -150,9 +153,6 @@ margin-top:20px;
            type:"Error"
          });
        });
-
-               loading: true
-
      }
     },
 
