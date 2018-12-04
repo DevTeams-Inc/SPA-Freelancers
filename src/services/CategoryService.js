@@ -29,6 +29,8 @@ class CategoryService {
         return this.axios.put(`${this.apiUrl}`,model)
     }
 
+    
+
 
 
 }
