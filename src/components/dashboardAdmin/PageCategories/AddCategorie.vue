@@ -5,23 +5,23 @@
              <a @click="dialogFormVisible=true" class="add-icon"><i class="el-icon-plus"></i></a>
              <el-dialog title="Agregar Categoria" :visible.sync="dialogFormVisible">
                <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-                      <el-form-item prop="nombreCategoria">
+                      <el-form-item prop="name">
                          <el-input
-                            v-model="ruleForm.nombreCategoria"
+                            v-model="ruleForm.name"
                             placeholder="Nombre de la categoria"
                             size="medium">
                          </el-input>
                        </el-form-item>
-                      <el-form-item prop="descripcionCategoria">
+                      <el-form-item prop="Descripcion">
                          <el-input
-                            v-model="ruleForm.descripcionCategoria"
+                            v-model="ruleForm.Descripcion"
                             placeholder="Descripcion de la categoria"
                             size="medium"  type="textarea">
                          </el-input>
                        </el-form-item>
-                      <el-form-item prop="iconoCategoria">
+                      <el-form-item prop="Img">
                          <el-input
-                            v-model="ruleForm.iconoCategoria"
+                            v-model="ruleForm.Img"
                             placeholder="icono de la categoria"
                             size="medium">
                          </el-input>
@@ -31,7 +31,7 @@
             <span slot="footer" class="dialog-footer">
               <div class="botones-dialog">
                <el-button id="botonesDialog" @click="dialogFormVisible = false">Cancel</el-button>
-               <el-button id="botonesDialog" @click="submitForm('ruleForm')" type="primary">Agregar</el-button>
+               <el-button id="botonesDialog" @click="submitForm('rules')" type="primary">Agregar</el-button>
               </div>
             </span>
            </el-dialog>
@@ -85,27 +85,63 @@ export default {
          return{
             dialogFormVisible: false,
             ruleForm:{
-                nombreCategoria:null,
-                descripcionCategoria:null,
-                iconoCategoria:null
+                name:null,
+               Descripcion:null,
+                Img:null
             },
             rules:{
-                nombreCategoria:{required:true,message:"nombre categoria",trigger:"blur"},
-                descripcionCategoria:{required:true,message:"descripcion categoria",trigger:"blur"},
-                iconoCategoria:{required:true,message:"icono categoria",trigger:"blur"}
+                name:{required:true,
+                message:"nombre categoria",
+                trigger:"blur"},
+
+               Descripcion:{
+                  required:true,
+                  message:"descripcion categoria",
+                  trigger:"blur"},
+                  
+                Img:{required:true,
+                message:"icono categoria",
+                trigger:"blur"}
             }
          }
-     },
-     methods:{
-       submitForm(formName){
-         this.$refs[formName].validate((valid) => {
-           if (valid) {
-               //si el proceso se completa correctamente
+      },
 
-               this.dialogFormVisible=false;
-            }else { return false;}
-        });
-     }
+       updated() {
+    let self = this;
+    self.getAll();
+  },
+
+     methods:{
+      submitForm(formName) {
+      let self = this;
+      self.$refs['ruleForm'].validate(valid => {
+        if (valid) {
+          self.$store.state.services.categoryService
+            .add(self.ruleForm)
+            .then(r => {
+     
+              self.$notify({
+                title: "Exito",
+                message: "Categoria registrada",
+                type: "success"
+              });
+            })
+            .catch(e => {
+                self.$notify({
+                title: "Error",
+                message: "No se ha podido agregar la categoria",
+                type: "Error"
+              });
+            });
+          self.dialogFormVisible = false;
+        } else {
+          return false;
+        }
+      });
+    },
+
+
+    
 }
 }
 </script>

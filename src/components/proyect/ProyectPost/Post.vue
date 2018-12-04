@@ -37,7 +37,7 @@
                      </div>
                      <div class="categorias" >
                        <div class="item" v-for="categoria in categories">
-                         <input @click="validCategorie"  type="radio" name="radio1" :id="categoria.id" value="Idcategoria"><label class="categoria-label" :for="categoria.id">	<br><span>icon</span><br>{{categoria.name}}</label>
+                         <input @click="validCategorie"  type="radio" name="radio1" :id="categoria.id" value="Idcategoria"><label class="categoria-label" :for="categoria.id">	<br><i :class="categoria.img"></i><br>{{categoria.name}}</label>
                        </div>
                      </div>
                 </div>
@@ -120,7 +120,7 @@ margin-bottom: 20px;
 .categoria-label{
 background-color: white;
 border: 1px solid gainsboro;
- width: 130px;
+ width: 120px;
 margin-top: 5px;
 cursor: pointer;
 margin-bottom: 5px;
@@ -147,7 +147,7 @@ input[type="radio"] {
   z-index: -1;
 }        
 .categoria-label h4{
-    font-size: 15px;
+    font-size: 12px;
 }
 
 
@@ -203,6 +203,9 @@ input[type="radio"] {
 .sectionError h4{
   color: rgb(71, 71, 71);
   font-size:20px; 
+}
+.categorias .item i{
+  font-size: 20px;
 }
 </style>
 <script>

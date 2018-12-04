@@ -128,7 +128,7 @@
             <el-card class="box-card-habilities">
               <el-col :span="22">
                 <div class="grid-content bg-purple mb-2">
-                  <h5 class="mt-2 ml-4">Proyectos Realizados</h5>
+                  <h5 class="mt-2 ml-4">Proyectos Publicados</h5>
                   <div class="hability-tag mt-3 mb-4">
                     <el-row type="flex" justify="start">
                       <el-col :span="10" class="ml-5">

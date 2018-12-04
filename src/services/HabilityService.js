@@ -26,6 +26,9 @@ class HabilityService{
     edit(model){
         return this.axios.put(`${this.apiUrl}`,model)
     }
+    getAllCategory(id){
+        return this.axios.get(`${this.apiUrl}/category/${id}`)
+    }
 }
 
 export default HabilityService

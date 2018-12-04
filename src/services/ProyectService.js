@@ -15,6 +15,11 @@ class ProyectService{
     getAll() {
         return this.axios.get(`${this.apiUrl}/admin/getall`)
     }
+
+    remove(id){
+        return this.axios.delete(`${this.apiUrl}/${id}`)
+    }
+
     getAllProyects(){
         return this.axios.get(`${this.apiUrl}`)
     }
