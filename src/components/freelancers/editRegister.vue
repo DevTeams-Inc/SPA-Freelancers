@@ -86,13 +86,14 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-            <el-form-item label="Ubicacion" prop="ubicacion">
+            <el-form-item label="Ubicacion" prop="address">
               <div>
                 <label>
                   <gmap-autocomplete
                     class="ubicacion"
-                    v-model="ruleForm.ubicacion"
+                    v-model="ruleForm.address"
                     @place_changed="setPlace"
+                    
                   ></gmap-autocomplete>
                 </label>
               </div>
@@ -160,6 +161,11 @@ export default {
         applicationUserId: localStorage.getItem("user_id")
       },
       rules: {
+        address: {
+          required: true,
+          message: "Ingrese una Ubicacion",
+          trigger: "blur"
+        },
         name: {
           required: true,
           message: "Ingrese un nombre",
@@ -305,8 +311,21 @@ export default {
      */
     setPlace(place) {
       this.currentPlace = place;
-      this.ruleForm.address = place.formatted_address;
-      
+      try {
+        this.ruleForm.address =
+          place.name + ", " + place.address_components[2].short_name;
+      } catch (error) {
+        if(this.ruleForm.address != null){
+          this.ruleForm.address =
+          place.formatted_address;
+        }else{
+          this.ruleForm.address =
+          place.name + ", " + place.address_components[1].short_name;
+        }
+        
+      }
+      this.ruleForm.lat = place.geometry.location.lat();
+      this.ruleForm.long = place.geometry.location.lng();
     },
     /**
      * Obtiene la latitud y longitud del navegador
@@ -327,9 +346,7 @@ export default {
         this.ruleForm.lat = position.coords.latitude;
 
       });
-      }else{
-       console.log("correcto");
-      }
+      }else{}
     },
 
     submitForm(form) {

@@ -49,12 +49,6 @@
             </div>
           </div>
         </div>
-<<<<<<< HEAD
-        <div class="rightTop-MiniPerfil">
-          <div class="texto-mini">
-            <h4>{{data.name}} {{data.lastName}}</h4>
-            <p>{{data.biography}}</p>
-=======
         <div class="bottomMiniPerfil">
           <div class="skills-MiniPerfil">
             <h4>Habilidades</h4>
@@ -79,7 +73,6 @@
               ></el-button>
             </router-link>
             <el-button style="margin-left:90px;" v-if="id != UserId" type="primary">Contactar</el-button>
->>>>>>> 7b072e0949566f82e0e917b4f498014d10d7e9b0
           </div>
         </div>
       </div>
@@ -286,7 +279,12 @@ export default {
           this.getUser(this.id);
         })
         .catch(e => {
-          console.log("no funciono");
+         self.$notify.error({
+            title: "Error",
+            message: `${e.response.data}`,
+            offset: 50,
+            duration: 2200
+          });
         });
     },
     /**

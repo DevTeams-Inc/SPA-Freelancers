@@ -81,9 +81,9 @@
                     class="ubicacion"
                     v-model="ruleForm.address"
                     @place_changed="setPlace"
+                    placeholder="Introduce una ubicacion"
                   ></gmap-autocomplete>
                 </label>
-
               </div>
             </el-form-item>
             <el-form-item label="Profesion" prop="profesion">
@@ -149,8 +149,8 @@ export default {
         applicationUserId: localStorage.getItem("user_id")
       },
       rules: {
-        address:{
-required: true,
+        address: {
+          required: true,
           message: "Ingrese una ubicacion",
           trigger: "blur"
         },
@@ -174,7 +174,7 @@ required: true,
           min: 8,
           max: 260,
           message: "Debes tener de 8 a 260 caracteres.",
-          trigger: "blur"
+          trigger: "change"
         },
         profesion: {
           required: true,
@@ -193,7 +193,6 @@ required: true,
     let self = this;
 
     self.getHabilities();
-
   },
   mounted() {
     this.geolocate();
@@ -247,10 +246,10 @@ required: true,
           self.allHabilities = r.data;
         })
         .catch(e => {
-           self.$notify.error({
-                  message: "Error en obtener allHabilities ",
-                  offset: 45
-                });
+          self.$notify.error({
+            message: "Error en obtener allHabilities ",
+            offset: 45
+          });
         });
     },
     /**
@@ -259,34 +258,33 @@ required: true,
     setPlace(place) {
       this.currentPlace = place;
       try {
-        this.ruleForm.address = place.name +", " + place.address_components[2].short_name;
-        
+        this.ruleForm.address =
+          place.name + ", " + place.address_components[2].short_name;
       } catch (error) {
-        this.ruleForm.address = place.name +", " + place.address_components[1].short_name;;
-        console.log(place)
+        this.ruleForm.address =
+          place.name + ", " + place.address_components[1].short_name;
       }
     },
     /**
      * Obtiene la latitud y longitud del navegador
      */
     geolocate: function() {
-      if(self.keyUser !== null){
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        let p = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        this.markers.push({ position: p });
-        this.ruleForm.long = position.coords.longitude;
-        this.ruleForm.lat = position.coords.latitude;
-
-      });
-      }else{
-       console.log("desde el else geococate()");
+      if (self.keyUser !== null) {
+        navigator.geolocation.getCurrentPosition(position => {
+          this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          let p = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          this.markers.push({ position: p });
+          this.ruleForm.long = position.coords.longitude;
+          this.ruleForm.lat = position.coords.latitude;
+        });
+      } else {
+        console.log("desde el else geococate()");
       }
     },
 
@@ -294,23 +292,23 @@ required: true,
       let self = this;
       self.$refs[form].validate(valid => {
         if (valid) {
-            /**
-             * Agregar freelancers
-             */
-            self.$store.state.services.freelancerService
-              .add(self.ruleForm)
-              .then(r => {
-                self.$router.push(
-                  `/freelancer/${self.ruleForm.applicationUserId}`
-                );
-              })
-              .catch(e => {
-                self.$notify.error({
-                  message: "Error al completar registro, intente de nuevo!",
-                  offset: 45
-                });
+          /**
+           * Agregar freelancers
+           */
+          self.$store.state.services.freelancerService
+            .add(self.ruleForm)
+            .then(r => {
+              self.$router.push(
+                `/freelancer/${self.ruleForm.applicationUserId}`
+              );
+            })
+            .catch(e => {
+              self.$notify.error({
+                message: "Error al completar registro, intente de nuevo!",
+                offset: 45
               });
-          } else {
+            });
+        } else {
           self.$notify.error({
             message: "Intente de nuevo!",
             offset: 45
