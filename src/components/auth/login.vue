@@ -91,6 +91,11 @@ export default {
       email: localStorage.getItem("user_email") || null
     };
   },
+  mounted(){
+      if(localStorage.getItem('user_id')){
+        this.$router.push('/inicio')
+      }
+  },
   methods: {
     redirect(path) {
       if (path === undefined) return;

@@ -2,8 +2,9 @@
 <div>
        <el-card shadow="hover">
        <slot>
-         <i :class="">{{img}}</i>
-       <!-- <img src="@/assets/logo.png" height="75px"> -->
+         <div class="text-primary">
+         <h1 :class="icon"></h1>
+         </div>
         <h6 class="mt-2">{{title}}</h6>
        </slot>
      </el-card>
@@ -11,7 +12,7 @@
 </template>
 <script>
 export default {
-  props:['title' , 'img' , 'id'],
+  props:['title' , 'icon' , 'id'],
   name: "Category",
   data() {
     return {

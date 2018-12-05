@@ -112,7 +112,7 @@ export default new Router({
       props: true,
       component: PerfilFreelancer,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -144,7 +144,7 @@ export default new Router({
     //Ruteo de administrador//
     {
       path: "/dashboardAdmin",
-      name: "dashboardAdmin",
+      name: "Admin",
       redirect: "/dashboardAdmin/inicio",
       component: DashboardAdmin,
       props: true,
