@@ -70,7 +70,7 @@ export default {
   position: relative;
   width: 90%;
   max-width: 1100px;
-  min-width: 1300px;
+  min-width: 1200px;
   height: auto;
   /* max-width: 1370px;
     min-width: 1350px; */

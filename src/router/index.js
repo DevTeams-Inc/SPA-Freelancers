@@ -5,6 +5,7 @@ import Home from "@/components/home/Home";
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
 import completeRegister from "@/components/freelancers/completeRegister";
+import editRegister from "@/components/freelancers/editRegister";
 
 import autocomplete from "@/components/location/autocomplete";
 
@@ -82,10 +83,19 @@ export default new Router({
       }
     },
     {
-      path: "/completar/registro/:keyFreelancer/:keyUser",
+      path: "/completar/registro/:keyUser",
       props: true,
       name: "completeregister",
       component: completeRegister,
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
+      path: "/edit/registro/:keyFreelancer",
+      props: true,
+      name: "editregister",
+      component: editRegister,
       meta: {
         requiresVisitor: true
       }

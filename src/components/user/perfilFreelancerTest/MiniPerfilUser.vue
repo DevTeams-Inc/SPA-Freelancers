@@ -1,125 +1,142 @@
 <template>
- <div>
-  <div v-loading="loading" v-if="existe" class="container-MiniPerfil">
-    <div class="miniPerfil">
-      <div class="topMiniPerfil">
-        <div class="leftTop-MiniPerfil">
-          <div class="container-pic-freelancer">
-            <a v-if="id == UserId" @click="dialogFormVisible=true">
-              <span class="img-freelancer">
+  <div>
+    <div v-loading="loading" v-if="existe" class="container-MiniPerfil">
+      <div class="miniPerfil">
+        <div class="topMiniPerfil">
+          <div class="leftTop-MiniPerfil">
+            <div class="container-pic-freelancer">
+              <a v-if="id == UserId" @click="dialogFormVisible=true">
+                <span class="img-freelancer">
+                  <img class="img-pic-freelancer" height="100px" :src="data.avatar">
+                  <i id="icon" class="el-icon-upload2"></i>
+                </span>
+              </a>
+              <span v-else>
                 <img class="img-pic-freelancer" height="100px" :src="data.avatar">
-                <i id="icon" class="el-icon-upload2"></i>
               </span>
-            </a>
-            <span v-else>
-              <img class="img-pic-freelancer" height="100px" :src="data.avatar">
-            </span>
+            </div>
+            <div class="rating-mini">
+              <el-rate id="rating-star" show-score text-color="#ff9900" score-template></el-rate>
+            </div>
+            <div class="ciudad-mini">
+              <div class="address">
+              <i class="el-icon-location">{{data.address}}</i> 
+              </div>
+              
+              
+            </div>
+            <div class="category-Mini">
+       
+                <h4>{{data.profesion}}</h4>
+              
+            </div>
+            <div class="contact-Mini">
+              <h4>
+                <i style="padding-right:5px;" class="el-icon-phone-outline"></i>
+              </h4>
+              <p>{{data.phoneNumber}}</p>
+              <h4 style="padding-left:10px;">
+                <i style="padding-right:10px;" class="fas fa-language"></i>
+              </h4>
+              <p>{{data.lenguaje}}</p>
+            </div>
           </div>
-          <div class="rating-mini">
-            <el-rate id="rating-star" show-score text-color="#ff9900" score-template></el-rate>
-          </div>
-          <div class="ciudad-mini">
-            <div class="icon-trofeo"></div>
-            <a href>
-              <h4>Republica Dominicana</h4>
-            </a>
-          </div>
-          <div class="category-Mini">
-            <a href>
-              <h4>{{data.profesion}}</h4>
-            </a>
-          </div>
-          <div class="contact-Mini">
-                        <h4> <i style="padding-right:5px;" class="el-icon-phone-outline"></i> </h4><p >{{data.phoneNumber}}</p>
-                        <h4 style="padding-left:10px;"><i style="padding-right:10px;" class="fas fa-language"></i></h4><p>{{data.lenguaje}}</p>
+
+          <div class="rightTop-MiniPerfil">
+            <div class="texto-mini">
+              <h4>{{data.name}} {{data.lastName}}</h4>
+              <p>{{data.biography}}</p>
+            </div>
           </div>
         </div>
+<<<<<<< HEAD
         <div class="rightTop-MiniPerfil">
           <div class="texto-mini">
             <h4>{{data.name}} {{data.lastName}}</h4>
             <p>{{data.biography}}</p>
+=======
+        <div class="bottomMiniPerfil">
+          <div class="skills-MiniPerfil">
+            <h4>Habilidades</h4>
+            <el-tag
+              v-for="(hability, index) in data.habilities"
+              :key="index"
+              closable
+              size="mini"
+              class="mb-2 ml-1"
+              @close="removeHability(hability.id , data.id)"
+              type="primary"
+            >{{hability.title}}</el-tag>
+          </div>
+          <div class="contactar-MiniPerfil">
+            <router-link :to="`/edit/registro/${data.id}`">
+              <el-button
+                style="width:45px;margin-left:90px;"
+                v-if="id == UserId"
+                type="secondary"
+                icon="el-icon-edit"
+                circle
+              ></el-button>
+            </router-link>
+            <el-button style="margin-left:90px;" v-if="id != UserId" type="primary">Contactar</el-button>
+>>>>>>> 7b072e0949566f82e0e917b4f498014d10d7e9b0
           </div>
         </div>
       </div>
-      <div class="bottomMiniPerfil">
-        <div class="skills-MiniPerfil">
-          <h4>Habilidades</h4>
-          <el-tag
-            v-for="(hability, index) in data.habilities"
+      <div class="priceHour">
+        <div class="price">
+          <h4>Precio Hora:</h4>
+          <p>{{data.priceHour}}</p>
+        </div>
+        <div class="icono-price">
+          <p>$</p>
+        </div>
+      </div>
+      <div class="componenteUbicacion">
+        <h4>Ubicacion</h4>
+        <gmap-map :center="center" :zoom="10" style="height: 300px;">
+          {{this.UserId}}
+          <gmap-marker
             :key="index"
-            closable
-            size="mini"
-            class="mb-2 ml-1"
-            @close="removeHability(hability.id , data.id)"
-            type="primary"
-          >{{hability.title}}</el-tag>
-        </div>
-        <div class="contactar-MiniPerfil">
-          <router-link :to="`/completar/registro/${data.id}/${data.applicationUserId}`">
-            <el-button
-              style="width:45px;margin-left:90px;"
-              v-if="id == UserId"
-              type="secondary"
-              icon="el-icon-edit"
-              circle
-            ></el-button>
-          </router-link>
-          <el-button style="margin-left:90px;" v-if="id != UserId" type="primary">Contactar</el-button>
-        </div>
-      </div>
-    </div>
-    <div class="priceHour">
-      <div class="price">
-        <h4>Precio Hora:</h4>
-        <p>{{data.priceHour}}</p>
-      </div>
-      <div class="icono-price">
-        <p>$</p>
-      </div>
-    </div>
-    <div class="componenteUbicacion">
-      <h4>Ubicacion</h4>
-      <gmap-map :center="center" :zoom="10" style="height: 300px;">
-        {{this.UserId}}
-        <gmap-marker
-          :key="index"
-          v-for="(m, index) in markers"
-          :position="m.position"
-          :clickable="true"
-          :draggable="false"
-          @click=" toggleInfoWindow(m, index)"
-        ></gmap-marker>
+            v-for="(m, index) in markers"
+            :position="m.position"
+            :clickable="true"
+            :draggable="false"
+            @click=" toggleInfoWindow(m, index)"
+          ></gmap-marker>
 
-        <gmap-info-window
-          :options="infoOptions"
-          :position="infoWindowPos"
-          :opened="infoWindowOpen"
-          @closeclick="infoWindowOpen=false"
-        >
-          <img :src="infoImg" width="100px" class="img-map" alt>
-          <p class="mt-1">{{infoContent}}</p>
-        </gmap-info-window>
-      </gmap-map>
-    </div>
-    <!-- el form para la imagen -->
-    <el-dialog title="Actualizar Imagen" :visible.sync="dialogFormVisible">
-      <div class="large-12 medium-12 small-12 cell">
-        <label>Imagen</label>
-        <div>
-          <input type="file" id="file" ref="file" @change="handleFileUpload()">
-        </div>
-        <button class="btn mt-4 el-button primary" @click="submitFile()">Subir imagen</button>
+          <gmap-info-window
+            :options="infoOptions"
+            :position="infoWindowPos"
+            :opened="infoWindowOpen"
+            @closeclick="infoWindowOpen=false"
+          >
+            <img :src="infoImg" width="100px" class="img-map" alt>
+            <p class="mt-1">{{infoContent}}</p>
+          </gmap-info-window>
+        </gmap-map>
       </div>
-    </el-dialog>
-  </div>
-      <div class="validCRegistro" v-if="existe===false">
-          <div class="img-v-R">
-               <img src="@/assets/img/avisoRegister.png" style="width:250px;" alt="">
+      <!-- el form para la imagen -->
+      <el-dialog title="Actualizar Imagen" :visible.sync="dialogFormVisible">
+        <div class="large-12 medium-12 small-12 cell">
+          <label>Imagen</label>
+          <div>
+            <input type="file" id="file" ref="file" @change="handleFileUpload()">
           </div>
-          <div class="texto-button-validR">
-               <p>Si deseas acceder a tu perfil, debes completar el registro y unirte a nuestra comunidad!</p>
-               <el-button style="margin-top:5px;">Completar registro</el-button>
-          </div>
+          <button class="btn mt-4 el-button primary" @click="submitFile()">Subir imagen</button>
+        </div>
+      </el-dialog>
+    </div>
+    <div class="validCRegistro" v-if="existe===false">
+      <div class="img-v-R">
+        <img src="@/assets/img/avisoRegister.png" style="width:250px;" alt>
+      </div>
+      <div class="texto-button-validR">
+        <p>Si deseas acceder a tu perfil, debes completar el registro y unirte a nuestra comunidad!</p>
+        <router-link :to="`/completar/registro/${id}`">
+          <el-button style="margin-top:5px;">Completar registro</el-button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -130,7 +147,8 @@ export default {
   data() {
     return {
       exist: null,
-      loading:false,
+      applicationUserId: localStorage.getItem("user_id"),
+      loading: false,
       dialogFormVisible: false,
       loadingprofile: false,
       loading: false,
@@ -177,21 +195,20 @@ export default {
     this.getUser(this.id);
   },
   mounted() {
-    let self = this
+    let self = this;
     self.getLocation();
-      EventBus.$once("profile", id => {
-        self.loadingprofile = true;
-        self.isFreelancer(id)
-        if(self.$store.state.existe){
-         self.getUser(id);
-        }
-      });
-   
+    EventBus.$once("profile", id => {
+      self.loadingprofile = true;
+      self.isFreelancer(id);
+      if (self.$store.state.existe) {
+        self.getUser(id);
+      }
+    });
   },
   methods: {
     getUser(id) {
       let self = this;
-      self.loading = true
+      self.loading = true;
       self.$store.state.services.freelancerService
         .getById(id)
         .then(r => {
@@ -308,9 +325,9 @@ export default {
         .userExist(id)
         .then(r => {
           if (r.data === true) {
-             self.$store.state.existe = true;
+            self.$store.state.existe = true;
           } else {
-             self.$store.state.existe = false;
+            self.$store.state.existe = false;
           }
         })
         .catch(e => {
@@ -325,7 +342,7 @@ export default {
     UserId() {
       return localStorage.getItem("user_id");
     },
-     existe() {
+    existe() {
       return this.$store.state.existe;
     }
   }
@@ -333,17 +350,21 @@ export default {
 </script>
 
 <style>
-.contact-Mini{
-     display: flex;
-     color: #409eff;;
-     width: 300px;;
+.address{
+  font-family: "Roboto", sans-serif;
+  color: #409eff;
+ 
 }
-.contact-Mini h4{
- font-size: 15px;
-
+.contact-Mini {
+  display: flex;
+  color: #409eff;
+  width: 300px;
 }
-.contact-Mini p{
- font-size: 12.7px;
+.contact-Mini h4 {
+  font-size: 15px;
+}
+.contact-Mini p {
+  font-size: 12.7px;
 }
 .container-MiniPerfil {
   margin-top: 20px;
@@ -428,6 +449,9 @@ export default {
 }
 .category-Mini h4 {
   font-size: 15px;
+  color: #409eff;
+
+
 }
 
 .rightTop-MiniPerfil {
@@ -463,7 +487,7 @@ export default {
 }
 
 .componenteUbicacion {
- padding: 15px;;
+  padding: 15px;
   margin-top: 20px;
   background-color: white;
 
@@ -474,19 +498,19 @@ export default {
   text-align: left;
   color: rgb(104, 104, 104);
 }
-.validCRegistro{
-     background-color: white;
-     margin-top: 20px;
-     padding-bottom: 50px;
-     border-radius: 3px; 
-     border: 1px solid rgb(240, 237, 255);
+.validCRegistro {
+  background-color: white;
+  margin-top: 20px;
+  padding-bottom: 50px;
+  border-radius: 3px;
+  border: 1px solid rgb(240, 237, 255);
 }
-.texto-button-validR{
-     margin-top: 10px;
+.texto-button-validR {
+  margin-top: 10px;
 }
 
 .texto-button-validR p {
-     width: 80%;
-     margin: 0 auto;
+  width: 80%;
+  margin: 0 auto;
 }
 </style>

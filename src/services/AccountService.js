@@ -10,6 +10,9 @@ class AccountService {
   getAll() {
     return this.axios.get(`${this.apiUrl}/getall`);
   }
+  exist(id){
+    return this.axios.get(`${this.apiUrl}/exist/${id}`)
+  }
 
   submitImg(file) {
     return this.axios

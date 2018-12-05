@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-card class="mt-5 p-2 m-4" v-loading="loading">
-      <el-row class="p-3 m-5">
+      <el-row class="p-1 m-4">
         <el-row class="mb-5">
           <el-col :span="12" :offset="6">
-            <span class="title-register">Completar Registro</span>
+            <span class="title-register">Editar Registro</span>
           </el-col>
         </el-row>
         <el-form
@@ -74,16 +74,27 @@
             </el-col>
           </el-col>
           <el-col :span="12" class="coll">
-            <el-form-item label="Ubicacion" prop="address">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="Nombre" prop="name">
+                    <el-input v-model="ruleForm.name"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="Apellido" prop="lastName">
+                    <el-input v-model="ruleForm.lastName"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            <el-form-item label="Ubicacion" prop="ubicacion">
               <div>
                 <label>
                   <gmap-autocomplete
                     class="ubicacion"
-                    v-model="ruleForm.address"
+                    v-model="ruleForm.ubicacion"
                     @place_changed="setPlace"
                   ></gmap-autocomplete>
                 </label>
-
               </div>
             </el-form-item>
             <el-form-item label="Profesion" prop="profesion">
@@ -112,28 +123,27 @@
           </el-col>
         </el-form>
       </el-row>
-      {{ruleForm.address}}
     </el-card>
   </div>
 </template>
 <script>
 export default {
-  props: ["keyUser"],
+  props: ["keyFreelancer"],
   data() {
     return {
       center: { lat: 18.4855, lng: -69.8731 },
       markers: [],
       places: [],
       allHabilities: [],
-      loading: false,
+      loading: true,
       currentPlace: null,
       id: 0,
       i: 0,
       habi: [],
       file: null,
       ruleForm: {
-        address: null,
         id: 0,
+        address: null,
         name: null,
         lastName: null,
         habilities: [],
@@ -144,14 +154,15 @@ export default {
         profesion: null,
         interest: null,
         priceHour: null,
+        ubicacion: null,
         long: null,
         lat: null,
         applicationUserId: localStorage.getItem("user_id")
       },
       rules: {
-        address:{
-required: true,
-          message: "Ingrese una ubicacion",
+        name: {
+          required: true,
+          message: "Ingrese un nombre",
           trigger: "blur"
         },
         habilities: {
@@ -193,7 +204,15 @@ required: true,
     let self = this;
 
     self.getHabilities();
-
+    /**
+     * Solo se obtiene los datos si existe el id del freelancer
+     * de lo contrario se reedireciona al inicio
+     * */
+    if (self.keyFreelancer > 0) {
+      self.getById(self.keyFreelancer);
+    } else {
+      self.$router.push("/inicio");
+    }
   },
   mounted() {
     this.geolocate();
@@ -232,7 +251,6 @@ required: true,
         return el.id === id;
       });
     },
-
     /**
      * Obtener todas las habilidades
      */
@@ -247,10 +265,39 @@ required: true,
           self.allHabilities = r.data;
         })
         .catch(e => {
-           self.$notify.error({
-                  message: "Error en obtener allHabilities ",
-                  offset: 45
-                });
+          alert("Error en obtener allHabilities " + e);
+        });
+    },
+    /**
+     * Obtener freelancer por id
+     */
+    getById(key) {
+      let self = this;
+      self.$store.state.services.freelancerService
+        .getByIdFreelancer(key)
+        .then(r => {
+          self.loading = false;
+          self.ruleForm.name = r.data.name;
+          self.ruleForm.lastName = r.data.lastName;
+          self.ruleForm.biography = r.data.biography;
+          self.ruleForm.lat = r.data.lat;
+          self.ruleForm.long = r.data.long;
+          self.ruleForm.interest = r.data.interest;
+          self.ruleForm.id = r.data.id;
+          r.data.habilities.forEach(element => {
+            self.ruleForm.habilities.push({ id: element.id });
+            this.i++;
+          });
+
+          self.ruleForm.lenguaje = r.data.lenguaje;
+          self.ruleForm.profesion = r.data.profesion;
+          self.ruleForm.priceHour = r.data.priceHour;
+          self.ruleForm.phoneNumber = r.data.phoneNumber;
+          self.ruleForm.address = r.data.address;
+        })
+        .catch(e => {
+          //si no me trae dato estamos completando registro
+         // self.$router.push("/inicio");
         });
     },
     /**
@@ -258,19 +305,14 @@ required: true,
      */
     setPlace(place) {
       this.currentPlace = place;
-      try {
-        this.ruleForm.address = place.name +", " + place.address_components[2].short_name;
-        
-      } catch (error) {
-        this.ruleForm.address = place.name +", " + place.address_components[1].short_name;;
-        console.log(place)
-      }
+      this.ruleForm.address = place.formatted_address;
+      
     },
     /**
      * Obtiene la latitud y longitud del navegador
      */
     geolocate: function() {
-      if(self.keyUser !== null){
+      if(self.keyFreelancer > 0){
       navigator.geolocation.getCurrentPosition(position => {
         this.center = {
           lat: position.coords.latitude,
@@ -286,7 +328,7 @@ required: true,
 
       });
       }else{
-       console.log("desde el else geococate()");
+       console.log("correcto");
       }
     },
 
@@ -294,29 +336,34 @@ required: true,
       let self = this;
       self.$refs[form].validate(valid => {
         if (valid) {
-            /**
-             * Agregar freelancers
-             */
+          /**
+           * Editar freelancers
+           */
             self.$store.state.services.freelancerService
-              .add(self.ruleForm)
+              .update(self.ruleForm)
               .then(r => {
+                self.$notify.success({
+                  message: "Su registro ha sido actualizado!",
+                  offset: 45
+                });
                 self.$router.push(
                   `/freelancer/${self.ruleForm.applicationUserId}`
                 );
               })
               .catch(e => {
-                self.$notify.error({
-                  message: "Error al completar registro, intente de nuevo!",
+                self.$notify.erro({
+                  message: "Su registro no ha sido actualizado!",
                   offset: 45
                 });
               });
-          } else {
+        } else {
           self.$notify.error({
             message: "Intente de nuevo!",
             offset: 45
           });
           return false;
         }
+        this.ruleForm.address = place.formatted_address;
       });
       if (self.currentPlace) {
         const marker = {
@@ -343,7 +390,6 @@ required: true,
       self.$refs[formallHabilities].resetFields();
       // this.id = 0
     },
-    //validar que el numero exista en su region
     onInput({ number, isValid, country }) {
       console.log(number, isValid, country);
     }
