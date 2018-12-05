@@ -74,7 +74,7 @@
             </el-col>
           </el-col>
           <el-col :span="12" class="coll">
-            <div v-if="keyUser == ruleForm.applicationUserId && keyFreelancer > 0">
+            <div v-if="keyFreelancer > 0">
               <el-row>
                 <el-col :span="12">
                   <el-form-item label="Nombre" prop="name">
@@ -127,13 +127,14 @@
       </el-row>
       <span
         class="nota"
+        
       >Nota: si no introduce una ubicacion, se tomará la ubicacion por defecto de su dispositivo.</span>
     </el-card>
   </div>
 </template>
 <script>
 export default {
-  props: ["keyFreelancer", "keyUser"],
+  props: ["keyFreelancer"],
   data() {
     return {
       center: { lat: 18.4855, lng: -69.8731 },
@@ -212,8 +213,8 @@ export default {
      * Solo se obtiene los datos si existe el id del freelancer
      * de lo contrario se reedireciona al inicio
      * */
-    if (self.keyUser == localStorage.getItem('user_id')) {
-      self.getById(self.keyUser);
+    if (self.keyFreelancer > 0) {
+      self.getById(self.keyFreelancer);
     } else {
       self.$router.push("/inicio");
     }
@@ -224,8 +225,7 @@ export default {
   computed: {
     addOrDelete() {
       let self = this;
-      return self.keyUser == self.ruleForm.applicationUserId &&
-        self.keyFreelancer > 0
+      return self.keyFreelancer > 0
         ? "Editar Registro"
         : "Completar Registro";
     }
@@ -315,7 +315,7 @@ export default {
     getById(key) {
       let self = this;
       self.$store.state.services.freelancerService
-        .getById(key)
+        .getByIdFreelancer(key)
         .then(r => {
           self.loading = false;
           self.ruleForm.name = r.data.name;
@@ -350,6 +350,7 @@ export default {
      * Obtiene la latitud y longitud del navegador
      */
     geolocate: function() {
+      if(self.keyFreelancer > 0){
       navigator.geolocation.getCurrentPosition(position => {
         this.center = {
           lat: position.coords.latitude,
@@ -362,7 +363,11 @@ export default {
         this.markers.push({ position: p });
         this.ruleForm.long = position.coords.longitude;
         this.ruleForm.lat = position.coords.latitude;
+
       });
+      }else{
+       console.log("correcto");
+      }
     },
 
     submitForm(form) {
@@ -373,7 +378,6 @@ export default {
            * Editar freelancers
            */
           if (
-            self.keyUser == self.ruleForm.applicationUserId &&
             self.keyFreelancer > 0
           ) {
             self.$store.state.services.freelancerService

@@ -82,7 +82,7 @@ export default new Router({
       }
     },
     {
-      path: "/completar/registro/:keyFreelancer/:keyUser",
+      path: "/completar/registro/:keyFreelancer",
       props: true,
       name: "completeregister",
       component: completeRegister,
