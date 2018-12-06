@@ -9,6 +9,7 @@
                        <h2 >{{i.name}} {{i.lastName}}</h2>
                         </router-link>
                         <div class="frase"><p>{{i.profesion}}</p></div>
+                        <div><i class="fas fa-map-marker-alt text-primary"> </i> {{i.address}}</div>
                         <div class="descripcionMini-Freelancer">
                           <p class="text-justify">{{i.biography}}
                         </p>
@@ -20,14 +21,13 @@
                 </div>
                 <div class="top-right-item-Freelancer">
                     <div class="container-pic-freelancer" >
-                         <img class="img-pic-freelancer" height="80px" :src="i.avatar" />
+                         <img class="img-pic-freelancer" height="100px" :src="i.avatar" />
                     </div>
                     <div class="rating">
                          <el-rate id="rating-star" v-model="i.rating" disabled  show-score text-color="#ff9900" score-template="" ></el-rate>
                     </div>
                     <div class="trofeoANDciudad">
                           <div class="icon-trofeo"></div>
-                          <a href=""><h4>{{i.address}}</h4></a>
                      </div>
                 </div>
             </div>

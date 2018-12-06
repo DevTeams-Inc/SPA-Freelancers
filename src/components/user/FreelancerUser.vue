@@ -188,6 +188,7 @@ export default {
   props: ["id"],
   data() {
     return {
+      applicationUserId: localStorage.getItem("user_id"),
       dialogFormVisible: false,
       loadingprofile: false,
       loading: false,
@@ -230,15 +231,25 @@ export default {
     };
   },
   created(){
+    if (this.UserId == this.applicationUserId) {
+      console.log("dentro del if");
     this.getUser(this.id);
-    console.log(this.id);
-  
+    }else{
+      console.log("dentro del else");
+    this.getUser(this.id);
+  }
   },
   mounted() {
     this.getLocation();
     EventBus.$once("profile", id => {
       this.loadingprofile = true;
-      this.getUser(id);
+          if (this.UserId == this.applicationUserId) {
+      console.log("dentro del if");
+    this.getUser(this.id);
+    }else{
+      console.log("dentro del else");
+    this.getUser(this.id);
+  } 
     });
   },
   methods: {
