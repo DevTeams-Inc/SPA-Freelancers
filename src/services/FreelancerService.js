@@ -55,7 +55,9 @@ class FreelancerService{
         return this.axios.get(`${this.apiUrl}/exist/${id}`)
     }
 
-
+    sendMessage(model){
+        return this.axios.post(`${this.apiUrl}/contact`, model)
+    }
 }
 
 export default FreelancerService
