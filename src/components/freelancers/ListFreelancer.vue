@@ -16,7 +16,7 @@
                         </div>
                    </div>
                    <div class="botones-Freelancer">
-                         <el-button type="primary" @click="openDialog(), freelancer = i.name + ' ' + i.lastName, email = i.email" id="boton-freelancer">Contactar</el-button>
+                         <el-button type="primary" @click="openDialog(), freelancer = i.name + ' ' + i.lastName, email = i.email, form.applicationUserId = i.applicationUserId" id="boton-freelancer">Contactar</el-button>
                    </div>
                 </div>
                 <div class="top-right-item-Freelancer">
@@ -95,6 +95,8 @@ export default {
         message: '',
         emailDestiny: '',
         emailFrom: '',
+        fromId:'',
+        applicationUserId:''
       },
       rules: {
         fullName: [
@@ -159,6 +161,8 @@ export default {
         if(self.UserId){
           self.form.fullName = localStorage.getItem('user_info')
           self.form.emailFrom = localStorage.getItem('user_email')
+          //con este freelancerid yo tomo el id del user real
+          self.form.fromId = localStorage.getItem('user_id');
         }
         self.$refs[form].validate(valid => {
             if(valid) {

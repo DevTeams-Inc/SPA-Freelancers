@@ -50,9 +50,10 @@
           </div>
         </div>
         <div class="bottomMiniPerfil">
-          <div class="skills-MiniPerfil">
+          <div class="skills-MiniPerfil" >
             <h4>Habilidades</h4>
             <el-tag
+              v-if="id == UserId"
               v-for="(hability, index) in data.habilities"
               :key="index"
               closable
@@ -61,6 +62,14 @@
               @close="removeHability(hability.id , data.id)"
               type="primary"
             >{{hability.title}}</el-tag>
+            <el-tag
+             v-else
+              :key="index"
+              size="mini"
+              class="mb-2 ml-1"
+              type="primary">
+              {{hability.title}}
+              </el-tag>
           </div>
           <div class="contactar-MiniPerfil">
             <router-link :to="`/edit/registro/${data.id}`">

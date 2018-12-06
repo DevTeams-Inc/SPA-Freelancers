@@ -28,7 +28,7 @@
                        </el-form-item>
                    </div>
                    <div class="button-siguiente">
-                     <el-button v-if="mostrarPaso1" @click="submitForm('ruleForm')"  type="primary">Siquiente</el-button>
+                     <el-button v-if="mostrarPaso1" @click="submitForm('ruleForm')"  type="primary">Siguiente</el-button>
                    </div>
 
                </el-form>
@@ -51,17 +51,17 @@
               <el-form class="form" :model="ruleForm2" :rules="rules2" ref="ruleForm2">
                   <div class="Publicar-section3" v-if="mostrarPaso3">
                        <el-form-item prop="Required_Skill"> 
-                         <el-select style="width:100%;"  placeholder="Habilidades requeridas" v-model="ruleForm2.Required_Skill" >
+                         <el-select style="width:100%;"  placeholder="Habilidad requerida" v-model="ruleForm2.Required_Skill" >
                            <el-option v-for="(skill,index) in skills" :key="index" :value="skill.title"></el-option>
                          </el-select>
                        </el-form-item>
                       <el-form-item prop="Scope">
-                         <el-input v-model="ruleForm2.Scope" placeholder="Alcance del proyecto" size="medium">
+                         <el-input v-model="ruleForm2.Scope" placeholder="Duracion del Proyecto" size="medium">
                          </el-input>
                        </el-form-item>
 
                        <el-form-item prop="Price">
-                          <el-input v-model="ruleForm2.Price" placeholder="Presupuesto del proyecto" type="number" size="medium"></el-input>
+                          <el-input v-model="ruleForm2.Price" placeholder="Costo del proyecto" type="number" size="medium"></el-input>
                        </el-form-item>
                         </div>
                          <div class="button-siguiente">
@@ -244,19 +244,19 @@ export default {
           }
         ],
         Description: [
-          { required: true, message: "Descripcion del proyecto", trigger: "blur" }
+          { required: true, message: "Campo requerido", trigger: "blur" }
         ],
     
       },
       rules2:{
          Required_Skill: [
-          { required: true, message: "Habilidades Requeridas", trigger: "blur" }
+          { required: true, message: "Campo requerido", trigger: "blur" }
         ],
         Scope: [
-          { required: true, message: "Alcance del proyecto", trigger: "blur" }
+          { required: true, message: "Campo requerido", trigger: "blur" }
         ],
          Price: [
-          { required: true, message: "Seleccione un presupuesto estimado", trigger: "blur" }
+          { required: true, message: "Campo requerido", trigger: "blur" }
         ]
       },
        model: {
