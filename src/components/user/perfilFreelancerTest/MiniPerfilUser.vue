@@ -116,7 +116,7 @@
           <div>
             <input type="file" id="file" ref="file" @change="handleFileUpload()">
           </div>
-          <button class="btn mt-4 el-button primary" @click="submitFile()">Subir imagen</button>
+          <button class="btn mt-4 el-button btn-primary" @click="submitFile()">Subir imagen</button>
         </div>
       </el-dialog>
     </div>
@@ -215,7 +215,9 @@ export default {
           self.markers[1].position.lat = r.data.lat;
           this.loading = false;
         })
-        .catch(e => {});
+        .catch(e => {
+          this.$router.push(`/completar/registro/${id}`);
+        });
     },
     /**
      * obtienen la ubicacion de donde estas conectado

@@ -60,10 +60,10 @@
         <div>
         <el-dialog :title="`Contactar a ${freelancer}`" :visible.sync="contactForm" ref="contactForm">
           <el-form :model="form" :rules="rules" ref="form">
-              <el-form-item label="Nombre Completo:" prop="fullName">
+              <el-form-item label="Nombre Completo:" prop="fullName" v-show="!this.UserId">
                 <el-input v-model="form.fullName" autocomplete="off" placeholder="Flash"></el-input>
               </el-form-item>
-              <el-form-item label="Email" prop="emailDestiny">
+              <el-form-item label="Email" prop="emailFrom" v-show="!this.UserId">
                 <el-input v-model="form.emailFrom" autocomplete="off" placeholder="barry@flash.com"></el-input>
               </el-form-item>
               <el-form-item label="Mensaje:" prop="message">
@@ -103,7 +103,7 @@ export default {
         message: [
           { required: true, message: "Ingrese un mensaje para flash", trigger: "blur" }
         ],
-        emailDestiny: [
+        emailFrom: [
           {
             type: "email",
             required: true,
@@ -140,8 +140,6 @@ export default {
       self.$store.state.services.freelancerService
         .getAll(index)
         .then(r => {
-          console.log(r.data);
-          
           this.loading = false;
           /**
            * remueve el usuario logueado de la lista de
@@ -158,6 +156,10 @@ export default {
     },
     contactFreelancer(form){
         let self = this;
+        if(self.UserId){
+          self.form.fullName = localStorage.getItem('user_info')
+          self.form.emailFrom = localStorage.getItem('user_email')
+        }
         self.$refs[form].validate(valid => {
             if(valid) {
               self.$store.state.services.freelancerService.sendMessage(self.form)
@@ -167,8 +169,11 @@ export default {
                       title: "Mensaje enviado",
                       message: "Su mensaje ha sido enviado.",
                       offset: 50,
-                      duration: 3000
+                      duration: 2000
                     });
+                    self.form.fullName = ''
+                    self.form.emailFrom = ''
+                    self.form.emailDestiny = ''
                 }).catch(err => {
                     self.$notify.error({
                       title: "Lo sentimos",
@@ -262,6 +267,12 @@ export default {
       if (this.totalOfRegister <= 0) {
         return this.beforePage();
       }
+    },
+    /**
+     * Me permite obtener el id del usuario logeado del localStorage
+     */
+    UserId() {
+      return localStorage.getItem('user_id') ? true : false
     }
   }
 };

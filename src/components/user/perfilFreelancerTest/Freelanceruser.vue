@@ -43,7 +43,7 @@ export default {
       self.$store.state.services.freelancerService
         .userExist(id)
         .then(r => {
-          if (r.data === true) {
+          if (r.data) {
             self.$store.state.existe = true;
           } else {
             self.$store.state.existe = false;
