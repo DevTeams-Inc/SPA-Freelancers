@@ -74,32 +74,48 @@
             </el-col>
           </el-col>
           <el-col :span="12" class="coll">
-              <el-row>
-                <el-col :span="12">
-                  <el-form-item label="Nombre" prop="name">
-                    <el-input v-model="ruleForm.name"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12">
-                  <el-form-item label="Apellido" prop="lastName">
-                    <el-input v-model="ruleForm.lastName"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            <el-form-item label="Ubicacion" prop="address">
+            <el-row>
+              <el-col :span="12">
+                <el-form-item label="Nombre" prop="name">
+                  <el-input v-model="ruleForm.name"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="Apellido" prop="lastName">
+                  <el-input v-model="ruleForm.lastName"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-form-item label="Ubicacion" prop="address" v-show="show">
               <div>
+                 <el-row>
+                <el-col :span="18">
                 <label>
                   <gmap-autocomplete
                     class="ubicacion"
                     v-model="ruleForm.address"
                     @place_changed="setPlace"
-                    
                   ></gmap-autocomplete>
                 </label>
+                 </el-col>
+                <el-col :span="5">
+                <el-button type="primary" plain @click="hideAddress()" class="ml-2">Cancelar</el-button>
+                </el-col>
+                </el-row>
               </div>
             </el-form-item>
+            <el-form-item label="Ubicacion" prop="address" v-show="!show">
+              <el-row>
+                <el-col :span="18">
+              <el-input v-model="ruleForm.address" readonly ></el-input>
+                </el-col>
+                <el-col :span="5">
+                <el-button type="primary" plain @click="showAddress()" class="ml-1"> Cambiar</el-button>
+                </el-col>
+              </el-row>
+            </el-form-item>
             <el-form-item label="Profesion" prop="profesion">
-              <el-input v-model="ruleForm.profesion" placeholder="e.j Web developer"></el-input>
+              <el-input v-model="ruleForm.profesion" placeholder="e.j Web developer" ></el-input>
             </el-form-item>
             <el-row>
               <el-col>
@@ -117,7 +133,7 @@
               <el-col>
                 <el-form-item class="mt-2">
                   <el-button class="complete" @click="submitForm('ruleForm')">Completar</el-button>
-                  <el-button @click="resetForm('ruleForm')">Reset</el-button>
+                  <el-button  @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -136,6 +152,8 @@ export default {
       markers: [],
       places: [],
       allHabilities: [],
+      show: false,
+      ubi: null,
       loading: true,
       currentPlace: null,
       id: 0,
@@ -164,7 +182,7 @@ export default {
         address: {
           required: true,
           message: "Ingrese una Ubicacion",
-          trigger: "blur"
+          trigger: "changer"
         },
         name: {
           required: true,
@@ -224,6 +242,16 @@ export default {
     this.geolocate();
   },
   methods: {
+    showAddress(){
+        this.show = true;
+        this.ubi = this.ruleForm.address;
+        console.log(this.ubi);
+    },
+    hideAddress(){
+        this.show = false;
+        this.ruleForm.address = this.ubi;
+        console.log(this.ruleForm.address);
+    },
     ya(c) {
       /**
        * let p guardo el elemento que me manda el select
@@ -303,7 +331,7 @@ export default {
         })
         .catch(e => {
           //si no me trae dato estamos completando registro
-         // self.$router.push("/inicio");
+          // self.$router.push("/inicio");
         });
     },
     /**
@@ -315,14 +343,12 @@ export default {
         this.ruleForm.address =
           place.name + ", " + place.address_components[2].short_name;
       } catch (error) {
-        if(this.ruleForm.address != null){
+        if (this.ruleForm.address != null) {
+          this.ruleForm.address = place.formatted_address;
+        } else {
           this.ruleForm.address =
-          place.formatted_address;
-        }else{
-          this.ruleForm.address =
-          place.name + ", " + place.address_components[1].short_name;
+            place.name + ", " + place.address_components[1].short_name;
         }
-        
       }
       this.ruleForm.lat = place.geometry.location.lat();
       this.ruleForm.long = place.geometry.location.lng();
@@ -331,22 +357,22 @@ export default {
      * Obtiene la latitud y longitud del navegador
      */
     geolocate: function() {
-      if(self.keyFreelancer > 0){
-      navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        let p = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        this.markers.push({ position: p });
-        this.ruleForm.long = position.coords.longitude;
-        this.ruleForm.lat = position.coords.latitude;
-
-      });
-      }else{}
+      if (self.keyFreelancer > 0) {
+        navigator.geolocation.getCurrentPosition(position => {
+          this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          let p = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          this.markers.push({ position: p });
+          this.ruleForm.long = position.coords.longitude;
+          this.ruleForm.lat = position.coords.latitude;
+        });
+      } else {
+      }
     },
 
     submitForm(form) {
@@ -356,23 +382,23 @@ export default {
           /**
            * Editar freelancers
            */
-            self.$store.state.services.freelancerService
-              .update(self.ruleForm)
-              .then(r => {
-                self.$notify.success({
-                  message: "Su registro ha sido actualizado!",
-                  offset: 45
-                });
-                self.$router.push(
-                  `/freelancer/${self.ruleForm.applicationUserId}`
-                );
-              })
-              .catch(e => {
-                self.$notify.erro({
-                  message: "Su registro no ha sido actualizado!",
-                  offset: 45
-                });
+          self.$store.state.services.freelancerService
+            .update(self.ruleForm)
+            .then(r => {
+              self.$notify.success({
+                message: "Su registro ha sido actualizado!",
+                offset: 45
               });
+              self.$router.push(
+                `/freelancer/${self.ruleForm.applicationUserId}`
+              );
+            })
+            .catch(e => {
+              self.$notify.erro({
+                message: "Su registro no ha sido actualizado!",
+                offset: 45
+              });
+            });
         } else {
           self.$notify.error({
             message: "Intente de nuevo!",
@@ -452,7 +478,7 @@ export default {
   padding: 0 15px;
   -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-  width: 418px;
+  width: 320px;
   /* right: 42px; */
 }
 .phone {

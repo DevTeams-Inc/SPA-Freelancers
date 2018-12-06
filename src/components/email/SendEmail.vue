@@ -20,9 +20,10 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .size {
-  margin: 14.3%;
+  margin: 14%;
+  padding: 0.8%;
 }
 .span{
   color: #59607e;

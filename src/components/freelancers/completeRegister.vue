@@ -189,13 +189,17 @@ export default {
       }
     };
   },
+  beforeCreate(){
+    },
   created() {
-    let self = this;
+    this.getHabilities();
+          
 
-    self.getHabilities();
   },
   mounted() {
     this.geolocate();
+          this.getById(this.keyUser);
+    
   },
   methods: {
     ya(c) {
@@ -287,7 +291,20 @@ export default {
         console.log("desde el else geococate()");
       }
     },
+    getById(id){
+      let self = this;
+      self.$store.state.services.accountService
+      .exist(id)
+      .then( r =>{
+      })
+      .catch(e => {
+        
+                this.$router.push(`/inicio`);      
+        
 
+        });
+
+    },
     submitForm(form) {
       let self = this;
       self.$refs[form].validate(valid => {
