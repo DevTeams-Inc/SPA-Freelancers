@@ -176,7 +176,7 @@ export default {
             })
             .then(r => {
               if (self.role == 1) {
-                self.redirect("/freelancers");
+                self.redirect("/inicio");
               } else if (self.role == 2) {
                 self.redirect("/dashboardAdmin");
               }

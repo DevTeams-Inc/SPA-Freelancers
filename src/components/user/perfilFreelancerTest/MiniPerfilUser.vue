@@ -64,11 +64,9 @@
             >{{hability.title}}</el-tag>
             <el-tag
              v-else
-              v-for="(hability, index) in data.habilities"
               :key="index"
               size="mini"
               class="mb-2 ml-1"
-              @close="removeHability(hability.id , data.id)"
               type="primary">
               {{hability.title}}
               </el-tag>
