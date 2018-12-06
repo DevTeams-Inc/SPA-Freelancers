@@ -20,7 +20,7 @@
               
             <el-input
                 v-model="ruleForm.newPassword"
-                placeholder="Confirmar Nueva Contraseña"
+                placeholder="Nueva Contraseña"
                 prefix-icon="el-icon-question"
                 size="medium"
                 type="password">
@@ -32,7 +32,7 @@
                 <el-input
                     v-model="ruleForm.confimPassword"
                     type="password"
-                    placeholder="Confirmar Contraseña"
+                    placeholder="Confirmar Nueva Contraseña"
                     prefix-icon="el-icon-question"
                     size="medium">
                 </el-input>
