@@ -22,6 +22,9 @@ export default {
 </script>
 
 <style>
+.text-primary{
+  color: #5a75e6 !important;
+}
 h6 {
   color: #808695;
   font-family: "Roboto", sans-serif;

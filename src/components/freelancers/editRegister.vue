@@ -20,6 +20,7 @@
               <el-col>
                 <el-form-item label="Biografia" prop="biography" class="mb-5">
                   <el-input type="textarea" :rows="4" v-model="ruleForm.biography"></el-input>
+                  <!-- <input type="textarea" v-model="ruleForm.biography" class="mt-5"> -->
                 </el-form-item>
               </el-col>
             </el-row>
@@ -35,10 +36,10 @@
               <el-form-item label="Interes" prop="interest">
                 <el-select v-model="ruleForm.interest" placeholder="Seleciona">
                   <el-option
-                    v-for="hability in allHabilities"
-                    :key="hability.id"
-                    :label="hability.title"
-                    :value="hability.title"
+                    v-for="interest in allInterest"
+                    :key="interest.id"
+                    :label="interest.name"
+                    :value="interest.name"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -88,34 +89,34 @@
             </el-row>
             <el-form-item label="Ubicacion" prop="address" v-show="show">
               <div>
-                 <el-row>
-                <el-col :span="18">
-                <label>
-                  <gmap-autocomplete
-                    class="ubicacion"
-                    v-model="ruleForm.address"
-                    @place_changed="setPlace"
-                  ></gmap-autocomplete>
-                </label>
-                 </el-col>
-                <el-col :span="5">
-                <el-button type="primary" plain @click="hideAddress()" class="ml-2">Cancelar</el-button>
-                </el-col>
+                <el-row>
+                  <el-col :span="18">
+                    <label>
+                      <gmap-autocomplete
+                        class="ubicacion"
+                        v-model="ruleForm.address"
+                        @place_changed="setPlace"
+                      ></gmap-autocomplete>
+                    </label>
+                  </el-col>
+                  <el-col :span="5">
+                    <el-button type="primary" plain @click="hideAddress()" class="ml-2">Cancelar</el-button>
+                  </el-col>
                 </el-row>
               </div>
             </el-form-item>
             <el-form-item label="Ubicacion" prop="address" v-show="!show">
               <el-row>
                 <el-col :span="18">
-              <el-input v-model="ruleForm.address" readonly ></el-input>
+                  <el-input v-model="ruleForm.address" readonly></el-input>
                 </el-col>
                 <el-col :span="5">
-                <el-button type="primary" plain @click="showAddress()" class="ml-1"> Cambiar</el-button>
+                  <el-button type="primary" plain @click="showAddress()" class="ml-1">Cambiar</el-button>
                 </el-col>
               </el-row>
             </el-form-item>
             <el-form-item label="Profesion" prop="profesion">
-              <el-input v-model="ruleForm.profesion" placeholder="e.j Web developer" ></el-input>
+              <el-input v-model="ruleForm.profesion" placeholder="e.j Web developer"></el-input>
             </el-form-item>
             <el-row>
               <el-col>
@@ -132,8 +133,8 @@
             <el-row>
               <el-col>
                 <el-form-item class="mt-2">
-                  <el-button class="complete" @click="submitForm('ruleForm')">Completar</el-button>
-                  <el-button  @click="resetForm('ruleForm')">Reset</el-button>
+                  <el-button class="complete" @click="submitForm('ruleForm')">Actualizar</el-button>
+                  <el-button @click="resetForm('ruleForm')">Reset</el-button>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -152,6 +153,7 @@ export default {
       markers: [],
       places: [],
       allHabilities: [],
+      allInterest:[],
       show: false,
       ubi: null,
       loading: true,
@@ -179,6 +181,11 @@ export default {
         applicationUserId: localStorage.getItem("user_id")
       },
       rules: {
+        interest:{
+          required: true,
+          message: "Seleccione un interes",
+          trigger: "changer"
+        },
         address: {
           required: true,
           message: "Ingrese una Ubicacion",
@@ -205,11 +212,10 @@ export default {
           trigger: "blur"
         },
         biography: {
-          required: true,
-          min: 8,
-          max: 260,
-          message: "Debes tener de 8 a 260 caracteres.",
-          trigger: "blur"
+          // required: true,
+       
+          // message: "Debes tener de 8 a 260 caracteres.",
+          // trigger: "blur"
         },
         profesion: {
           required: true,
@@ -228,6 +234,7 @@ export default {
     let self = this;
 
     self.getHabilities();
+    self.getAllCategory();
     /**
      * Solo se obtiene los datos si existe el id del freelancer
      * de lo contrario se reedireciona al inicio
@@ -242,49 +249,6 @@ export default {
     this.geolocate();
   },
   methods: {
-    showAddress(){
-        this.show = true;
-        this.ubi = this.ruleForm.address;
-        console.log(this.ubi);
-    },
-    hideAddress(){
-        this.show = false;
-        this.ruleForm.address = this.ubi;
-        console.log(this.ruleForm.address);
-    },
-    ya(c) {
-      /**
-       * let p guardo el elemento que me manda el select
-       */
-      let p = c.pop();
-
-      if (this.habilityExist(p)) {
-        //si existe obtenemos el valor que teniamos
-        var index = this.ruleForm.habilities.indexOf(p);
-        //si retorna mayor a => -1 existe
-        if (index >= -1) {
-          //como existe con splice lo eliminamos
-          /**
-           * @param index indica en la posicion que esta
-           * ponemos 1 por defecto
-           */
-          this.i--;
-          this.ruleForm.habilities.splice(index, 1);
-        }
-      } else {
-        this.i++;
-        this.ruleForm.habilities.push({ id: p });
-      }
-    },
-    /**
-     * verifica si existe en el array
-     * @param id indica el valor que verificara si existe
-     */
-    habilityExist(id) {
-      return this.ruleForm.habilities.some(el => {
-        return el.id === id;
-      });
-    },
     /**
      * Obtener todas las habilidades
      */
@@ -299,7 +263,22 @@ export default {
           self.allHabilities = r.data;
         })
         .catch(e => {
-          alert("Error en obtener allHabilities " + e);
+          console.log("Error en obtener Habilities " + e);
+        });
+    },
+    /**
+     * Obtener todas las categorias
+     */
+
+    getAllCategory() {
+      let self = this;
+      self.$store.state.services.categoryService
+        .getAll()
+        .then(r => {
+          self.allInterest = r.data;
+        })
+        .catch(e => {
+          console.log("Error en obtener categorias " + e);
         });
     },
     /**
@@ -334,47 +313,6 @@ export default {
           // self.$router.push("/inicio");
         });
     },
-    /**
-     *Agrega la ubicacion al input
-     */
-    setPlace(place) {
-      this.currentPlace = place;
-      try {
-        this.ruleForm.address =
-          place.name + ", " + place.address_components[2].short_name;
-      } catch (error) {
-        if (this.ruleForm.address != null) {
-          this.ruleForm.address = place.formatted_address;
-        } else {
-          this.ruleForm.address =
-            place.name + ", " + place.address_components[1].short_name;
-        }
-      }
-      this.ruleForm.lat = place.geometry.location.lat();
-      this.ruleForm.long = place.geometry.location.lng();
-    },
-    /**
-     * Obtiene la latitud y longitud del navegador
-     */
-    geolocate: function() {
-      if (self.keyFreelancer > 0) {
-        navigator.geolocation.getCurrentPosition(position => {
-          this.center = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          let p = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          this.markers.push({ position: p });
-          this.ruleForm.long = position.coords.longitude;
-          this.ruleForm.lat = position.coords.latitude;
-        });
-      } else {
-      }
-    },
-
     submitForm(form) {
       let self = this;
       self.$refs[form].validate(valid => {
@@ -427,12 +365,105 @@ export default {
         self.currentPlace = null;
       }
     },
+
+    ya(c) {
+      /**
+       * let p guardo el elemento que me manda el select
+       */
+      let p = c.pop();
+
+      if (this.habilityExist(p)) {
+        //si existe obtenemos el valor que teniamos
+        var index = this.ruleForm.habilities.indexOf(p);
+        //si retorna mayor a => -1 existe
+        if (index >= -1) {
+          //como existe con splice lo eliminamos
+          /**
+           * @param index indica en la posicion que esta
+           * ponemos 1 por defecto
+           */
+          this.i--;
+          this.ruleForm.habilities.splice(index, 1);
+        }
+      } else {
+        this.i++;
+        this.ruleForm.habilities.push({ id: p });
+      }
+    },
+    /**
+     * verifica si existe en el array
+     * @param id indica el valor que verificara si existe
+     */
+    habilityExist(id) {
+      return this.ruleForm.habilities.some(el => {
+        return el.id === id;
+      });
+    },
+    /**
+     *Agrega la ubicacion al input
+     */
+    setPlace(place) {
+      this.currentPlace = place;
+      try {
+        this.ruleForm.address =
+          place.name + ", " + place.address_components[2].short_name;
+      } catch (error) {
+        if (this.ruleForm.address != null) {
+          this.ruleForm.address = place.formatted_address;
+        } else {
+          this.ruleForm.address =
+            place.name + ", " + place.address_components[1].short_name;
+        }
+      }
+      this.ruleForm.lat = place.geometry.location.lat();
+      this.ruleForm.long = place.geometry.location.lng();
+    },
+    /**
+     * Obtiene la latitud y longitud del navegador
+     */
+    geolocate: function() {
+      if (self.keyFreelancer > 0) {
+        navigator.geolocation.getCurrentPosition(position => {
+          this.center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          let p = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          this.markers.push({ position: p });
+          this.ruleForm.long = position.coords.longitude;
+          this.ruleForm.lat = position.coords.latitude;
+        });
+      } else {
+      }
+    },
+    /**
+     * Mostrar el input de autocompletar ubicacion
+     */
+    showAddress() {
+      this.show = true;
+      this.ubi = this.ruleForm.address;
+    },
+     /**
+     * ocultar el input de autocompletar ubicacion
+     */
+    hideAddress() {
+      this.show = false;
+      this.ruleForm.address = this.ubi;
+    },
+    /**
+     * Limpiar el formulario
+     */
     resetForm(formallHabilities) {
       let self = this;
 
       self.$refs[formallHabilities].resetFields();
-      // this.id = 0
     },
+    /**
+     * Valida el numero y la region del numero de telejo
+     */
     onInput({ number, isValid, country }) {
       console.log(number, isValid, country);
     }
@@ -440,13 +471,14 @@ export default {
 };
 </script>
 
-<style scope>
+<style>
 .coll {
   position: relative;
   left: 20px;
   top: 2px;
 }
 .title-register {
+  font-size: 19px;
   color: rgb(105, 105, 105);
 }
 .complete {
@@ -505,10 +537,7 @@ export default {
 .ubicacion::-webkit-input-placeholder {
   color: #c0c4cc;
 }
-.nota {
-  color: #8c939d;
-  font-size: 11px;
-}
+
 .counter {
   background: #f5f7fa;
   color: #909399;

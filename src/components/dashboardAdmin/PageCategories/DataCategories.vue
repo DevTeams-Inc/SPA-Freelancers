@@ -239,6 +239,7 @@ export default {
                 message: "Categoria editada con exito",
                 type: "success"
               });
+              self.dialogFormEditarVisible = false
               this.getAll();
             })
             .catch(e => {

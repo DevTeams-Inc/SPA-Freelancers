@@ -15,7 +15,7 @@ import ProyectPost from "@/components/proyect/ProyectPost/Post";
 import FreelancerUser from "@/components/user/FreelancerUser";
 import Freelancers from "@/components/freelancers/Freelancers";
 import PerfilFreelancer from "@/components/user/perfilFreelancerTest/Freelanceruser";
-
+import PerfilFreelancerVisitor from "@/components/user/perfilFreelancerTest/FreelanceruserVisitor";
 import SendEmail from "@/components/email/SendEmail";
 import EmailValidation from "@/components/email/EmailConfirmed";
 
@@ -28,6 +28,8 @@ import DashboardHabilidades from "@/components/dashboardAdmin/PageHabilidades/Ha
 import DashboardReports from "@/components/dashboardAdmin/PageReports/Reports";
 import SearchFreelancer from '@/components/location/SearchFreelancer';
 import resetPassword from '@/components/auth/resetPassword';
+
+
 
 
 Vue.use(Router);
@@ -138,6 +140,15 @@ export default new Router({
       }
     },
     {
+      path: "/freelancervisitor/:id",
+      name: "freelancer",
+      props: true,
+      component: PerfilFreelancerVisitor,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: "/email/validacion",
       name: "email/validate",
       component: SendEmail,
@@ -162,6 +173,8 @@ export default new Router({
         requiresAuth: false
       }
     },
+    
+
 
     //Ruteo de administrador//
     {

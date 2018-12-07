@@ -11,7 +11,6 @@ class ProyectService{
         return this.axios.post(`${this.apiUrl}`,model);
     }
 
-      
     getAll() {
         return this.axios.get(`${this.apiUrl}/admin/getall`)
     }

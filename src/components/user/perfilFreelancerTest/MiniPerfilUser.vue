@@ -16,13 +16,13 @@
               </span>
             </div>
             <div class="rating-mini">
-              <el-rate id="rating-star" show-score text-color="#ff9900" score-template></el-rate>
+              <el-rate id="rating-star"  disabled show-score text-color="#ff9900" score-template></el-rate>
             </div>
             <div class="ciudad-mini">
               <div class="address">
-              <i class="el-icon-location">{{data.address}}</i> 
+                <i class="el-icon-location">{{data.address}}</i> 
               </div>
-              
+       
               
             </div>
             <div class="category-Mini">
@@ -76,7 +76,7 @@
               <el-button
                 style="width:45px;margin-left:90px;"
                 v-if="id == UserId"
-                type="secondary"
+                type="primary"
                 icon="el-icon-edit"
                 circle
               ></el-button>
@@ -87,8 +87,8 @@
       </div>
       <div class="priceHour">
         <div class="price">
-          <h4>Precio Hora:</h4>
-          <p>{{data.priceHour}}</p>
+          <h4>Precio Por Hora:</h4>
+          <p>${{data.priceHour}}</p>
         </div>
         <div class="icono-price">
           <p>$</p>
@@ -155,6 +155,7 @@ export default {
       loadingprofile: false,
       loading: false,
       file: "",
+      idFrelancer:null,
       infoContent: "",
       infoImg: "",
       infoWindowPos: {
@@ -195,6 +196,8 @@ export default {
   },
   created() {
     this.getUser(this.id);
+  
+
   },
   mounted() {
     let self = this;
@@ -222,9 +225,11 @@ export default {
           self.center.lng = r.data.long;
           self.markers[1].position.lng = r.data.long;
           self.markers[1].position.lat = r.data.lat;
+          EventBus.$emit("idFrelancerLogeado",(r.data.id));
           this.loading = false;
         })
         .catch(e => {
+
           this.$router.push(`/completar/registro/${id}`);
         });
     },
@@ -362,11 +367,12 @@ export default {
 .address{
   font-family: "Roboto", sans-serif;
   color: #409eff;
+  font-size: 14px;
  
 }
 .contact-Mini {
   display: flex;
-  color: #409eff;
+  color: #4764da;
   width: 300px;
 }
 .contact-Mini h4 {
@@ -376,11 +382,12 @@ export default {
   font-size: 12.7px;
 }
 .container-MiniPerfil {
+  font-family: "Roboto", sans-serif;
   margin-top: 20px;
 }
 .miniPerfil {
   position: relative;
-  height: 300px;
+
   background-color: white;
   padding: 20px;
 }
@@ -400,10 +407,11 @@ export default {
 .price p {
   font-size: 15px;
   margin-left: 10px;
+  color: #10df90;
 }
 .price h4 {
   font-size: 17px;
-  color: rgb(104, 104, 104);
+  color: #4764da;
 }
 .icono-price {
   width: 3.5%;
@@ -458,9 +466,7 @@ export default {
 }
 .category-Mini h4 {
   font-size: 15px;
-  color: #409eff;
-
-
+  color: #4764da;
 }
 
 .rightTop-MiniPerfil {
@@ -505,7 +511,7 @@ export default {
 .componenteUbicacion h4 {
   font-size: 17px;
   text-align: left;
-  color: rgb(104, 104, 104);
+  color: #4764da;
 }
 .validCRegistro {
   background-color: white;

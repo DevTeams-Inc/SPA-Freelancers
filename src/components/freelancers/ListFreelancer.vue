@@ -5,8 +5,8 @@
             <div class="top-Item-Freelancer">
                 <div class="top-left-item-Freelancer">
                    <div class="texto-freelancer">
-                       <router-link tag="a" :to="`/freelancer/${i.applicationUserId}`">
-                       <h2 >{{i.name}} {{i.lastName}}</h2>
+                       <router-link tag="a" :to="`/freelancer/${i.applicationUserId}`" class="link-freelancer">
+                       <h2>{{i.name}} {{i.lastName}}</h2>
                         </router-link>
                         <div class="frase"><p>{{i.profesion}}</p></div>
                         <div><i class="fas fa-map-marker-alt text-primary"> </i> {{i.address}}</div>
@@ -16,7 +16,7 @@
                         </div>
                    </div>
                    <div class="botones-Freelancer">
-                         <el-button type="primary" @click="openDialog(), freelancer = i.name + ' ' + i.lastName, email = i.email, form.applicationUserId = i.applicationUserId" id="boton-freelancer">Contactar</el-button>
+                         <el-button class="button-freelancer" type="primary" @click="openDialog(), freelancer = i.name + ' ' + i.lastName, email = i.email, form.applicationUserId = i.applicationUserId" id="boton-freelancer">Contactar</el-button>
                    </div>
                 </div>
                 <div class="top-right-item-Freelancer">
@@ -46,14 +46,14 @@
         </div>
         <div class="row justify-content-center mt-5">
             <div class="col-2">
-                <el-button type="primary" @click="beforePage()"  id="boton-freelancer">Anterior</el-button>
+                <el-button class="button-freelancer" type="primary" @click="beforePage()"  id="boton-freelancer">Anterior</el-button>
                 <!-- propiedad computada que se activa cuando se va a 
                 traer mas datos para evitar que se sigan haciendo gets a la 
                 api si no hay mas datos -->
                 {{i}}
             </div>
             <div class="col-2">
-                <el-button type="primary" @click="nextPage()" id="boton-freelancer">Siguiente</el-button>
+                <el-button class="button-freelancer"  type="primary" @click="nextPage()" id="boton-freelancer">Siguiente</el-button>
             </div>
         </div>
 
@@ -77,7 +77,7 @@
           </el-form>
           <span slot="footer" class="dialog-footer">
               <el-button @click="contactForm = false">Cancelar</el-button>
-              <el-button type="primary" @click="contactFreelancer('form') ,  form.emailDestiny = email">Enviar</el-button>
+              <el-button type="primary"  v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="Estamos enviando su mensaje..." @click="contactFreelancer('form') ,  form.emailDestiny = email">Enviar</el-button>
           </span>
           </el-dialog>
       </div>
@@ -90,6 +90,7 @@ export default {
   data() {
     return {
       contactForm: false,
+      fullscreenLoading:false,
       form: {
         fullName: '',
         message: '',
@@ -157,6 +158,8 @@ export default {
         });
     },
     contactFreelancer(form){
+
+           this.fullscreenLoading=true;
         let self = this;
         if(self.UserId){
           self.form.fullName = localStorage.getItem('user_info')
@@ -175,17 +178,22 @@ export default {
                       offset: 50,
                       duration: 2000
                     });
+               
                     self.form.fullName = ''
                     self.form.emailFrom = ''
                     self.form.emailDestiny = ''
+                      this.fullscreenLoading=false;
                 }).catch(err => {
+                      this.fullscreenLoading=false;
                     self.$notify.error({
                       title: "Lo sentimos",
                       message: "Ha ocurrido un problema, porfavor intente de nuevo.",
                       offset: 50,
                       duration: 3000
                     });
+                 
                 });
+             
             } else {
               return false;
             }
@@ -282,6 +290,13 @@ export default {
 };
 </script>
 <style scoped>
+.link-freelancer {
+  color: #4764da;
+}
+.link-freelancer:hover{
+  color: #3350c5;
+  text-decoration: none;
+}
 .btn-home {
   width: 85px;
 }
@@ -326,6 +341,12 @@ export default {
   display: flex;
   width: 50%;
 }
+.button-freelancer {
+  background-color: #5a75e6;
+}
+.button-freelancer:hover{
+  background-color: #3350c5;
+}
 .top-right-item-Freelancer {
   width: 20%;
 }
@@ -362,6 +383,7 @@ export default {
 .pricehour h4 {
   font-size: 14px;
   margin-top: 5px;
+  color: #4764da;
 }
 .pricehour h4:nth-child(1) {
   color: #304ab3;

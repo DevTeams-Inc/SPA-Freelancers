@@ -12,7 +12,12 @@ class AdminService{
     return this.axios.get(`${this.apiUrl}/freelancers/count`);
   
   }
-
+ 
+  countProyects(){
+    
+    return this.axios.get(`${this.apiUrl}/proyects/count`);
+  
+  }
 
   countCategory(){
     
@@ -23,17 +28,6 @@ class AdminService{
   countHability(){
     
     return this.axios.get(`${this.apiUrl}/hability/count`);
-  
-  }
-  // hability
-
-
-  // category
-
-
-  countProyects(){
-    
-    return this.axios.get(`${this.apiUrl}/proyects/count`);
   
   }
 

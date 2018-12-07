@@ -17,7 +17,7 @@
                            <a @click="$router.push('/dashboardAdmin/freelancers')" ><li>Freelancers</li></a>
                            <a @click="$router.push('/dashboardAdmin/categorias')"><li>Categorias</li></a>
                            <a @click="$router.push('/dashboardAdmin/habilidades')" ><li>Habilidades</li></a>
-                           <a @click="$router.push('/dashboardAdmin/reportes')" ><li>Reportes</li></a>
+                           <!-- <a @click="$router.push('/dashboardAdmin/reportes')" ><li>Reportes</li></a> -->
                        </ul>
                    </nav>
               </div>
@@ -35,9 +35,6 @@ padding-bottom: 30px;
 height: 100%;;
 }
 /* Este clase existe por alguna emergencia de estilo */
-.top-Menu{
-   
-}
 /* ------ */
 .pic-admin{
  border-radius:100%;
@@ -76,9 +73,7 @@ color:#304ab3;
     margin-top: 20px;
     width: 100%;
 }
-.nav-nenu-dashboard-admin{
-   
-}
+
 .nav-nenu-dashboard-admin nav ul {
 padding: 0;
 margin: 0;

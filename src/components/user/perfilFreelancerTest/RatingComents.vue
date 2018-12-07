@@ -125,7 +125,7 @@ overflow-y: scroll;
 .ratingComents h4{
     text-align: left;
     font-size: 17px;
-    color: gray;
+    color: #4764da;
 }
 .left-RatingComents{
     display: flex;

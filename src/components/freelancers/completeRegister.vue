@@ -35,10 +35,10 @@
               <el-form-item label="Interes" prop="interest">
                 <el-select v-model="ruleForm.interest" placeholder="Seleciona">
                   <el-option
-                    v-for="hability in allHabilities"
-                    :key="hability.id"
-                    :label="hability.title"
-                    :value="hability.title"
+                    v-for="interest in allInterest"
+                    :key="interest.id"
+                    :label="interest.name"
+                    :value="interest.name"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -112,7 +112,6 @@
           </el-col>
         </el-form>
       </el-row>
-      {{ruleForm.address}}
     </el-card>
   </div>
 </template>
@@ -125,6 +124,7 @@ export default {
       markers: [],
       places: [],
       allHabilities: [],
+      allInterest:[],
       loading: false,
       currentPlace: null,
       id: 0,
@@ -150,6 +150,11 @@ export default {
       },
       rules: {
         address: {
+          interest:{
+          required: true,
+          message: "Seleccione un interes",
+          trigger: "changer"
+        },
           required: true,
           message: "Ingrese una ubicacion",
           trigger: "blur"
@@ -189,15 +194,38 @@ export default {
       }
     };
   },
-  beforeCreate() {},
   created() {
     this.getHabilities();
+    this.getAllCategory();          
+
   },
   mounted() {
+    this.$notify.warning({
+      title: 'Completar su perfil',
+      message: 'Hasta que no llene estos campos no se visualizará su perfil.',
+      duration: 7000,
+      offset: 52
+    });
     this.geolocate();
     this.getById(this.keyUser);
   },
   methods: {
+       /**
+     * Obtener todas las categorias
+     */
+
+    getAllCategory() {
+      let self = this;
+      self.$store.state.services.categoryService
+        .getAll()
+        .then(r => {
+      
+      self.allInterest = r.data;
+        })
+        .catch(e => {
+          console.log("Error en obtener categorias " + e);
+        });
+    },
     ya(c) {
       /**
        * let p guardo el elemento que me manda el select
@@ -364,6 +392,7 @@ export default {
   top: 2px;
 }
 .title-register {
+  font-size: 19px;
   color: rgb(105, 105, 105);
 }
 .complete {

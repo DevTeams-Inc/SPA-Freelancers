@@ -8,7 +8,7 @@
     <div class="mt-5">
             <h1>Explora nuestras categorias</h1>
     </div>
-    <div class=" cards-category row mt-5 p-5" >
+    <div class="cards-category row mt-5 p-5" >
         <div class="col">
             <el-row  :gutter="10">
             <el-col v-for="(item , index) in categories" :key="index" class="mt-1" :xs="24" :sm="8" :md="8" :lg="8" :xl="8" >
@@ -24,7 +24,9 @@
         </el-carousel-item>
     </el-carousel>
     </div> 
-         <Freelancer :data ="freelancer"></Freelancer>
+      <div class="cards-category row p-5">
+        <Freelancer :data ="freelancer"></Freelancer>
+      </div>
     </div>
 </template>
 <script>

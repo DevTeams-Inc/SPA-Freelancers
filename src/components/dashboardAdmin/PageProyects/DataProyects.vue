@@ -6,13 +6,11 @@
         empty-text="No se encontraron resultados"
         height="280"
         :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-        style="width: 98%;margin-left:10px;;">
-        <el-table-column label="Fecha" prop="createdAt">
-        </el-table-column>
+        style="width: 98%;margin-left:10px;">
+        <el-table-column label="Fecha" prop="createdAt"></el-table-column>
         <el-table-column label="Titulo" prop="title"></el-table-column>
         <el-table-column label="Alcance" prop="scope"></el-table-column>
         <el-table-column label="Habilidad Requerida" prop="required_Skill"></el-table-column>
-
         <el-table-column label="Precio" prop="price"></el-table-column>
 
         <el-table-column align="right">
@@ -26,8 +24,6 @@
                 size="mini"
                 type="danger"
                 @click="dialogFormEliminarVisible=true, id=scope.row.id">Eliminar</el-button>
-
-              
             </div>
           </template>
         </el-table-column>
@@ -65,10 +61,11 @@ export default {
       dialogFormEliminarVisible: false,
       dialogFormOcultarVisible: false,
       tableData: [{
-        // createdAt: '',
-        // scope: '',
-        // title: '',
-        // required_Skill: ''
+        createdAt: '',
+        title: '',
+        scope: '',
+        required_Skill:'',
+        price: ''
       }],
       search: ""
     };
@@ -77,7 +74,6 @@ export default {
   mounted() {
     this.getAll();
   },
- 
 
   methods: {
     handleEdit(index, row) {
@@ -86,12 +82,11 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
     },
-
     getAll() {
       let self = this;
-      self.$store.state.services.proyectService.getAll().then(r => {
-        self.tableData = r.data;
-        console.log(r.data.createdAt);
+      self.$store.state.services.proyectService.getAllProyects()
+      .then(r => {
+        self.tableData = r.data.entities;
         
       });
     },
@@ -115,8 +110,6 @@ export default {
             type: "Error"
           });
         });
-
-          console.log(set.id);
     }
   }
 
