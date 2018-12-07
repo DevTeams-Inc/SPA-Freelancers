@@ -70,7 +70,7 @@
                   </el-form-item>
                   <el-form-item>
                     <el-button @click="dialogFormVisible = false">Cancelar</el-button>
-                    <el-button type="primary" @click="password() , dialogFormVisible = true">Confirmar</el-button>
+                    <el-button class="btn-modal" type="primary" @click="password() , dialogFormVisible = true">Confirmar</el-button>
                   </el-form-item>
                 </el-form>
               </span>
@@ -241,8 +241,14 @@ export default {
   outline: none;
 }
 .btn-login:hover {
-  background-color: rgb(140, 161, 245);
+  background-color:#4867e4;
   color: white;
+}
+.btn-modal {
+  background-color: #5a75e6;
+}
+.btn-modal:hover {
+  background-color: #4867e4;
 }
 .span-register {
   color: #5a75e6;
