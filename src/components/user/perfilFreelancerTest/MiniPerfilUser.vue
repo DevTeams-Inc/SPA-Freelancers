@@ -361,14 +361,10 @@ export default {
 
 <style>
 .address{
-<<<<<<< HEAD
-  color: #4764da;
-=======
   font-family: "Roboto", sans-serif;
   color: #409eff;
   font-size: 14px;
  
->>>>>>> 8c1838ccbc3f34ded718db0bdfd88094a60b92bd
 }
 .contact-Mini {
   display: flex;
