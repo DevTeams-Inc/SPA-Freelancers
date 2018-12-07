@@ -1,42 +1,8 @@
 <template>
-               <div class="container-proyectsTop">
-                      <h4>Proyectos Populares</h4>
-                           <div class="item-proyects">
-                                <div class="item-proyect-top">
-                                     <span>Icon</span>
-                                     <p>Proyecto 1</p>
-                                 </div>
-                                 <div class="item-proyect-top">
-                                     <span>Icon</span>
-                                     <p>Proyecto 1</p>
-                                 </div>
-                                 <div class="item-proyect-top">
-                                     <span>Icon</span>
-                                     <p>Proyecto 1</p>
-                                 </div>
-                                 <div class="item-proyect-top">
-                                     <span>Icon</span>
-                                     <p>Proyecto 1</p>
-                                 </div>
-                                 <div class="item-proyect-top">
-                                     <span>Icon</span>
-                                     <p>Proyecto 1</p>
-                                 </div>
-                                 <div class="item-proyect-top">
-                                     <span>Icon</span>
-                                     <p>Proyecto 1</p>
-                                 </div>
-                                 <div class="item-proyect-top">
-                                     <span>Icon</span>
-                                     <p>Proyecto 1</p>
-                                 </div>
-                                 <div class="item-proyect-top">
-                                     <span>Icon</span>
-                                     <p>Proyecto 1</p>
-                                 </div>
-                          </div>
-                    </div>
-    
+               
+    <div>
+   <br><br>
+   </div> 
 </template>
 <style>
 .container-proyectsTop{

@@ -27,7 +27,7 @@
 
         <div class="item-cont">
         <h4>Habilidades Creadas</h4>
-        <i class="fas fa-info fa-2x" style="margin-top:12px;"></i>
+        <i class="fas fa-book fa-2x" style="margin-top:12px;"></i>
         <br>
         <br>
         <span>{{data3}}</span>
