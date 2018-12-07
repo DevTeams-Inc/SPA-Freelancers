@@ -71,7 +71,7 @@
                   </el-form-item>
                   <el-form-item>
                     <el-button @click="dialogFormVisible = false">Cancelar</el-button>
-                    <el-button type="primary" @click="password()">Confirmar</el-button>
+                    <el-button type="primary" @click="password() , dialogFormVisible = true">Confirmar</el-button>
                   </el-form-item>
                 </el-form>
               </span>
