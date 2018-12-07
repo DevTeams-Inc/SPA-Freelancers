@@ -27,7 +27,7 @@
                 id="botonesDialog"
                 size="mini"
                 @click="dialogFormEditarVisible=true, id = scope.row.id , getById()"
-              >editar</el-button>
+              >Editar</el-button>
               <el-button
                 id="botonesDialog"
                 size="mini"
@@ -239,6 +239,7 @@ export default {
                 message: "Categoria editada con exito",
                 type: "success"
               });
+              self.dialogFormEditarVisible = false
               this.getAll();
             })
             .catch(e => {

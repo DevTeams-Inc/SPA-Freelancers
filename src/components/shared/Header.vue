@@ -19,12 +19,12 @@
   <el-menu-item index="1-4"  @click="$router.push('/buscar/freelancers')" ><span class="">Buscar Freelancers</span></el-menu-item>
   <el-menu-item index=""  @click="$router.push('/proyecto/publicar')" ><span class="">Publicar Proyecto</span></el-menu-item>
   <el-menu-item index="1-5" v-show="register" @click="$router.push('/registro')"><span class="nav-text">Registrate</span></el-menu-item>    
-  <el-menu-item index="1-6" @click="redirecProfileOrLogin()"  v-if="UserName === 'Inicia Sesion'" >
+  <el-menu-item index="1-6" @click="redirecProfileOrLogin()"  v-if="UserName === 'Inicia Sesión'" >
     <div >
     {{UserName}}
     </div>
   </el-menu-item>
-    <div class="mr-4" v-if="UserName !== 'Inicia Sesion'">
+    <div class="mr-4" v-if="UserName !== 'Inicia Sesión'">
      <el-submenu :style="{width:'100%'}" index="2">
     <span slot="title" >{{UserName}}</span>
     <el-menu-item index="2-1" > <router-link tag="span" :to="`/freelancer/${userId}`">
@@ -51,9 +51,9 @@ Panel Administrativo
   <el-menu-item index="4" class="search-freelancers" @click="$router.push('/buscar/freelancers')" ><span class="">Buscar Freelancers</span></el-menu-item>
   <el-menu-item index="5" class="shared-proyect " @click="$router.push('/proyecto/publicar')" ><el-button type="primary" class="btn-nav" round>Publicar Proyecto</el-button></el-menu-item>
   <el-menu-item index="6" v-show="register" class="register " @click="$router.push('/registro')"><span class="nav-text">Registrate</span></el-menu-item>    
-  <el-menu-item index="7" class="login " ><span class="nav-text">
+  <el-menu-item index="7" class="login"><span class="nav-text">
     
-    <div v-if="UserName !== 'Inicia Sesion' ">
+    <div v-if="UserName !== 'Inicia Sesión' ">
       <el-dropdown :hide-on-click="true">
   <span class="el-dropdown-link">
     {{UserName}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -152,11 +152,11 @@ export default {
       let name =
         this.$store.getters.loggedIn != false
           ? localStorage.getItem("user_info")
-          : "Inicia Sesion";
+          : "Inicia Sesión";
       return name;
     },
     register() {
-      return this.UserName != "Inicia Sesion" ? false : true;
+      return this.UserName != "Inicia Sesión" ? false : true;
     },
     /**
      * esta funcion es para traer el id que esta en

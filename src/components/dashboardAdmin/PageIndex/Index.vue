@@ -17,7 +17,7 @@
             <span>5000</span>
           </div>
        </div>
-       <div class="container-categoriesTop-index">
+       <!-- <div class="container-categoriesTop-index">
           <h4>Categorias Populares</h4>
          <div class="item-categories-index">
          
@@ -46,8 +46,8 @@
               <p>Categoria 1</p>
           </div>
        </div>
-       </div>
-       <div class="reports">
+       </div> -->
+       <!-- <div class="reports">
           <h4>Reportes Recientes</h4>
           <el-table :data="tableData"  border style="width: 88%; margin-left:8%;">
              <el-table-column prop="date" label="Fecha"  width="180"> 
@@ -57,7 +57,7 @@
              <el-table-column   prop="address"  label="Dirección">
              </el-table-column>
           </el-table>
-       </div>
+       </div> -->
   </div>
 </template>
 
