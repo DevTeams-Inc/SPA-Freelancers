@@ -5,10 +5,16 @@
            <data-habilidades></data-habilidades>
            <add-habilidades></add-habilidades>
        </div>
-       <data-o-habilidades></data-o-habilidades>
      </div>
 </template>
+<script>
+import DataHabilidades from "./DataHabilidades";
+import AddHabilidades from "./AddHabilidades";
 
+export default {
+    components:{DataHabilidades,AddHabilidades}
+}
+</script>
 <style>
 .container-AdminHabilidades{
  margin-top: 20px;
@@ -22,13 +28,5 @@
  }
 </style>
 
-<script>
-import DataHabilidades from "./DataHabilidades";
-import DataOHabilidades from "./DataOHabilidades";
-import AddHabilidades from "./AddHabilidades";
 
-export default {
-    components:{DataHabilidades,DataOHabilidades,AddHabilidades}
-}
-</script>
 
