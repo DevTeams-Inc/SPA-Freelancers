@@ -4,18 +4,19 @@
          <div class="proyectsCP">
                 <div class="interesados">
                    <h4>Interesados en tu servicio</h4>
-                 <div style="display:flex;">
+                 <div v-for="(i,index) in interesados" v-loading="loading" :key="index" style="display:flex;">
                     <div class="left-InteresadoFreelancers">
                       <div class="Info-Interesado">
-                          <h4>Lony S. Mejia Ramirez</h4>
+                          <h4>{{i.fullName}}</h4>
                            <p>Revisa tu correo
                            </p>
                        </div>
                       </div>
                       <div class="right-InteresadoFreelancers">
                         <div class="buttons-Action">
-                            <el-button id="button-interesado" type="secondary">Descartar</el-button>
-                            <el-button id="button-interesado"  type="primary">Ver perfil</el-button>
+                            <el-button id="button-interesado" @click="descart(i.id)" type="secondary">Descartar</el-button>
+                            <el-button id="button-interesado"   @click="(ir(i.applicationUserId))" type="primary">Ver perfil</el-button>
+                         
                          </div>
                        </div>
                     </div>
@@ -25,19 +26,18 @@
      <div class="container-ProyectsCP">
          <div class="proyectsCP">
                 <div class="interesados">
-                   <h4>Proyectos Publicados</h4>
-                 <div style="display:flex;">
+                   <h4>Freelancers Contactados</h4>
+                 <div style="display:flex;" v-for="(i,index) in contacted" v-loading="loading" :key="index" >
                     <div class="left-InteresadoFreelancers">
                       <div class="Info-Interesado">
-                          <h4>Nombre del Proyecto</h4>
-                           <p>Categoria
-                           </p>
+                          <h4>{{i.fullName}}</h4>
+                           <p>Personas contactadas</p>
                        </div>
                       </div>
                       <div class="right-InteresadoFreelancers">
                         <div class="buttons-Action">
-                            <el-button id="button-interesado" type="secondary">Editar</el-button>
-                            <el-button id="button-interesado"  type="primary">Eliminar</el-button>
+                            <el-button id="button-interesado" @click="descart(i.id)" type="secondary">Eliminar</el-button>
+                            <el-button id="button-interesado" @click="(ir(i.applicationUserId))"  type="primary">Ver Perfil</el-button>
                          </div>
                        </div>
                     </div>
@@ -48,8 +48,81 @@
 </template>
 
 <script>
+import {EventBus} from "../../../helpers/event-bus";
 export default {
+       data(){
+           return{
+               interesados:[],
+               contacted:[],
+               applicationUserId: localStorage.getItem("user_id"),
+               idFreelancerLog:null,
+               loading:false
+           }
 
+       },
+       mounted(){
+           this.getAllContactInterested(this.applicationUserId);
+             
+                EventBus.$once("idFrelancerLogeado", idf => {  
+                this.idFreelancerLog=idf;
+              this.getAllContacted(idf);
+              
+            }); 
+
+       },
+       created(){
+
+       },
+       methods:{
+           getAllContactInterested(id){
+               let self= this;
+               self.$store.state.services.contactService
+               .getContactInterested(id)
+               .then(r=>{
+                   self.interesados=r.data;
+               })
+           },
+         getAllContacted(id){
+               let self= this;
+               self.$store.state.services.contactService
+               .getContacted(id)
+               .then(r=>{
+                   self.contacted=r.data;
+                   console.log(r.data);
+             
+               })
+           },
+           descart(id){
+              let self= this;
+              this.loading=true;
+              self.$store.state.services.contactService
+              .contactInterestedDescart(id)
+                   .then(r => {
+                       self.$notify({
+                       title: "Descartado",
+                       message: "Se ha descartado corrrectamente",
+                       type: "success"
+                          });
+                           this.getAllContactInterested(this.applicationUserId);
+                           this.getAllContacted(this.idFreelancerLog);
+                           this.loading=false;
+                        })
+                     .catch(e => {
+                     self.$notify({
+                     title: "Error",
+                     message: "No se ha descartado la solicitud",
+                     type: "Error"
+                 });
+                 this.loading=false;
+        });
+           },
+           ir(id){
+               let self=this;
+             self.$router.replace(`/freelancervisitor/${id}`);
+           
+           }
+           
+       }
 }
 </script>
 
@@ -104,11 +177,12 @@ overflow-y: scroll;
 }
 .Info-Interesado h4{
     font-size: 15px;
+    color: dodgerblue;
 }
 .Info-Interesado p{
     margin-top: -5px;
     font-size: 13px;
-    width: 90%;
+    width: 100%;
     text-align: justify;
 }
 
