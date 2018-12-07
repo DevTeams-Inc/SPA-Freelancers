@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { EventBus } from '../../helpers/event-bus';
 export default {
   props: ["id"],
   data() {
@@ -37,6 +38,7 @@ export default {
     };
   },
   mounted() {
+    // localStorage.removeItem();
     let self = this;
     self.$store.state.services.authService
       .email(self.id)
@@ -54,13 +56,27 @@ export default {
         this.btn = false;
         this.img = 2;
       });
+      // this.logout();
+  },
+  methods:{
+    logout(){   
+        EventBus.$emit('reset')
+        //removemos del localStorage
+       localStorage.removeItem('user_token')
+       localStorage.removeItem('user_info')
+      //  localStorage.removeItem('user_role')
+      //  localStorage.removeItem('user_id')
+      //  localStorage.removeItem('user_email')
+      //  return true
+    }
   }
 };
 </script>
 
-<style>
+<style scoped>
 .size {
-  margin: 5%;
+  margin: 9%;
+  padding: 0.1%;
 }
 .btn-primary {
   background: #5a75e6;

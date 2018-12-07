@@ -43,7 +43,7 @@ export default {
       self.$store.state.services.freelancerService
         .userExist(id)
         .then(r => {
-          if (r.data === true) {
+          if (r.data) {
             self.$store.state.existe = true;
           } else {
             self.$store.state.existe = false;
@@ -70,7 +70,7 @@ export default {
   position: relative;
   width: 90%;
   max-width: 1100px;
-  min-width: 1300px;
+  min-width: 1200px;
   height: auto;
   /* max-width: 1370px;
     min-width: 1350px; */

@@ -18,6 +18,9 @@ class FreelancerService{
     getById(id){
         return this.axios.get(`${this.apiUrl}/getuser/${id}`)
     }
+    getByIdFreelancer(id){
+        return this.axios.get(`${this.apiUrl}/edit/${id}`)
+    }
 
     search(query){
         return this.axios.get(`${this.apiUrl}/search?query=${query}`)
@@ -55,7 +58,9 @@ class FreelancerService{
         return this.axios.get(`${this.apiUrl}/exist/${id}`)
     }
 
-
+    sendMessage(model){
+        return this.axios.post(`${this.apiUrl}/contact`, model)
+    }
 }
 
 export default FreelancerService

@@ -9,25 +9,25 @@
                        <h2 >{{i.name}} {{i.lastName}}</h2>
                         </router-link>
                         <div class="frase"><p>{{i.profesion}}</p></div>
+                        <div><i class="fas fa-map-marker-alt text-primary"> </i> {{i.address}}</div>
                         <div class="descripcionMini-Freelancer">
                           <p class="text-justify">{{i.biography}}
                         </p>
                         </div>
                    </div>
                    <div class="botones-Freelancer">
-                         <el-button type="primary" @click="openDialog(), freelancer = i.name + ' ' + i.lastName, email = i.email" id="boton-freelancer">Contactar</el-button>
+                         <el-button type="primary" @click="openDialog(), freelancer = i.name + ' ' + i.lastName, email = i.email, form.applicationUserId = i.applicationUserId" id="boton-freelancer">Contactar</el-button>
                    </div>
                 </div>
                 <div class="top-right-item-Freelancer">
                     <div class="container-pic-freelancer" >
-                         <img class="img-pic-freelancer" height="80px" :src="i.avatar" />
+                         <img class="img-pic-freelancer" height="100px" :src="i.avatar" />
                     </div>
                     <div class="rating">
                          <el-rate id="rating-star" v-model="i.rating" disabled  show-score text-color="#ff9900" score-template="" ></el-rate>
                     </div>
                     <div class="trofeoANDciudad">
                           <div class="icon-trofeo"></div>
-                          <a href=""><h4>{{i.address}}</h4></a>
                      </div>
                 </div>
             </div>
@@ -60,10 +60,10 @@
         <div>
         <el-dialog :title="`Contactar a ${freelancer}`" :visible.sync="contactForm" ref="contactForm">
           <el-form :model="form" :rules="rules" ref="form">
-              <el-form-item label="Nombre Completo:" prop="fullName">
+              <el-form-item label="Nombre Completo:" prop="fullName" v-show="!this.UserId">
                 <el-input v-model="form.fullName" autocomplete="off" placeholder="Flash"></el-input>
               </el-form-item>
-              <el-form-item label="Email" prop="emailDestiny">
+              <el-form-item label="Email" prop="emailFrom" v-show="!this.UserId">
                 <el-input v-model="form.emailFrom" autocomplete="off" placeholder="barry@flash.com"></el-input>
               </el-form-item>
               <el-form-item label="Mensaje:" prop="message">
@@ -95,6 +95,8 @@ export default {
         message: '',
         emailDestiny: '',
         emailFrom: '',
+        fromId:'',
+        applicationUserId:''
       },
       rules: {
         fullName: [
@@ -103,7 +105,7 @@ export default {
         message: [
           { required: true, message: "Ingrese un mensaje para flash", trigger: "blur" }
         ],
-        emailDestiny: [
+        emailFrom: [
           {
             type: "email",
             required: true,
@@ -140,8 +142,6 @@ export default {
       self.$store.state.services.freelancerService
         .getAll(index)
         .then(r => {
-          console.log(r.data);
-          
           this.loading = false;
           /**
            * remueve el usuario logueado de la lista de
@@ -158,6 +158,12 @@ export default {
     },
     contactFreelancer(form){
         let self = this;
+        if(self.UserId){
+          self.form.fullName = localStorage.getItem('user_info')
+          self.form.emailFrom = localStorage.getItem('user_email')
+          //con este freelancerid yo tomo el id del user real
+          self.form.fromId = localStorage.getItem('user_id');
+        }
         self.$refs[form].validate(valid => {
             if(valid) {
               self.$store.state.services.freelancerService.sendMessage(self.form)
@@ -167,8 +173,11 @@ export default {
                       title: "Mensaje enviado",
                       message: "Su mensaje ha sido enviado.",
                       offset: 50,
-                      duration: 3000
+                      duration: 2000
                     });
+                    self.form.fullName = ''
+                    self.form.emailFrom = ''
+                    self.form.emailDestiny = ''
                 }).catch(err => {
                     self.$notify.error({
                       title: "Lo sentimos",
@@ -262,6 +271,12 @@ export default {
       if (this.totalOfRegister <= 0) {
         return this.beforePage();
       }
+    },
+    /**
+     * Me permite obtener el id del usuario logeado del localStorage
+     */
+    UserId() {
+      return localStorage.getItem('user_id') ? true : false
     }
   }
 };

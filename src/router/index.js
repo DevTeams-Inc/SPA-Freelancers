@@ -5,6 +5,7 @@ import Home from "@/components/home/Home";
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
 import completeRegister from "@/components/freelancers/completeRegister";
+import editRegister from "@/components/freelancers/editRegister";
 
 import autocomplete from "@/components/location/autocomplete";
 
@@ -25,10 +26,11 @@ import DashboardFreelancers from "@/components/dashboardAdmin/PageFreelancers/Fr
 import DashboardCategories from "@/components/dashboardAdmin/PageCategories/Categories";
 import DashboardHabilidades from "@/components/dashboardAdmin/PageHabilidades/Habilidades";
 import DashboardReports from "@/components/dashboardAdmin/PageReports/Reports";
-import SearchFreelancer from '@/components/location/SearchFreelancer'
+import SearchFreelancer from '@/components/location/SearchFreelancer';
+import resetPassword from '@/components/auth/resetPassword';
 
-//Test croppie img 
-import imgCropie from "@/components/user/TestUpload/ImageUpload";
+
+
 
 Vue.use(Router);
 
@@ -76,6 +78,16 @@ export default new Router({
         requiresVisitor: true
       }
     },
+
+    {
+      path: "/reset/password/:id",
+      name: "reset/Password",
+      props:true,
+      component: resetPassword,
+      meta: {
+        requiresVisitor: true
+      }
+    },
     {
       path: "/registro",
       name: "register",
@@ -85,10 +97,19 @@ export default new Router({
       }
     },
     {
-      path: "/completar/registro/:keyFreelancer/:keyUser",
+      path: "/completar/registro/:keyUser",
       props: true,
       name: "completeregister",
       component: completeRegister,
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
+      path: "/edit/registro/:keyFreelancer",
+      props: true,
+      name: "editregister",
+      component: editRegister,
       meta: {
         requiresVisitor: true
       }
@@ -115,7 +136,7 @@ export default new Router({
       props: true,
       component: PerfilFreelancer,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -155,7 +176,7 @@ export default new Router({
     //Ruteo de administrador//
     {
       path: "/dashboardAdmin",
-      name: "dashboardAdmin",
+      name: "Admin",
       redirect: "/dashboardAdmin/inicio",
       component: DashboardAdmin,
       props: true,

@@ -1,65 +1,86 @@
     <template>
-<el-row :gutter="10" class="mt-5 p-3 " justify="space-around" type="flex">
+  <el-row :gutter="10" class="mt-5 p-3" justify="space-around" type="flex">
     <el-col class="hidden-sm-and-down">
-        <img class="animated fadeInRight" src="@/assets/img/logindesing.svg" width="550px" alt="" >
+      <img class="animated fadeInRight" src="@/assets/img/logindesing.svg" width="550px" alt>
     </el-col>
-<el-col>
-<el-row type="flex" justify="center">
-  <el-col :xs="40" :sm="20" :md="20" :lg="16" :xl="40">
-    <el-card class="box-card p-4 card">
-    <el-form class="form " :model="ruleForm" :rules="rules" ref="ruleForm">
-      <el-form-item > 
-        <el-row>
-            <img  src="@/assets/img/lock.svg" width="70px" alt="">
-        </el-row>
-        <el-row>
-            <span class="spam-title">Iniciar Sesion</span>
-        </el-row>
-      </el-form-item>
-       <el-row type="flex" justify="center">
-         <el-col >
-          <el-form-item prop="email">
-              
-            <el-input
-                v-model="ruleForm.email"
-                placeholder="Email"
-                prefix-icon="el-icon-message"
-                size="medium"
-                type="email">
-                
-            </el-input>
+    <el-col>
+      <el-row type="flex" justify="center">
+        <el-col :xs="40" :sm="20" :md="20" :lg="16" :xl="40">
+          <el-card class="box-card p-4 card">
+            <el-form class="form" :model="ruleForm" :rules="rules" ref="ruleForm">
+              <el-form-item>
+                <el-row>
+                  <img src="@/assets/img/lock.svg" width="70px" alt>
+                </el-row>
+                <el-row>
+                  <span class="spam-title">Iniciar Sesion</span>
+                </el-row>
+              </el-form-item>
+              <el-row type="flex" justify="center">
+                <el-col>
+                  <el-form-item prop="email">
+                    <el-input
+                      v-model="ruleForm.email"
+                      placeholder="Email"
+                      prefix-icon="el-icon-message"
+                      size="medium"
+                      type="email"
+                    ></el-input>
+                  </el-form-item>
+                  <el-form-item prop="password">
+                    <el-input
+                      v-model="ruleForm.password"
+                      type="password"
+                      placeholder="Contraseña"
+                      prefix-icon="el-icon-question"
+                      size="medium"
+                    ></el-input>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button
+                      type="primary"
+                      v-loading="loading"
+                      class="btn btn-block btn-login"
+                      @click="submitForm('ruleForm')"
+                    >Entrar</el-button>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
-           </el-form-item>
-            <el-form-item prop="password">
-                <el-input
-                    v-model="ruleForm.password"
-                    type="password"
-                    placeholder="Contraseña"
-                    prefix-icon="el-icon-question"
-                    size="medium">
-                </el-input>
-                
-            </el-form-item>
-            <el-form-item>
-                    <el-button type="primary" v-loading="loading" class="btn btn-block btn-login " @click="submitForm('ruleForm')">Entrar</el-button>
-            </el-form-item>
-         </el-col>
-       </el-row>
-          <!-- <el-row class="mt-4">
-              <el-col>
-                <el-form-item>
-                    <span ><img class="span-img" src="@/assets/img/facebook.svg" width="30px" alt="Facebook"></span>
-                    <span class=" ml-2"><img class="span-img" src="@/assets/img/search.svg" width="30px" alt="Google"></span>
-                </el-form-item>
-              </el-col>
-          </el-row> -->
-      <span @click="redirect('/registro')" class="span-register">¿No tienes cuenta? Click aquí.</span>
-    </el-form>
-    </el-card>
+              <span
+                @click="redirect('/registro')"
+                class="span-register"
+              >¿No tienes cuenta? Click aquí.</span>
+              <br>
+              <span
+                @click="dialogFormVisible = true"
+                class="span-register"
+              >¿Haz olvidado tu contraseña?</span>
+            </el-form>
+            <el-dialog title="Olvide mi contraseña" :visible.sync="dialogFormVisible">
+              <span slot="footer" class="dialog-footer">
+                <el-form :model="recoveryPass" :rules="rulesRecovery" ref="recoveryPass">
+                  <el-form-item prop="email">
+                    <el-input
+                      v-model="recoveryPass.email"
+                      type="email"
+                      placeholder="Ingrese su email"
+                      prefix-icon="el-icon-message"
+                      size="medium"
+                    ></el-input>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button @click="dialogFormVisible = false">Cancelar</el-button>
+                    <el-button type="primary" @click="password()">Confirmar</el-button>
+                  </el-form-item>
+                </el-form>
+              </span>
+            </el-dialog>
+          </el-card>
+        </el-col>
+      </el-row>
     </el-col>
-    </el-row>
-</el-col>
-</el-row>
+  </el-row>
 </template>
 
 <script>
@@ -67,9 +88,23 @@ export default {
   data() {
     return {
       loading: false,
+      dialogFormVisible: false,
       ruleForm: {
         email: null,
         password: null
+      },
+      recoveryPass: {
+        email: null
+      },
+      rulesRecovery: {
+        email: [
+          {
+            type: "email",
+            required: true,
+            message: "Ingrese la direccion email.",
+            trigger: "blur"
+          }
+        ]
       },
       rules: {
         email: [
@@ -90,6 +125,11 @@ export default {
       role: localStorage.getItem("user_role") || null,
       email: localStorage.getItem("user_email") || null
     };
+  },
+  mounted() {
+    if (localStorage.getItem("user_id")) {
+      this.$router.push("/inicio");
+    }
   },
   methods: {
     redirect(path) {
@@ -136,7 +176,7 @@ export default {
             })
             .then(r => {
               if (self.role == 1) {
-                self.redirect("/freelancers");
+                self.redirect("/inicio");
               } else if (self.role == 2) {
                 self.redirect("/dashboardAdmin");
               }
@@ -150,7 +190,31 @@ export default {
               self.loading = false;
             });
         } else {
-          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    password() {
+      let self = this;
+      self.$refs["recoveryPass"].validate(valid => {
+        if (valid) {
+          self.$store.state.services.accountService
+            .recoveryPass(this.recoveryPass)
+            .then(r => {
+              self.$notify.success({
+                title: "Enviado",
+                message: `Correo enviado`,
+                offset: 40
+              });
+            })
+            .catch(e => {
+              self.$notify.error({
+                title: "Error",
+                message: `${e.response.data}`,
+                offset: 40
+              });
+            });
+        } else {
           return false;
         }
       });
@@ -176,6 +240,7 @@ export default {
 .span-register {
   color: #5a75e6;
   cursor: pointer;
+  font-size: 13px;
 }
 .btn-fb {
   background-color: #475a93;
