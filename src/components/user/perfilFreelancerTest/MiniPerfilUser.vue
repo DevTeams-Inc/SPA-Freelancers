@@ -74,21 +74,21 @@
           <div class="contactar-MiniPerfil">
             <router-link :to="`/edit/registro/${data.id}`">
               <el-button
-                style="width:45px;margin-left:90px;"
+                style="width:45px;margin-left:90px;background-color:#5a75e6!important;"
                 v-if="id == UserId"
                 type="primary"
                 icon="el-icon-edit"
                 circle
               ></el-button>
             </router-link>
-            <el-button style="margin-left:90px;" v-if="id != UserId" type="primary">Contactar</el-button>
+            <el-button style="margin-left:90px;background-color:#5a75e6!important;" v-if="id != UserId" type="primary">Contactar</el-button>
           </div>
         </div>
       </div>
       <div class="priceHour">
         <div class="price">
-          <h4>Precio Por Hora:</h4>
-          <p>${{data.priceHour}}</p>
+          <h4>Precio por hora:</h4>
+          <p>${{data.priceHour}}.00</p>
         </div>
         <div class="icono-price">
           <p>$</p>
@@ -360,19 +360,18 @@ export default {
 </script>
 
 <style>
+.btn-primary {
+  background-color: #5a75e6 !important; 
+}
+.btn-primary:hover {
+  background-color: #4262e2 !important; 
+}
 .address{
-<<<<<<< HEAD
-  color: #4764da;
-=======
-  font-family: "Roboto", sans-serif;
-  color: #409eff;
-  font-size: 14px;
- 
->>>>>>> 8c1838ccbc3f34ded718db0bdfd88094a60b92bd
+  color: #5a75e6;
 }
 .contact-Mini {
   display: flex;
-  color: #4764da;
+  color: #5a75e6;
   width: 300px;
 }
 .contact-Mini h4 {
@@ -411,14 +410,14 @@ export default {
 }
 .price h4 {
   font-size: 17px;
-  color: #4764da;
+  color: #5a75e6;
 }
 .icono-price {
   width: 3.5%;
 }
 .icono-price p {
   color: white;
-  background-color: #409eff;
+  background-color: #5a75e6;
   height: 25px;
   border-radius: 50%;
   margin-top: 13px;
@@ -466,7 +465,7 @@ export default {
 }
 .category-Mini h4 {
   font-size: 15px;
-  color: #4764da;
+  color: #5a75e6;
 }
 
 .rightTop-MiniPerfil {
@@ -498,7 +497,7 @@ export default {
 }
 .skills-MiniPerfil h4 {
   font-size: 17px;
-  color: rgb(128, 128, 128);
+  color: #5a75e6;
 }
 
 .componenteUbicacion {
@@ -511,7 +510,7 @@ export default {
 .componenteUbicacion h4 {
   font-size: 17px;
   text-align: left;
-  color: #4764da;
+  color: #5a75e6;
 }
 .validCRegistro {
   background-color: white;

@@ -15,7 +15,7 @@
                       <div class="right-InteresadoFreelancers">
                         <div class="buttons-Action">
                             <el-button id="button-interesado" type="secondary">Descartar</el-button>
-                            <el-button id="button-interesado"  type="primary">Ver perfil</el-button>
+                            <el-button class="btn-profile" id="button-interesado" type="primary">Ver perfil</el-button>
                          </div>
                        </div>
                     </div>
@@ -37,7 +37,7 @@
                       <div class="right-InteresadoFreelancers">
                         <div class="buttons-Action">
                             <el-button id="button-interesado" type="secondary">Editar</el-button>
-                            <el-button id="button-interesado"  type="primary">Eliminar</el-button>
+                            <el-button class="btn-project" id="button-interesado"  type="primary">Eliminar</el-button>
                          </div>
                        </div>
                     </div>
@@ -54,6 +54,12 @@ export default {
 </script>
 
 <style>
+.btn-profile {
+    background-color: #5a75e6 !important;
+}
+.btn-project {
+    background-color: #5a75e6 !important;
+}
 .container-ProyectsCP{
 margin-top: 20px;
 margin-left: 20px;
@@ -89,8 +95,8 @@ overflow-y: scroll;
 }
 .proyectsCP h4{
     text-align: left;
-    font-size: 17px;
-    color: #4764da;
+    font-size: 1.03em;
+    color: #5a75e6;
 }
 .left-InteresadoFreelancers{
     display: flex;
