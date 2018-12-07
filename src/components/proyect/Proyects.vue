@@ -1,5 +1,5 @@
 <template  >
-    <el-row class=" p-0" :style="{position:'absolute',width:'100%',height:'auto',background: '#f7f7f7'}" :gutter="40">
+    <el-row class=" p-0" id="container-elrow" :style="{position:'absolute',width:'100%',background: '#f7f7f7'}" :gutter="40">
        <div class="Etiqueta">
          <div class="texto-etiqueta">
            <h2 class="h2-etiqueta">Proyectos</h2>
@@ -13,7 +13,7 @@
         <FilterProyects></FilterProyects> 
         <ListProyect></ListProyect>   
       </div>
-     <Footer></Footer>
+     <!-- <Footer></Footer> -->
     </el-row>
 </template>
 
@@ -100,6 +100,9 @@ components:{FilterProyects,Footer, ListProyect, SearchProyect}
   display: block;
   
 }
+#container-elrow{
+  height: 100%;
+}
 .search{
       min-width: 90%;
       margin-top: 80px;
@@ -111,6 +114,13 @@ components:{FilterProyects,Footer, ListProyect, SearchProyect}
  
  }
 @media (max-width: 669px) {
+  #container-elrow
+  {
+   position: relative;
+   height:  auto;
+ 
+
+}
 .container-proyect
 { 
   min-width: 90%;

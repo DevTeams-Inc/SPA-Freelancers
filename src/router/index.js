@@ -27,6 +27,9 @@ import DashboardHabilidades from "@/components/dashboardAdmin/PageHabilidades/Ha
 import DashboardReports from "@/components/dashboardAdmin/PageReports/Reports";
 import SearchFreelancer from '@/components/location/SearchFreelancer'
 
+//Test croppie img 
+import imgCropie from "@/components/user/TestUpload/ImageUpload";
+
 Vue.use(Router);
 
 export default new Router({
@@ -136,6 +139,14 @@ export default new Router({
       path: "/buscar/freelancers",
       name: "/buscar/freelancer",
       component: SearchFreelancer,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/Testimg",
+      name: "testimg",
+      component: imgCropie,
       meta: {
         requiresAuth: false
       }

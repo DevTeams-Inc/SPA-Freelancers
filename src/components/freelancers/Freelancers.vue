@@ -1,5 +1,5 @@
 <template>
-    <el-row class=" p-0" :style="{position:'absolute',width:'100%',background: '#f7f7f7'}" :gutter="40">
+    <el-row class=" p-0" id="container-elrow" :style="{position:'absolute',width:'100%',background: '#f7f7f7'}" :gutter="40">
         <div class="Etiqueta-freelancers">
             <div class="texto-etiqueta">
                <h2 class="h2-etiqueta">Freelancers</h2>
@@ -13,7 +13,9 @@
            <FilterFreelancer></FilterFreelancer> 
            <ListFreelancer></ListFreelancer>   
         </div>
-        <Footer></Footer>
+      <div class="fo">
+       <Footer></Footer>
+      </div>
     </el-row>
 </template>
 
@@ -102,8 +104,14 @@ min-width: 900px;
  
  }
 @media (max-width: 929px) {
-
-
+  #container-elrow{
+   position: relative;
+   height:  auto;
+  }
+  .fo{
+    position: relative;
+    
+  }
   .container-freelancers
 {
     min-width: 90%;
