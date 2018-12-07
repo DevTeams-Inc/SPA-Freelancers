@@ -23,7 +23,7 @@
                 id="botonesDialog"
                 size="mini"
                 @click="dialogFormEditarVisible=true , id = scope.row.id , getById()"
-              >editar</el-button>
+              >Editar</el-button>
               <el-button
                 id="botonesDialog"
                 size="mini"
@@ -66,7 +66,7 @@
             <el-button
               id="botonesDialog"
               @click="dialogFormEditarVisible = false ,edit('model')"
-              type="primary"  >Guardar Cambios</el-button>
+              type="primary">Guardar Cambios</el-button>
           </div>
         </span>
       </el-dialog>

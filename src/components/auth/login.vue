@@ -13,7 +13,7 @@
                   <img src="@/assets/img/lock.svg" width="70px" alt>
                 </el-row>
                 <el-row>
-                  <span class="spam-title">Iniciar Sesion</span>
+                  <span class="spam-title">Iniciar Sesión</span>
                 </el-row>
               </el-form-item>
               <el-row type="flex" justify="center">
