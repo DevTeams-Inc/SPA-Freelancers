@@ -26,7 +26,9 @@ import DashboardFreelancers from "@/components/dashboardAdmin/PageFreelancers/Fr
 import DashboardCategories from "@/components/dashboardAdmin/PageCategories/Categories";
 import DashboardHabilidades from "@/components/dashboardAdmin/PageHabilidades/Habilidades";
 import DashboardReports from "@/components/dashboardAdmin/PageReports/Reports";
-import SearchFreelancer from '@/components/location/SearchFreelancer'
+import SearchFreelancer from '@/components/location/SearchFreelancer';
+import resetPassword from '@/components/auth/resetPassword';
+
 
 Vue.use(Router);
 
@@ -70,6 +72,16 @@ export default new Router({
       path: "/login",
       name: "login",
       component: Login,
+      meta: {
+        requiresVisitor: true
+      }
+    },
+
+    {
+      path: "/reset/password/:id",
+      name: "reset/Password",
+      props:true,
+      component: resetPassword,
       meta: {
         requiresVisitor: true
       }

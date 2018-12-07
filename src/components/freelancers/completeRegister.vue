@@ -189,17 +189,13 @@ export default {
       }
     };
   },
-  beforeCreate(){
-    },
+  beforeCreate() {},
   created() {
     this.getHabilities();
-          
-
   },
   mounted() {
     this.geolocate();
-          this.getById(this.keyUser);
-    
+    this.getById(this.keyUser);
   },
   methods: {
     ya(c) {
@@ -291,19 +287,14 @@ export default {
         console.log("desde el else geococate()");
       }
     },
-    getById(id){
+    getById(id) {
       let self = this;
       self.$store.state.services.accountService
-      .exist(id)
-      .then( r =>{
-      })
-      .catch(e => {
-        
-                this.$router.push(`/inicio`);      
-        
-
+        .exist(id)
+        .then(r => {})
+        .catch(e => {
+          this.$router.push(`/inicio`);
         });
-
     },
     submitForm(form) {
       let self = this;

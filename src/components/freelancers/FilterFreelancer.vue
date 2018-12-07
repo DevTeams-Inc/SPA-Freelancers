@@ -22,13 +22,13 @@
               </el-select>
            </div>
 
-           <div class="section-FiltroUbicacion-freelancers">
+           <!-- <div class="section-FiltroUbicacion-freelancers">
               <h4>Ubicacion del Freelancer</h4>
                       <el-select v-model="CiudadSelect" clearable placeholder="selecciona la ciudad"> 
                         <el-option  v-for="item in Ciudades" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
                       </el-select><br>
                   
-            </div>
+            </div> -->
             <div class="section-FiltroRating-freelancers">
                       <h4>Clasificacion</h4>
              <el-rate  @change="filter()" v-model="rating"></el-rate>
@@ -63,12 +63,12 @@
             ></el-option>
           </el-select>
         </div>
-        <div class="section-FiltroUbicacion-freelancers">
+        <!-- <div class="section-FiltroUbicacion-freelancers">
                       <h4>Ubicacion del Freelancer</h4>
                       <el-select v-model="CiudadSelect" clearable placeholder="selecciona la ciudad"> 
                         <el-option  v-for="item in Ciudades" :key="item.value"   :label="item.label"  :value="item.value"></el-option>
                       </el-select><br>
-        </div>
+        </div> -->
         <div class="mt-5 section-FiltroRating-freelancers">
           <h4 class>Clasificacion</h4>
           <div class="ml-2 mblock" style="display:flex;">
