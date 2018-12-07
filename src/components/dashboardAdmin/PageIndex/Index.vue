@@ -1,7 +1,7 @@
 <template>
-  <div class="container p-4 m-3">
-    <el-row class="mb-3 ml-5" :gutter="40">
-      <el-col :span="8" :offset="6">
+  <div class="space p-2 m-2" >
+    <el-row class="mb-3 mt-5" >
+      <el-col :span="7" :offset="2">
         <div @click="$router.push('/dashboardAdmin/proyectos')">
           <el-card class="card card-1" shadow="hover">
             <h4>Proyectos publicados</h4>
@@ -12,7 +12,7 @@
           </el-card>
         </div>
       </el-col>
-      <el-col :span="8" :offset="2">
+      <el-col :span="7" :offset="2">
         <div @click="$router.push('/dashboardAdmin/freelancers')">
           <el-card class="card card-2" shadow="hover">
             <h4>Freelancers Registrados</h4>
@@ -24,8 +24,8 @@
         </div>
       </el-col>
     </el-row>
-    <el-row class="ml-5" :gutter="40">
-      <el-col :span="8" :offset="6">
+    <el-row class="">
+      <el-col :span="7" :offset="2">
         <div @click="$router.push('/dashboardAdmin/categorias')">
           <el-card class="card card-3" shadow="hover">
             <h4>Categorias Creadas</h4>
@@ -36,7 +36,7 @@
           </el-card>
         </div>
       </el-col>
-      <el-col :span="8" :offset="2">
+      <el-col :span="7" :offset="2">
         <div @click="$router.push('/dashboardAdmin/habilidades')">
           <el-card class="card card-4" shadow="hover" body-style=" ">
             <h4>Habilidades Creadas</h4>
@@ -114,6 +114,10 @@ i {
   -webkit-text-fill-color: transparent;
 }
 .card {
-  padding: 15%;
+  padding: 10%;
+}
+.space{
+  position: relative;
+  left: 22%;
 }
 </style>
