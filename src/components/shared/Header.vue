@@ -49,7 +49,7 @@ Panel Administrativo
   <el-menu-item index="2" class="proyect " @click="$router.push('/proyectos')" > <span class="nav-text"> Proyectos </span></el-menu-item>
   <el-menu-item index="3" class="freelancers" @click="$router.push('/freelancers')"><span class="nav-text">Freelancers</span></el-menu-item>
   <el-menu-item index="4" class="search-freelancers" @click="$router.push('/buscar/freelancers')" ><span class="">Buscar Freelancers</span></el-menu-item>
-  <el-menu-item index="5" class="shared-proyect " @click="$router.push('/proyecto/publicar')" ><el-button type="primary" class="btn-nav" round>Publicar Proyecto</el-button></el-menu-item>
+  <el-menu-item index="5" class="shared-proyect" @click="$router.push('/proyecto/publicar')" ><el-button type="primary" class="btn-nav" round>Publicar Proyecto</el-button></el-menu-item>
   <el-menu-item index="6" v-show="register" class="register " @click="$router.push('/registro')"><span class="nav-text">Registrate</span></el-menu-item>    
   <el-menu-item index="7" class="login"><span class="nav-text">
     

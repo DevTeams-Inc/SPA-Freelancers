@@ -20,9 +20,9 @@
             </div>
             <div class="ciudad-mini">
               <div class="address">
-              <i class="el-icon-location">{{data.address}}</i> 
+                <i class="el-icon-location">{{data.address}}</i> 
               </div>
-              
+       
               
             </div>
             <div class="category-Mini">
@@ -360,13 +360,11 @@ export default {
 
 <style>
 .address{
-  font-family: "Roboto", sans-serif;
-  color: #409eff;
- 
+  color: #4764da;
 }
 .contact-Mini {
   display: flex;
-  color: #409eff;
+  color: #4764da;
   width: 300px;
 }
 .contact-Mini h4 {
@@ -376,6 +374,7 @@ export default {
   font-size: 12.7px;
 }
 .container-MiniPerfil {
+  font-family: "Roboto", sans-serif;
   margin-top: 20px;
 }
 .miniPerfil {
@@ -400,10 +399,11 @@ export default {
 .price p {
   font-size: 15px;
   margin-left: 10px;
+  color: #10df90;
 }
 .price h4 {
   font-size: 17px;
-  color: rgb(104, 104, 104);
+  color: #4764da;
 }
 .icono-price {
   width: 3.5%;
@@ -458,9 +458,7 @@ export default {
 }
 .category-Mini h4 {
   font-size: 15px;
-  color: #409eff;
-
-
+  color: #4764da;
 }
 
 .rightTop-MiniPerfil {
@@ -505,7 +503,7 @@ export default {
 .componenteUbicacion h4 {
   font-size: 17px;
   text-align: left;
-  color: rgb(104, 104, 104);
+  color: #4764da;
 }
 .validCRegistro {
   background-color: white;

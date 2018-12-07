@@ -59,9 +59,13 @@ export default {
     display: flex;
 }
 .left-search{
- background-color: #304ab3;
+ background-color: #5a75e6 !important;
+ 
  width: 30.5%;
 
+}
+.el-switch__label{
+    color: #fff !important;
 }
 .right-search{
     width: 69.5%;

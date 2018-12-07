@@ -28,7 +28,7 @@
                        </el-form-item>
                    </div>
                    <div class="button-siguiente">
-                     <el-button v-if="mostrarPaso1" @click="submitForm('ruleForm')"  type="primary">Siguiente</el-button>
+                     <el-button class="btn-next" v-if="mostrarPaso1" @click="submitForm('ruleForm')"  type="primary">Siguiente</el-button>
                    </div>
 
                </el-form>
@@ -37,13 +37,13 @@
                      </div>
                      <div class="categorias" >
                        <div class="item" v-for="categoria in categories">
-                         <input @click="validCategorie"  type="radio" name="radio1" :id="categoria.id" value="Idcategoria"><label class="categoria-label" :for="categoria.id">	<br><i :class="categoria.img"></i><br>{{categoria.name}}</label>
+                         <input @click="validCategorie"  type="radio" name="radio1" :id="categoria.id" value="Idcategoria"><label class="categoria-label" :for="categoria.id">	<br><span class="icono"><i :class="categoria.img"></i></span><br>{{categoria.name}}</label>
                        </div>
                      </div>
                 </div>
                     <div class="button-siguienteP" >
                              <el-button v-if="mostrarPaso2" @click="BackP2"  type="secondary">Atras</el-button>
-                           <el-button v-if="mostrarPaso2" @click="validCategorieButton"  type="primary">Siguiente</el-button>
+                           <el-button class="btn-next" v-if="mostrarPaso2" @click="validCategorieButton"  type="primary">Siguiente</el-button>
                       </div>
              
 
@@ -61,12 +61,12 @@
                        </el-form-item>
 
                        <el-form-item prop="Price">
-                          <el-input v-model="ruleForm2.Price" placeholder="Costo del proyecto" type="number" size="medium"></el-input>
+                          <el-input v-model="ruleForm2.Price" placeholder="Costo del proyecto" type="number" size="medium" min="0"></el-input>
                        </el-form-item>
                         </div>
                          <div class="button-siguiente">
                            <el-button v-if="mostrarPaso3" @click="BackP3"  type="secondary">Atras</el-button>
-                          <el-button v-if="mostrarPaso3" @click="submitForm2('ruleForm2')" type="primary">Publicar</el-button>
+                          <el-button class="btn-next" v-if="mostrarPaso3" @click="submitForm2('ruleForm2')" type="primary">Publicar</el-button>
                          </div>
                        </el-form> 
                          <div class="sectionPublicado" v-if="publicado">
@@ -95,10 +95,20 @@
   padding-bottom: 10px; 
   position: relative;
    width: 100%;
-  background-color: #304ab3;
+  background-color: #5a75e6;
   margin-top: 40px;
   color: white;
   text-align: left;
+}
+.el-step__description.is-finish{
+  color: #5a75e6 !important;
+}
+.el-step__title.is-finish {
+  color: #5a75e6 !important;
+}
+.el-step__head.is-finish{
+  color: #5a75e6 !important;
+  border-color: #5a75e6 !important;
 }
 .texto-etiqueta{
   margin-left:30px; 
@@ -116,6 +126,14 @@ display: flex;
 flex-wrap: wrap;
 width: 100%;
 margin-bottom: 20px;
+
+}
+.icono{
+  color: #5a75e6;
+}
+.categorias  input:checked + label .icono{
+  color: white;
+  transition: all 0.20s ease-in;
 }
 .categoria-label{
 background-color: white;
@@ -136,9 +154,12 @@ margin-left: 10px;
 
 .categorias  input:checked + label
 {     
-  color: white;   
-  background-color: #40a8fd;
-     transition: all 0.20s ease-in;
+  color: white !important;   
+  background-color: #5a75e6;
+  transition: all 0.20s ease-in;
+}
+.categorias input:checked + label + .categoria-label{
+  color: #fff;
 }
 input[type="checkbox"],
 input[type="radio"] {
@@ -175,6 +196,12 @@ input[type="radio"] {
   margin-top:30px; 
   margin-bottom: 20px;
   margin-left:50%; 
+}
+.btn-next {
+  background-color: #5a75e6;
+}
+.btn-next:hover {
+  background-color: #3050d3;
 }
 .sectionPublicado{
    margin-left: 27%;

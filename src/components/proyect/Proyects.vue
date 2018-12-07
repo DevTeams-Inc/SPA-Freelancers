@@ -62,8 +62,8 @@ components:{FilterProyects,Footer, ListProyect, SearchProyect}
   padding-top:10px;
   padding-bottom: 10px; 
   position: relative;
-   width: 100%;
-  background-color: #304ab3;
+  width: 100%;
+  background-color: #5a75e6 !important;
   margin-top: 40px;
   color: white;
   text-align: left;

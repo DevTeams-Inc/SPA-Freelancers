@@ -14,10 +14,10 @@
                      <div class="details-item">
                    <h4>Publicado el 6 de Agosto</h4>
                    <h4>{{i.nameCategory}}</h4>
-                   <a  href="#">Rep. Dom.</a>
+                   <a class="ubication" href="#">Rep. Dom.</a>
                    </div>
                      <div class="botones-proyect">
-                         <el-button id="boton-proyect" type="primary" >Aplicar</el-button><br><br>
+                         <el-button class="button-project" id="boton-proyect" type="primary" >Aplicar</el-button><br><br>
                          <el-button id="boton-proyect" type="secondary" >Ubicacion</el-button>
                      </div>
                  </div>
@@ -26,7 +26,7 @@
                      {{i.description}}
                     </p>
                     <div class="Tag-Habilidades">
-                          <h4><b>Habilidades Requeridas</b> <a class="a-jobs-badge" href="">{{i.required_Skill}} </a></h4>
+                          <h4><b>Habilidades Requeridas</b> <a class="a-jobs-badge require-habilities" href="#">{{i.required_Skill}} </a></h4>
                          
                     </div>
                 </div>
@@ -104,7 +104,27 @@
 
 
 
-<style>
+<style scoped>
+.require-habilities{
+    color: #4764da;
+}
+.require-habilities:hover{
+    color: #3350c5;
+    text-decoration: none;
+}
+.ubication {
+    color: #4764da;
+}
+.ubication:hover {
+    color: #3350c5;
+    text-decoration: none;
+}
+.button-project{
+    background-color: #4764da;
+}
+.button-project:hover{
+    background-color: #3350c5;
+}
 .Container-ListaProyect{
     width: 70%;
 }
