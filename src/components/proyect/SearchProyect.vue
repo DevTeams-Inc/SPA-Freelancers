@@ -1,7 +1,7 @@
 <template>
   <div class="SearchContainer">
      <div class="left-search">
-        <el-switch  @change="redirect"  style="margin-top:8px;" active-color="#409EFF"  inactive-color="#409EFF" 
+        <el-switch  class="jh" @change="redirect"  style="margin-top:8px;" active-color="#409EFF"  inactive-color="#409EFF" 
          v-model="FreelancerPresencial" active-text="Proyectos" inactive-text="Freelancers">
         </el-switch>
      </div>
@@ -54,6 +54,9 @@ export default {
 }
 </script>
 <style>
+.jh{
+    color: aliceblue;
+}
 .SearchContainer{
     color: white;
     display: flex;

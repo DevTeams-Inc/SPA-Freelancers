@@ -13,10 +13,10 @@ Axios.defaults.headers.common.Accept = "application/json";
 //residencia
 //  let apiUrl = "http://localhost:57455/";
 //devteams
-let apiUrl = "http://localhost:57455/";
+// let apiUrl = "http://localhost:57455/";
 // let apiUrl = "http://192.168.96.117:45455/";
 //devteams
-//let apiUrl = "http://192.168.1.139:45455/";
+let apiUrl = "http://192.168.1.139:45455/";
 
 export default {
   authService: new AuthService(Axios, apiUrl),

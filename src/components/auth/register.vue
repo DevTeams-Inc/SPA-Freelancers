@@ -53,12 +53,11 @@
                 </el-input>
             </el-form-item>
             <el-form-item prop="confirmPassword">
-                <el-input
-                    v-model="ruleForm.confirmPassword"
-                    type="password"
-                    placeholder="Confirmar contraseña"
-                    size="medium">
-                </el-input>
+                 <input v-model="ruleForm.confirmPassword"
+                           type="password"
+                           placeholder="Confirmar contraseña"
+                           class="input-pass" 
+                    @keyup.enter="submitForm('ruleForm')">
             </el-form-item>
          </el-col>
        </el-row>
@@ -185,5 +184,27 @@ export default {
 .span-register {
   color: #5a75e6;
   cursor: pointer;
+}
+.input-pass{
+   -webkit-appearance: none;
+  background-color: #fff;
+  background-image: none;
+  border-radius: 4px;
+  border: 1px solid #dcdfe6;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #606266;
+  display: inline-block;
+  font-size: 14px;
+  height: 38px;
+  line-height: 40px;
+  outline: 0;
+  padding: 0 15px;
+  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  width: 100%;
+}
+.input-pass::-webkit-input-placeholder {
+  color: #c0c4cc;
 }
 </style>

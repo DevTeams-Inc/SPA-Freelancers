@@ -2,7 +2,7 @@
      <div class="container-adminFreelancers">
              <top-freelancers></top-freelancers>
              <data-freelancers></data-freelancers>
-             <report-freelancers></report-freelancers>     
+             <!-- <report-freelancers></report-freelancers>      -->
      </div>
 </template>
 
