@@ -7,7 +7,8 @@
         height="280"
         :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
         style="width: 98%;margin-left:10px;;">
-        <el-table-column label="Fecha" prop="createdAt"></el-table-column>
+        <el-table-column label="Fecha" prop="createdAt">
+        </el-table-column>
         <el-table-column label="Titulo" prop="title"></el-table-column>
         <el-table-column label="Alcance" prop="scope"></el-table-column>
         <el-table-column label="Habilidad Requerida" prop="required_Skill"></el-table-column>
@@ -56,6 +57,73 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      dialogFormEliminarVisible: false,
+      dialogFormOcultarVisible: false,
+      tableData: [{
+        // createdAt: '',
+        // scope: '',
+        // title: '',
+        // required_Skill: ''
+      }],
+      search: ""
+    };
+  },
+
+  mounted() {
+    this.getAll();
+  },
+ 
+
+  methods: {
+    handleEdit(index, row) {
+      console.log(index, row);
+    },
+    handleDelete(index, row) {
+      console.log(index, row);
+    },
+
+    getAll() {
+      let self = this;
+      self.$store.state.services.proyectService.getAll().then(r => {
+        self.tableData = r.data;
+        console.log(r.data.createdAt);
+        
+      });
+    },
+
+    remove() {
+      this.dialogFormEliminarVisible=false;
+      let self = this;
+      self.$store.state.services.proyectService
+        .remove(self.id)
+        .then(r => {
+          self.$notify({
+            title: "Eliminado",
+            message: "Se ha eliminado el proyecto",
+            type: "success"
+          });
+        })
+        .catch(e => {
+          self.$notify({
+            title: "Error",
+            message: "No se ha podido eliminar el proyecto",
+            type: "Error"
+          });
+        });
+
+          console.log(set.id);
+    }
+  }
+
+
+};
+</script>
+
 <style>
 .container-dataProyects {
   margin-top: 20px;
@@ -103,65 +171,3 @@
       background-color: black;
 } */
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      dialogFormEliminarVisible: false,
-      dialogFormOcultarVisible: false,
-      tableData: [],
-      search: ""
-    };
-  },
-
-  mounted() {
-    this.getAll();
-  },
- 
- updated() {
-    this.getAll();
-  },
-
-  methods: {
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
-
-    getAll() {
-      let self = this;
-      self.$store.state.services.proyectService.getAll().then(r => {
-        self.tableData = r.data;
-      });
-    },
-
-    remove() {
-      this.dialogFormEliminarVisible=false;
-      let self = this;
-      self.$store.state.services.proyectService
-        .remove(self.id)
-        .then(r => {
-          self.$notify({
-            title: "Eliminado",
-            message: "Se ha eliminado el proyecto",
-            type: "success"
-          });
-        })
-        .catch(e => {
-          self.$notify({
-            title: "Error",
-            message: "No se ha podido eliminar el proyecto",
-            type: "Error"
-          });
-        });
-
-          console.log(set.id);
-    }
-  }
-
-
-};
-</script>
