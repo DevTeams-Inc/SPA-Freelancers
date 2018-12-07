@@ -18,7 +18,7 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 
 //Animate.css
 import 'animate.css'
-// valida input para telefono
+// valida input para telefono 2
 import VueTelInput from 'vue-tel-input'
 import 'vue-tel-input/dist/vue-tel-input.css';
 //google maps
