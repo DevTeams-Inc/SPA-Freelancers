@@ -22,6 +22,8 @@ import 'animate.css'
 import VueTelInput from 'vue-tel-input'
 import 'vue-tel-input/dist/vue-tel-input.css';
 //google maps
+import moment from 'moment';
+Vue.use(moment);
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyBGX9Idq22bpPlt-WOXv_py3SfeNhLgEhk',

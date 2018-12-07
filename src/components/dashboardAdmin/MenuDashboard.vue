@@ -1,9 +1,9 @@
 <template>
     <div class="menu-Dashboard">
          <div class="top-Menu">
-             <div class="container-pic-admin"><img class="pic-admin" src="@/assets/pic2.jpeg" alt=""></div>
+             <div class="container-pic-admin"><img class="pic-admin mb-2" src="@/assets/support.png" alt=""></div>
              <div class="date-admin">
-                  <h4>Lony Stewart</h4>
+                  <h4>Carlos Montero</h4>
                    <P>admin</P>
                    <a href=""><h4 class="a-perfil" style="font-size:11px;">Actualizar Perfil</h4></a>
               </div>
