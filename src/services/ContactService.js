@@ -16,6 +16,9 @@ class ContactService{
     contactInterestedDescart(id){
        return this.axios.delete(`${this.apiUrl}/${id}`);
     }
+    exist(model){
+      return this.axios.post(`${this.apiUrl}`,model);
+  }
   
 }
 export default ContactService

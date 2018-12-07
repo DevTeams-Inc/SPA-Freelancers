@@ -16,7 +16,7 @@
               </span>
             </div>
             <div class="rating-mini">
-              <el-rate id="rating-star"  disabled show-score text-color="#ff9900" score-template></el-rate>
+              <el-rate id="rating-star" v-model="data.rating"  disabled show-score text-color="#ff9900" score-template></el-rate>
             </div>
             <div class="ciudad-mini">
               <div class="address">
@@ -78,8 +78,7 @@
                 v-if="id == UserId"
                 type="primary"
                 icon="el-icon-edit"
-                circle
-              ></el-button>
+                circle ></el-button>
             </router-link>
             <el-button style="margin-left:90px;" v-if="id != UserId" type="primary">Contactar</el-button>
           </div>

@@ -15,7 +15,7 @@
         <mini-perfil-user :id="id"></mini-perfil-user>
       </div>
       <div class="right-PerfilFreelancer">
-        <rating-coments></rating-coments>
+        <rating-coments :id="id"></rating-coments>
         <proyects-c-p v-show="id == UserId"></proyects-c-p>
       </div>
     </div>

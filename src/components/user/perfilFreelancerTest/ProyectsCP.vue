@@ -4,7 +4,7 @@
          <div class="proyectsCP">
                 <div class="interesados">
                    <h4>Interesados en tu servicio</h4>
-                 <div v-for="(i,index) in interesados" v-loading="loading" :key="index" style="display:flex;">
+                 <div v-for="(i,index) in interesados" v-loading="loading" :key="index" style="display:flex;" >
                     <div class="left-InteresadoFreelancers">
                       <div class="Info-Interesado">
                           <h4>{{i.fullName}}</h4>
@@ -63,7 +63,7 @@ export default {
        mounted(){
            this.getAllContactInterested(this.applicationUserId);
              
-                EventBus.$once("idFrelancerLogeado", idf => {  
+                EventBus.$on("idFrelancerLogeado", idf => {  
                 this.idFreelancerLog=idf;
               this.getAllContacted(idf);
               
@@ -84,11 +84,12 @@ export default {
            },
          getAllContacted(id){
                let self= this;
+               this.loading=true;
                self.$store.state.services.contactService
                .getContacted(id)
                .then(r=>{
                    self.contacted=r.data;
-                   console.log(r.data);
+                this.loading=false;
              
                })
            },

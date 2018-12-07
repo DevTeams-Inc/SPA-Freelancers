@@ -7,6 +7,7 @@ import AccountService from '../services/AccountService';
 import ProyectService from  '../services/ProyectService';
 import CategoryService from '../services/CategoryService';
 import ContactService from '../services/ContactService';
+import RatingService from '../services/RatingService';
 
 //Axios configuration
 Axios.defaults.headers.common.Accept = "application/json";
@@ -14,8 +15,8 @@ Axios.defaults.headers.common.Accept = "application/json";
 //residencia
 //  let apiUrl = "http://localhost:57455/";
 //devteams
-
-let apiUrl = "http://192.168.1.139:45455/";
+let apiUrl ="http://192.168.96.117:45455/";
+// let apiUrl = "http://192.168.1.139:45455/";
 
 export default {
   authService: new AuthService(Axios, apiUrl),
@@ -25,5 +26,6 @@ export default {
   accountService: new AccountService(Axios, apiUrl),
   proyectService:new ProyectService(Axios,apiUrl),
   categoryService: new CategoryService(Axios,apiUrl),
-  contactService:new ContactService(Axios,apiUrl)
+  contactService:new ContactService(Axios,apiUrl),
+  ratingService:new RatingService(Axios,apiUrl)
 };
