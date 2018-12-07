@@ -5,7 +5,7 @@
           <div>
           <img :src="img" class="img-profile" width="70px" alt="">
           </div>
-        <span>{{ name }} {{ lastName }} </span>
+        <span> {{ name }} {{ lastName }} </span>
         <br class="mb-2">
         <div class="rating">
         <el-rate id="rating-star" v-model="rating" disabled  show-score text-color="#ff9900" score-template="" ></el-rate>
@@ -30,6 +30,9 @@ export default {
 </script>
 
 <style scoped>
+.button{
+  color: #5a75e6 !important;
+}
 .img-profile{
     border-radius: 50px;
 }

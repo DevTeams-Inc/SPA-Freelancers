@@ -2,7 +2,7 @@
      <div class="container-adminProyects">
              <top-proyects></top-proyects>
              <data-proyects></data-proyects>
-             <report-proyects></report-proyects>           
+             <!-- <report-proyects></report-proyects>            -->
      </div>
 </template>
 

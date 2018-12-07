@@ -163,18 +163,14 @@ overflow-y: scroll;
 .proyectsCP h4{
     text-align: left;
     font-size: 17px;
-    color: gray;
+    color: #4764da;
 }
 .left-InteresadoFreelancers{
     display: flex;
     width:90% ;
-
-
- 
 }
 .right-InteresadoFreelancers{
-    width: 40%;;
-  
+    width: 50%;
 }
 #button-interesado{
     width: 50%;

@@ -7,13 +7,13 @@
       <el-row type="flex" justify="center">
         <el-col :xs="40" :sm="20" :md="20" :lg="16" :xl="40">
           <el-card class="box-card p-4 card">
-            <el-form class="form" :model="ruleForm" :rules="rules" ref="ruleForm">
+            <el-form class="form" :model="ruleForm" :rules="rules" ref="ruleForm" @keyup.enter="submitForm('ruleForm')">
               <el-form-item>
                 <el-row>
                   <img src="@/assets/img/lock.svg" width="70px" alt>
                 </el-row>
                 <el-row>
-                  <span class="spam-title">Iniciar Sesion</span>
+                  <span class="spam-title">Iniciar Sesión</span>
                 </el-row>
               </el-form-item>
               <el-row type="flex" justify="center">
@@ -22,19 +22,17 @@
                     <el-input
                       v-model="ruleForm.email"
                       placeholder="Email"
-                      prefix-icon="el-icon-message"
+                      
                       size="medium"
                       type="email"
                     ></el-input>
                   </el-form-item>
                   <el-form-item prop="password">
-                    <el-input
-                      v-model="ruleForm.password"
-                      type="password"
-                      placeholder="Contraseña"
-                      prefix-icon="el-icon-question"
-                      size="medium"
-                    ></el-input>
+                    <input v-model="ruleForm.password"
+                           type="password"
+                           placeholder="Contraseña"
+                           class="pass" 
+                    @keyup.enter="submitForm('ruleForm')">
                   </el-form-item>
                   <el-form-item>
                     <el-button
@@ -56,6 +54,7 @@
                 @click="dialogFormVisible = true"
                 class="span-register"
               >¿Haz olvidado tu contraseña?</span>
+              
             </el-form>
             <el-dialog title="Olvide mi contraseña" :visible.sync="dialogFormVisible">
               <span slot="footer" class="dialog-footer">
@@ -71,7 +70,7 @@
                   </el-form-item>
                   <el-form-item>
                     <el-button @click="dialogFormVisible = false">Cancelar</el-button>
-                    <el-button type="primary" @click="password()">Confirmar</el-button>
+                    <el-button type="primary" @click="password() , dialogFormVisible = true">Confirmar</el-button>
                   </el-form-item>
                 </el-form>
               </span>
@@ -146,7 +145,7 @@ export default {
             .then(r => {
               //obtenemos el token
               self.token = r.data.token;
-              self.user = `${r.data.user.name} ${r.data.user.lastName}`;
+              self.user = r.data.user.name;
               self.idUser = r.data.user.id;
               self.role = r.data.user.role;
               self.email = r.data.user.email;
@@ -224,6 +223,14 @@ export default {
 </script>
 
 <style scoped>
+.errspan {
+        float: right;
+        margin-right: 6px;
+        margin-top: -20px;
+        position: relative;
+        z-index: 2;
+        color: red;
+    }
 .spam-title {
   font-family: Roboto;
 }
@@ -255,5 +262,27 @@ export default {
 }
 .font {
   background: #f7f7f7;
+}
+.pass{
+   -webkit-appearance: none;
+  background-color: #fff;
+  background-image: none;
+  border-radius: 4px;
+  border: 1px solid #dcdfe6;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #606266;
+  display: inline-block;
+  font-size: 14px;
+  height: 38px;
+  line-height: 40px;
+  outline: 0;
+  padding: 0 15px;
+  -webkit-transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  width: 100%;
+}
+.pass::-webkit-input-placeholder {
+  color: #c0c4cc;
 }
 </style>

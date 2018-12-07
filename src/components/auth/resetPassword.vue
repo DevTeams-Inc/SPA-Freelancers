@@ -100,6 +100,7 @@ export default {
                 message: `Contraseña cambiada`,
                 offset: 40
               });
+              self.$router.push('/login')
             })
             .catch(e => {
               self.$notify.error({
