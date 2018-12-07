@@ -160,7 +160,7 @@
           <span slot="footer" class="dialog-footer">
               <el-button @click="contactForm = false">Cancelar</el-button>
               <el-button type="primary"  v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="Estamos enviando su mensaje..." 
-              @click="contactFreelancer('form') ,  form.emailDestiny = email">Enviar</el-button>
+              class="btn-modal" @click="contactFreelancer('form') ,  form.emailDestiny = email">Enviar</el-button>
           </span>
           </el-dialog>
       </div>
@@ -184,8 +184,8 @@ export default {
         message: '',
         emailDestiny: '',
         emailFrom: '',
-        fromId:'',
-        applicationUserId: localStorage.getItem("user_id"),
+        fromId: '',
+        applicationUserId: '',
       },
       idFrelancer:null,
       infoContent: "",
@@ -275,7 +275,8 @@ export default {
           self.form.fullName = localStorage.getItem('user_info')
           self.form.emailFrom = localStorage.getItem('user_email')
           //con este freelancerid yo tomo el id del user real
-          self.form.fromId = self.id
+          self.form.applicationUserId = self.id
+          self.form.fromId = localStorage.getItem("user_id")
         }
         self.$refs[form].validate(valid => {
             if(valid) {
@@ -474,6 +475,13 @@ export default {
 
   background-color: white;
   padding: 20px;
+}
+
+.btn-modal {
+  background-color: #5a75e6;
+}
+.btn-modal:hover {
+  background-color: #3a5ce4;
 }
 
 .priceHour {
