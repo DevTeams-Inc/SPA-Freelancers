@@ -76,7 +76,7 @@
               <el-button
                 style="width:45px;margin-left:90px;"
                 v-if="id == UserId"
-                type="secondary"
+                type="primary"
                 icon="el-icon-edit"
                 circle
               ></el-button>
@@ -87,8 +87,8 @@
       </div>
       <div class="priceHour">
         <div class="price">
-          <h4>Precio Hora:</h4>
-          <p>{{data.priceHour}}</p>
+          <h4>Precio Por Hora:</h4>
+          <p>${{data.priceHour}}</p>
         </div>
         <div class="icono-price">
           <p>$</p>
@@ -222,9 +222,10 @@ export default {
           self.center.lng = r.data.long;
           self.markers[1].position.lng = r.data.long;
           self.markers[1].position.lat = r.data.lat;
-          this.loading = false;
+          self.loading = false;
         })
         .catch(e => {
+
           this.$router.push(`/completar/registro/${id}`);
         });
     },
@@ -360,7 +361,14 @@ export default {
 
 <style>
 .address{
+<<<<<<< HEAD
   color: #4764da;
+=======
+  font-family: "Roboto", sans-serif;
+  color: #409eff;
+  font-size: 14px;
+ 
+>>>>>>> 8c1838ccbc3f34ded718db0bdfd88094a60b92bd
 }
 .contact-Mini {
   display: flex;
@@ -379,7 +387,7 @@ export default {
 }
 .miniPerfil {
   position: relative;
-  height: 300px;
+
   background-color: white;
   padding: 20px;
 }

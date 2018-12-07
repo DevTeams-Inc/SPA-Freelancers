@@ -90,9 +90,9 @@
 </template>
 
 <style>
-.Etiqueta{
-  padding-top:10px;
-  padding-bottom: 10px; 
+.Etiqueta {
+  padding-top: 10px;
+  padding-bottom: 10px;
   position: relative;
    width: 100%;
   background-color: #5a75e6;
@@ -113,10 +113,10 @@
 .texto-etiqueta{
   margin-left:30px; 
 }
-.texto-etiqueta h2{
-  font-size:20px; 
+.texto-etiqueta h2 {
+  font-size: 20px;
 }
-.indicador{
+.indicador {
   margin-bottom: 20px;
   width: 100%;
 }
@@ -135,21 +135,21 @@ margin-bottom: 20px;
   color: white;
   transition: all 0.20s ease-in;
 }
-.categoria-label{
-background-color: white;
-border: 1px solid gainsboro;
- width: 120px;
-margin-top: 5px;
-cursor: pointer;
-margin-bottom: 5px;
-padding-left:5px;
-padding-right: 5px;
-height: 100px;
-margin-left: 10px;
- border: 1px solid rgb(240, 240, 240);
- -webkit-box-sizing: border-box;
+.categoria-label {
+  background-color: white;
+  border: 1px solid gainsboro;
+  width: 120px;
+  margin-top: 5px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 100px;
+  margin-left: 10px;
+  border: 1px solid rgb(240, 240, 240);
+  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
- box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .categorias  input:checked + label
@@ -166,36 +166,31 @@ input[type="radio"] {
   position: absolute;
   opacity: 0;
   z-index: -1;
-}        
-.categoria-label h4{
-    font-size: 12px;
+}
+.categoria-label h4 {
+  font-size: 12px;
 }
 
-
-.indicador-Paso1{
- 
+.indicador-Paso1 {
   text-align: left;
 }
-.indicador-Paso2{
- 
+.indicador-Paso2 {
   text-align: left;
   margin-top: 10px;
-  padding-top:20px; 
-
-
+  padding-top: 20px;
 }
-.el-step{
+.el-step {
   z-index: 0;
 }
-.button-siguiente{
-  float:right;
-  margin-top:30px; 
+.button-siguiente {
+  float: right;
+  margin-top: 30px;
   margin-bottom: 20px;
 }
-.button-siguienteP{
-  margin-top:30px; 
+.button-siguienteP {
+  margin-top: 30px;
   margin-bottom: 20px;
-  margin-left:50%; 
+  margin-left: 50%;
 }
 .btn-next {
   background-color: #5a75e6;
@@ -208,204 +203,197 @@ input[type="radio"] {
    margin-top: 70px;;
   text-align: left;
 }
-.sectionPublicado .h4-SpeedWork{
- color: #304ab3;
+.sectionPublicado .h4-SpeedWork {
+  color: #304ab3;
 
- font-size: 25px;
+  font-size: 25px;
 }
-.sectionPublicado h4{
+.sectionPublicado h4 {
   color: rgb(71, 71, 71);
-  font-size:20px; 
+  font-size: 20px;
 }
-.sectionError{
-   margin-left: 27%;
-   margin-top: 70px;;
+.sectionError {
+  margin-left: 27%;
+  margin-top: 70px;
   text-align: left;
 }
-.sectionError .h4-SpeedWorkEr{
- color: #304ab3;
+.sectionError .h4-SpeedWorkEr {
+  color: #304ab3;
 
- font-size: 25px;
+  font-size: 25px;
 }
-.sectionError h4{
+.sectionError h4 {
   color: rgb(71, 71, 71);
-  font-size:20px; 
+  font-size: 20px;
 }
-.categorias .item i{
+.categorias .item i {
   font-size: 20px;
 }
 </style>
 <script>
 import Footer from "@/components/shared/Footer";
-import { type } from 'os';
+import { type } from "os";
 export default {
-    components:{Footer},
-      data() {
+  components: { Footer },
+  data() {
     return {
-      skills:[],
-      optionPrice:[],
-      categories:[],
-      categoriaId:0,
-      mostrarPaso2:false,
-      mostrarPaso3:false,
-      mostrarPaso1:true,
-      publicar:false,
-      publicado:false,
-      indicador:true,
-      ErrorPost:false,
-       active:1,
+      skills: [],
+      optionPrice: [],
+      categories: [],
+      categoriaId: 0,
+      mostrarPaso2: false,
+      mostrarPaso3: false,
+      mostrarPaso1: true,
+      publicar: false,
+      publicado: false,
+      indicador: true,
+      ErrorPost: false,
+      active: 1,
 
       ruleForm: {
         Title: null,
-        Description: null,
+        Description: null
       },
-       ruleForm2: {
-       Required_Skill:null,
-       Scope:null,
-       Price:null,
+      ruleForm2: {
+        Required_Skill: null,
+        Scope: null,
+        Price: null
       },
       rules: {
         Title: [
           {
-            required: true, message: "Introduce el nombre del proyecto", trigger: "blur"
+            required: true,
+            message: "Introduce el nombre del proyecto",
+            trigger: "blur"
           }
         ],
         Description: [
           { required: true, message: "Campo requerido", trigger: "blur" }
-        ],
-    
+        ]
       },
-      rules2:{
-         Required_Skill: [
+      rules2: {
+        Required_Skill: [
           { required: true, message: "Campo requerido", trigger: "blur" }
         ],
         Scope: [
           { required: true, message: "Campo requerido", trigger: "blur" }
         ],
-         Price: [
-          { required: true, message: "Campo requerido", trigger: "blur" }
-        ]
+        Price: [{ required: true, message: "Campo requerido", trigger: "blur" }]
       },
-       model: {
-           ApplicationUserId:0,
-           Title:null,
-	         Description:null,
-	         Required_Skill:null,
-         	Scope:null,
-         	price:null,
-	       CategoryId:null
-
-             }
-
+      model: {
+        ApplicationUserId: 0,
+        Title: null,
+        Description: null,
+        Required_Skill: null,
+        Scope: null,
+        price: null,
+        CategoryId: null
+      }
     };
   },
-  mounted(){
+  mounted() {
     this.getHabilidades();
     this.getCategorias();
     console.log(localStorage.getItem("user_id"));
   },
-  methods:{
-      submitForm2(formName)
-     {
-       this.$refs[formName].validate((valid) =>
-        {
-           if (valid) {
-             let idUser=localStorage.getItem("user_id");
-              this.model.ApplicationUserId=idUser,
-              this.model.Title=this.ruleForm.Title;
-              this.model.Description=this.ruleForm.Description;
-              this.model.Required_Skill=this.ruleForm2.Required_Skill;
-              this.model.Scope=this.ruleForm2.Scope;
-              this.model.price=this.ruleForm2.Price;
-              this.model.CategoryId=this.categoriaId;
-               this.postProyect(this.model);
-        
-              console.log("hecho");
-            }
-           else { return false;}
-        }); 
+  methods: {
+    submitForm2(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          let idUser = localStorage.getItem("user_id");
+          (this.model.ApplicationUserId = idUser),
+            (this.model.Title = this.ruleForm.Title);
+          this.model.Description = this.ruleForm.Description;
+          this.model.Required_Skill = this.ruleForm2.Required_Skill;
+          this.model.Scope = this.ruleForm2.Scope;
+          this.model.price = this.ruleForm2.Price;
+          this.model.CategoryId = this.categoriaId;
+          this.postProyect(this.model);
+
+          console.log("hecho");
+        } else {
+          return false;
+        }
+      });
     },
     submitForm(formName) {
-       if(formName==="ruleForm"){
-            this.$refs[formName].validate((valid) => {
-                   if (valid) {
-                        if(this.mostrarPaso2===false){
-                            this.active++;  
-                            this.mostrarPaso1=false;
-                            this.mostrarPaso2=true;       
-         }else if(this.mostrarPaso2===true){  
-          
-         }
-                  }else { return false;}
-        });
-       }
-
-      },
-      validCategorie(event){
-         let idElement = event.target.id;
-         let IdParseado= parseInt(idElement);
-        if(IdParseado>0){
-          this.categoriaId=IdParseado;
-  
-        }else{console.log("no sucedio");}
-       
-      },
-      validCategorieButton(){
-        if(this.categoriaId>0){
-              this.mostrarPaso2=false;
-              this.mostrarPaso3=true;
+      if (formName === "ruleForm") {
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            if (this.mostrarPaso2 === false) {
               this.active++;
-        }else{
-          console.log("validacion")
-        }
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
-      getCategorias(){
-       let self= this;
-       self.$store.state.services.categoryService
-       .getAll()
-       .then(r=>{
-          this.categories= r.data;
-          console.log(this.categories);
-       })
-      },
-      getHabilidades(){
-       let self = this;
+              this.mostrarPaso1 = false;
+              this.mostrarPaso2 = true;
+            } else if (this.mostrarPaso2 === true) {
+            }
+          } else {
+            return false;
+          }
+        });
+      }
+    },
+    validCategorie(event) {
+      let idElement = event.target.id;
+      let IdParseado = parseInt(idElement);
+      if (IdParseado > 0) {
+        this.categoriaId = IdParseado;
+      } else {
+        console.log("no sucedio");
+      }
+    },
+    validCategorieButton() {
+      if (this.categoriaId > 0) {
+        this.mostrarPaso2 = false;
+        this.mostrarPaso3 = true;
+        this.active++;
+      } else {
+        console.log("validacion");
+      }
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    getCategorias() {
+      let self = this;
+      self.$store.state.services.categoryService.getAll().then(r => {
+        this.categories = r.data;
+        console.log(this.categories);
+      });
+    },
+    getHabilidades() {
+      let self = this;
       self.$store.state.services.habilityService
         .getAll()
         .then(r => {
           self.skills = r.data;
         })
         .catch(e => {});
-      },
-      postProyect(model){
-        let self = this;
-        self.$store.state.services.proyectService
+    },
+    postProyect(model) {
+      let self = this;
+      self.$store.state.services.proyectService
         .add(model)
-        .then(r=>{
-             this.publicado=true;
-             this.mostrarPaso3=false;
-             this.indicador=false;
-        }).catch(e=>{this.ErrorPost=true;})
-      },
-      BackP2(){
-            this.active--;  
-       this.mostrarPaso2=false;
-      this.mostrarPaso1=true;
-      },
-      BackP3(){
-           this.active--;  
-       this.mostrarPaso2=true;
-      this.mostrarPaso3=false;
-      }
-           
-  },
- 
-  
+        .then(r => {
+          this.publicado = true;
+          this.mostrarPaso3 = false;
+          this.indicador = false;
+        })
+        .catch(e => {
+          this.ErrorPost = true;
+        });
+    },
+    BackP2() {
+      this.active--;
+      this.mostrarPaso2 = false;
+      this.mostrarPaso1 = true;
+    },
+    BackP3() {
+      this.active--;
+      this.mostrarPaso2 = true;
+      this.mostrarPaso3 = false;
+    }
   }
-
+};
 </script>
 
 

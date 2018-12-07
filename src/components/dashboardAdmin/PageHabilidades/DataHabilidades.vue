@@ -7,15 +7,24 @@
         height="280"
         :data="habilities.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
         v-loading="loading"
-        style="width: 98%;margin-left:10px;;" >
+        style="width: 98%;margin-left:10px;;"
+      >
         <el-table-column label="Nombre" prop="title"></el-table-column>
         <el-table-column label="Descripcion" prop="description"></el-table-column>
-        <el-table-column align="right">  
+        <el-table-column align="right">
           <template style="width:1000px;" slot="header" slot-scope="scope">
-                 <el-select  v-model="categorieId" placeholder="Seleccione una categoria" @change="selectHporC">
-                    <el-option  v-for="item in categories"  :key="item.id" :label="item.name" :value="item.id">
-                    </el-option>
-                </el-select>
+            <el-select
+              v-model="categorieId"
+              placeholder="Seleccione una categoria"
+              @change="selectHporC"
+            >
+              <el-option
+                v-for="item in categories"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              ></el-option>
+            </el-select>
           </template>
           <template slot-scope="scope">
             <div class="botones-table-habilidad" prop="id">
@@ -36,7 +45,8 @@
       </el-table>
       <el-dialog
         title="Realmente deseas eliminar esta habilidad?"
-        :visible.sync="dialogFormEliminarVisible">
+        :visible.sync="dialogFormEliminarVisible"
+      >
         <div class="botones-dialog">
           <el-button id="botonesDialog" @click="dialogFormEliminarVisible = false">No</el-button>
           <el-button
@@ -66,7 +76,8 @@
             <el-button
               id="botonesDialog"
               @click="dialogFormEditarVisible = false ,edit('model')"
-              type="primary">Guardar Cambios</el-button>
+              type="primary"
+            >Guardar Cambios</el-button>
           </div>
         </span>
       </el-dialog>
@@ -75,15 +86,15 @@
 </template>
 
 <script>
-import {EventBus} from "../../../helpers/event-bus";
+import { EventBus } from "../../../helpers/event-bus";
 export default {
   data() {
     return {
       dialogFormEditarVisible: false,
       dialogFormEliminarVisible: false,
       id: 0,
-      categories:[],
-      categorieId:0,
+      categories: [],
+      categorieId: 0,
       habilities: [],
       search: "",
 
@@ -105,37 +116,35 @@ export default {
   mounted() {
     let self = this;
     self.getAllCategory();
-     EventBus.$on("agregado", agregado => {
-         this.getAll(this.categorieId);
-    }); 
+    EventBus.$on("agregado", agregado => {
+      this.getAll(this.categorieId);
+    });
   },
   methods: {
     getAll(id) {
       let self = this;
-      this.loading=true;
+      this.loading = true;
       self.$store.state.services.habilityService
         .getAllCategory(id)
         .then(r => {
           self.habilities = r.data;
-          this.loading=false;
+          this.loading = false;
         })
         .catch(e => {});
     },
-    getAllCategory(){
-         this.getAll(2);
+    getAllCategory() {
+      this.getAll(2);
       let self = this;
-       self.$store.state.services.categoryService
-       .getAll()
-       .then(r=>{
-           self.categories=r.data;
-           for (let el of r.data) {
-             console.log(el);
-                  this.categorieId=el.id;
-                  break; 
-           }
-                     self.getAll(this.categorieId);
-               EventBus.$emit("catId",(this.categorieId));          
-       })
+      self.$store.state.services.categoryService.getAll().then(r => {
+        self.categories = r.data;
+        for (let el of r.data) {
+          console.log(el);
+          this.categorieId = el.id;
+          break;
+        }
+        self.getAll(this.categorieId);
+        EventBus.$emit("catId", this.categorieId);
+      });
     },
     remove() {
       let self = this;
@@ -191,7 +200,7 @@ export default {
                 message: "Habilidad editada con exito",
                 type: "success"
               });
-               self.getAll(this.categorieId);
+              self.getAll(this.categorieId);
               this.loading = false;
             })
             .catch(e => {
@@ -206,12 +215,11 @@ export default {
         }
       });
     },
-    selectHporC(){
-     this.getAll(this.categorieId);
-     console.log(this.categorieId);
-      EventBus.$emit("catId",(this.categorieId));
+    selectHporC() {
+      this.getAll(this.categorieId);
+      console.log(this.categorieId);
+      EventBus.$emit("catId", this.categorieId);
     }
-  
   }
 };
 </script>

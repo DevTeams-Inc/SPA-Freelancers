@@ -14,6 +14,10 @@ Axios.defaults.headers.common.Accept = "application/json";
 //  let apiUrl = "http://localhost:57455/";
 //devteams
 //  let apiUrl = "http://localhost:57455/";
+<<<<<<< HEAD
+=======
+// let apiUrl = "http://localhost:57455/";
+>>>>>>> 8c1838ccbc3f34ded718db0bdfd88094a60b92bd
 // let apiUrl = "http://192.168.96.117:45455/";
 //devteams
 let apiUrl = "http://192.168.1.139:45455/";
