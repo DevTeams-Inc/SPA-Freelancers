@@ -207,8 +207,7 @@ export default {
       offset: 52
     });
     this.geolocate();
-          this.getById(this.keyUser);
-    
+    this.getById(this.keyUser);
   },
   methods: {
        /**
@@ -220,7 +219,8 @@ export default {
       self.$store.state.services.categoryService
         .getAll()
         .then(r => {
-          self.allInterest = r.data;
+      
+      self.allInterest = r.data;
         })
         .catch(e => {
           console.log("Error en obtener categorias " + e);
@@ -315,19 +315,14 @@ export default {
         console.log("desde el else geococate()");
       }
     },
-    getById(id){
+    getById(id) {
       let self = this;
       self.$store.state.services.accountService
-      .exist(id)
-      .then( r =>{
-      })
-      .catch(e => {
-        
-                this.$router.push(`/inicio`);      
-        
-
+        .exist(id)
+        .then(r => {})
+        .catch(e => {
+          this.$router.push(`/inicio`);
         });
-
     },
     submitForm(form) {
       let self = this;

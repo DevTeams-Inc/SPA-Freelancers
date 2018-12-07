@@ -1,6 +1,6 @@
 <template>
     <div class="size text">
-        <el-row :gutter="10" class="text " >
+        <el-row :gutter="10" class="text">
           <el-col :xs="24" :sm="12" :md="40" :lg="40" :xl="12" >
               <img  src="@/assets/img/message.svg" class="img-logo" width="50%" alt="">
          </el-col> 
@@ -23,7 +23,7 @@ export default {};
 <style scoped>
 .size {
   margin: 14%;
-  padding: 0.8%;
+  padding: 0.5%;
 }
 .span{
   color: #59607e;

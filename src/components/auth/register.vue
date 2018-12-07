@@ -64,14 +64,6 @@
        <el-form-item>
               <el-button type="primary" v-loading="loading" class="btn btn-block btn-login " @click="submitForm('ruleForm')">Registrar</el-button>
           </el-form-item>
-       <!-- <el-row class="mt-4">
-              <el-col>
-                <el-form-item>
-                    <span ><img class="span-img" src="@/assets/img/facebook.svg" width="30px" alt="Facebook"></span>
-                    <span class=" ml-2"><img class="span-img" src="@/assets/img/search.svg" width="30px" alt="Google"></span>
-                </el-form-item>
-              </el-col>
-          </el-row> -->
       <span @click="redirect('/login')" class="span-register">¿Tienes cuenta? Click aquí</span>
      </el-form>
     </el-card>
