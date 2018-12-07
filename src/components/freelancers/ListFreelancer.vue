@@ -77,7 +77,7 @@
           </el-form>
           <span slot="footer" class="dialog-footer">
               <el-button @click="contactForm = false">Cancelar</el-button>
-              <el-button type="primary" @click="contactFreelancer('form') ,  form.emailDestiny = email">Enviar</el-button>
+              <el-button type="primary"  v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="Estamos enviando su mensaje..." @click="contactFreelancer('form') ,  form.emailDestiny = email">Enviar</el-button>
           </span>
           </el-dialog>
       </div>
@@ -90,6 +90,7 @@ export default {
   data() {
     return {
       contactForm: false,
+      fullscreenLoading:false,
       form: {
         fullName: '',
         message: '',
@@ -157,6 +158,8 @@ export default {
         });
     },
     contactFreelancer(form){
+
+           this.fullscreenLoading=true;
         let self = this;
         if(self.UserId){
           self.form.fullName = localStorage.getItem('user_info')
@@ -175,17 +178,22 @@ export default {
                       offset: 50,
                       duration: 2000
                     });
+               
                     self.form.fullName = ''
                     self.form.emailFrom = ''
                     self.form.emailDestiny = ''
+                      this.fullscreenLoading=false;
                 }).catch(err => {
+                      this.fullscreenLoading=false;
                     self.$notify.error({
                       title: "Lo sentimos",
                       message: "Ha ocurrido un problema, porfavor intente de nuevo.",
                       offset: 50,
                       duration: 3000
                     });
+                 
                 });
+             
             } else {
               return false;
             }

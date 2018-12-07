@@ -16,7 +16,7 @@
               </span>
             </div>
             <div class="rating-mini">
-              <el-rate id="rating-star" show-score text-color="#ff9900" score-template></el-rate>
+              <el-rate id="rating-star"  disabled show-score text-color="#ff9900" score-template></el-rate>
             </div>
             <div class="ciudad-mini">
               <div class="address">
@@ -155,6 +155,7 @@ export default {
       loadingprofile: false,
       loading: false,
       file: "",
+      idFrelancer:null,
       infoContent: "",
       infoImg: "",
       infoWindowPos: {
@@ -195,6 +196,8 @@ export default {
   },
   created() {
     this.getUser(this.id);
+  
+
   },
   mounted() {
     let self = this;
@@ -222,7 +225,8 @@ export default {
           self.center.lng = r.data.long;
           self.markers[1].position.lng = r.data.long;
           self.markers[1].position.lat = r.data.lat;
-          self.loading = false;
+          EventBus.$emit("idFrelancerLogeado",(r.data.id));
+          this.loading = false;
         })
         .catch(e => {
 
@@ -368,6 +372,7 @@ export default {
 }
 .address{
   color: #5a75e6;
+  font-size: 14px;
 }
 .contact-Mini {
   display: flex;
