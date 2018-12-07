@@ -63,7 +63,7 @@
                   <el-form-item prop="email">
                     <el-input
                       v-model="recoveryPass.email"
-                      type="password"
+                      type="email"
                       placeholder="Ingrese su email"
                       prefix-icon="el-icon-message"
                       size="medium"
@@ -195,10 +195,26 @@ export default {
       });
     },
     password() {
-      let self = this
+      let self = this;
       self.$refs["recoveryPass"].validate(valid => {
         if (valid) {
-        }else {
+          self.$store.state.services.accountService
+            .recoveryPass(this.recoveryPass)
+            .then(r => {
+              self.$notify.success({
+                title: "Enviado",
+                message: `Correo enviado`,
+                offset: 40
+              });
+            })
+            .catch(e => {
+              self.$notify.error({
+                title: "Error",
+                message: `${e.response.data}`,
+                offset: 40
+              });
+            });
+        } else {
           return false;
         }
       });

@@ -78,8 +78,9 @@ export default new Router({
     },
 
     {
-      path: "/reset/password",
-      name: "resetPassword",
+      path: "/reset/password/:id",
+      name: "reset/Password",
+      props:true,
       component: resetPassword,
       meta: {
         requiresVisitor: true
