@@ -1,42 +1,7 @@
 <template>
-               <div class="container-categoriesTop">
-                      <h4>Categorias Populares</h4>
-                           <div class="item-categories">
-                                <div class="item-categorie-top">
-                                     <span>Icon</span>
-                                     <p>categoria 1</p>
-                                 </div>
-                                 <div class="item-categorie-top">
-                                     <span>Icon</span>
-                                     <p>categoria 1</p>
-                                 </div>
-                                 <div class="item-categorie-top">
-                                     <span>Icon</span>
-                                     <p>categoria 1</p>
-                                 </div>
-                                 <div class="item-categorie-top">
-                                     <span>Icon</span>
-                                     <p>categoria 1</p>
-                                 </div>
-                                 <div class="item-categorie-top">
-                                     <span>Icon</span>
-                                     <p>categoria 1</p>
-                                 </div>
-                                 <div class="item-categorie-top">
-                                     <span>Icon</span>
-                                     <p>categoria 1</p>
-                                 </div>
-                                 <div class="item-categorie-top">
-                                     <span>Icon</span>
-                                     <p>categoria 1</p>
-                                 </div>
-                                 <div class="item-categorie-top">
-                                     <span>Icon</span>
-                                     <p>categoria 1</p>
-                                 </div>
-                          </div>
-                    </div>
-    
+<div>
+   <br><br>
+   </div>          
 </template>
 <style>
 .container-categoriesTop{

@@ -15,7 +15,7 @@
         <mini-perfil-user :id="id"></mini-perfil-user>
       </div>
       <div class="right-PerfilFreelancer">
-        <rating-coments></rating-coments>
+        <rating-coments :id="id"></rating-coments>
         <proyects-c-p v-show="id == UserId"></proyects-c-p>
       </div>
     </div>
@@ -89,7 +89,7 @@ export default {
   padding-bottom: 0.5px;
   position: relative;
   width: 100%;
-  background-color: #4764da;
+  background-color: #5a75e6;
   margin-top: 40px;
   color: white;
   text-align: left;

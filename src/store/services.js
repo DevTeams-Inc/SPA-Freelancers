@@ -8,6 +8,7 @@ import ProyectService from  '../services/ProyectService';
 import CategoryService from '../services/CategoryService';
 import AdminService from '../services/AdminService';
 import ContactService from '../services/ContactService';
+import RatingService from '../services/RatingService';
 
 //Axios configuration
 Axios.defaults.headers.common.Accept = "application/json";
@@ -28,6 +29,7 @@ export default {
   accountService: new AccountService(Axios, apiUrl),
   proyectService:new ProyectService(Axios,apiUrl),
   categoryService: new CategoryService(Axios,apiUrl),
-  adminService: new AdminService(Axios,apiUrl),
-  contactService:new ContactService(Axios,apiUrl)
+  contactService:new ContactService(Axios,apiUrl),
+  ratingService:new RatingService(Axios,apiUrl),
+  adminService: new AdminService(Axios,apiUrl)
 };

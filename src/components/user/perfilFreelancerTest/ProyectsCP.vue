@@ -4,7 +4,7 @@
          <div class="proyectsCP">
                 <div class="interesados">
                    <h4>Interesados en tu servicio</h4>
-                 <div v-for="(i,index) in interesados" v-loading="loading" :key="index" style="display:flex;">
+                 <div v-for="(i,index) in interesados" v-loading="loading" :key="index" style="display:flex;" >
                     <div class="left-InteresadoFreelancers">
                       <div class="Info-Interesado">
                           <h4>{{i.fullName}}</h4>
@@ -15,7 +15,7 @@
                       <div class="right-InteresadoFreelancers">
                         <div class="buttons-Action">
                             <el-button id="button-interesado" @click="descart(i.id)" type="secondary">Descartar</el-button>
-                            <el-button id="button-interesado"   @click="(ir(i.applicationUserId))" type="primary">Ver perfil</el-button>
+                            <el-button class="btn-profile" id="button-interesado"   @click="(ir(i.applicationUserId))" type="primary">Ver perfil</el-button>
                          
                          </div>
                        </div>
@@ -37,7 +37,7 @@
                       <div class="right-InteresadoFreelancers">
                         <div class="buttons-Action">
                             <el-button id="button-interesado" @click="descart(i.id)" type="secondary">Eliminar</el-button>
-                            <el-button id="button-interesado" @click="(ir(i.applicationUserId))"  type="primary">Ver Perfil</el-button>
+                            <el-button class="btn-profile" id="button-interesado" @click="(ir(i.applicationUserId))"  type="primary">Ver Perfil</el-button>
                          </div>
                        </div>
                     </div>
@@ -63,7 +63,7 @@ export default {
        mounted(){
            this.getAllContactInterested(this.applicationUserId);
              
-                EventBus.$once("idFrelancerLogeado", idf => {  
+                EventBus.$on("idFrelancerLogeado", idf => {  
                 this.idFreelancerLog=idf;
               this.getAllContacted(idf);
               
@@ -84,11 +84,12 @@ export default {
            },
          getAllContacted(id){
                let self= this;
+               this.loading=true;
                self.$store.state.services.contactService
                .getContacted(id)
                .then(r=>{
                    self.contacted=r.data;
-                   console.log(r.data);
+                this.loading=false;
              
                })
            },
@@ -127,6 +128,12 @@ export default {
 </script>
 
 <style>
+.btn-profile {
+    background-color: #5a75e6 !important;
+}
+.btn-project {
+    background-color: #5a75e6 !important;
+}
 .container-ProyectsCP{
 margin-top: 20px;
 margin-left: 20px;
@@ -162,8 +169,8 @@ overflow-y: scroll;
 }
 .proyectsCP h4{
     text-align: left;
-    font-size: 17px;
-    color: #4764da;
+    font-size: 1.03em;
+    color: #5a75e6;
 }
 .left-InteresadoFreelancers{
     display: flex;

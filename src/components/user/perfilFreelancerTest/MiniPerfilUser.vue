@@ -16,20 +16,18 @@
               </span>
             </div>
             <div class="rating-mini">
-              <el-rate id="rating-star"  disabled show-score text-color="#ff9900" score-template></el-rate>
+              <el-rate id="rating-star" v-model="data.rating"  disabled show-score text-color="#ff9900" score-template></el-rate>
             </div>
             <div class="ciudad-mini">
+              <div class="category-Mini">
+                <h4>{{data.profesion}}</h4>
+              </div>
               <div class="address">
                 <i class="el-icon-location">{{data.address}}</i> 
               </div>
-       
               
             </div>
-            <div class="category-Mini">
-       
-                <h4>{{data.profesion}}</h4>
-              
-            </div>
+            
             <div class="contact-Mini">
               <h4>
                 <i style="padding-right:5px;" class="el-icon-phone-outline"></i>
@@ -74,21 +72,21 @@
           <div class="contactar-MiniPerfil">
             <router-link :to="`/edit/registro/${data.id}`">
               <el-button
-                style="width:45px;margin-left:90px;"
+                style="width:45px;margin-left:90px;background-color:#5a75e6!important;"
                 v-if="id == UserId"
                 type="primary"
                 icon="el-icon-edit"
-                circle
-              ></el-button>
+                circle ></el-button>
             </router-link>
-            <el-button style="margin-left:90px;" v-if="id != UserId" type="primary">Contactar</el-button>
+            <el-button style="margin-left:90px;background-color:#5a75e6!important;" v-if="id != UserId" type="primary" 
+            @click="openDialog(), freelancer = data.name + ' ' + data.lastName, email = data.email">Contactar</el-button>
           </div>
         </div>
       </div>
       <div class="priceHour">
         <div class="price">
-          <h4>Precio Por Hora:</h4>
-          <p>${{data.priceHour}}</p>
+          <h4>Precio por hora:</h4>
+          <p>${{data.priceHour}}.00</p>
         </div>
         <div class="icono-price">
           <p>$</p>
@@ -140,6 +138,31 @@
         </router-link>
       </div>
     </div>
+    <div>
+        <el-dialog :title="`Contactar a ${freelancer}`" :visible.sync="contactForm" ref="contactForm">
+          <el-form :model="form" :rules="rules" ref="form">
+              <el-form-item label="Nombre Completo:" prop="fullName" v-show="!this.UserId">
+                <el-input v-model="form.fullName" autocomplete="off" placeholder="Flash"></el-input>
+              </el-form-item>
+              <el-form-item label="Email" prop="emailFrom" v-show="!this.UserId">
+                <el-input v-model="form.emailFrom" autocomplete="off" placeholder="barry@flash.com"></el-input>
+              </el-form-item>
+              <el-form-item label="Mensaje:" prop="message">
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="El hombre más veloz que existe..."
+                  v-model="form.message">
+                </el-input>
+              </el-form-item>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+              <el-button @click="contactForm = false">Cancelar</el-button>
+              <el-button type="primary"  v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="Estamos enviando su mensaje..." 
+              class="btn-modal" @click="contactFreelancer('form') ,  form.emailDestiny = email">Enviar</el-button>
+          </span>
+          </el-dialog>
+      </div>
   </div>
 </template>
 <script>
@@ -148,13 +171,21 @@ export default {
   props: ["id"],
   data() {
     return {
+      contactForm: false,
       exist: null,
-      applicationUserId: localStorage.getItem("user_id"),
       loading: false,
       dialogFormVisible: false,
       loadingprofile: false,
       loading: false,
       file: "",
+      form: {
+        fullName: '',
+        message: '',
+        emailDestiny: '',
+        emailFrom: '',
+        fromId: '',
+        applicationUserId: '',
+      },
       idFrelancer:null,
       infoContent: "",
       infoImg: "",
@@ -226,12 +257,58 @@ export default {
           self.markers[1].position.lng = r.data.long;
           self.markers[1].position.lat = r.data.lat;
           EventBus.$emit("idFrelancerLogeado",(r.data.id));
+          console.log(r.data.applicationUserId);
+          
           this.loading = false;
         })
         .catch(e => {
 
           this.$router.push(`/completar/registro/${id}`);
         });
+    },
+
+    contactFreelancer(form){
+        let self = this;
+        self.fullscreenLoading=true;
+        if(self.UserId){
+          self.form.fullName = localStorage.getItem('user_info')
+          self.form.emailFrom = localStorage.getItem('user_email')
+          //con este freelancerid yo tomo el id del user real
+          self.form.applicationUserId = self.id
+          self.form.fromId = localStorage.getItem("user_id")
+        }
+        self.$refs[form].validate(valid => {
+            if(valid) {
+              self.$store.state.services.freelancerService.sendMessage(self.form)
+                .then(result => {
+                    self.contactForm = false
+                    self.$notify.success({
+                      title: "Mensaje enviado",
+                      message: "Su mensaje ha sido enviado.",
+                      offset: 50,
+                      duration: 2000
+                    });
+               
+                    self.form.fullName = ''
+                    self.form.emailFrom = ''
+                    self.form.emailDestiny = ''
+                    self.form.message = ''
+                    self.fullscreenLoading=false;
+                }).catch(err => {
+                    self.fullscreenLoading=false;
+                    self.$notify.error({
+                      title: "Lo sentimos",
+                      message: "Ha ocurrido un problema, porfavor intente de nuevo.",
+                      offset: 50,
+                      duration: 3000
+                    });
+                 
+                });
+             
+            } else {
+              return false;
+            }
+        })
     },
     /**
      * obtienen la ubicacion de donde estas conectado
@@ -347,7 +424,10 @@ export default {
         .catch(e => {
           self.exist = false;
         });
-    }
+    },
+    openDialog(){
+        this.contactForm = true
+    },
   },
   computed: {
     /**
@@ -364,15 +444,19 @@ export default {
 </script>
 
 <style>
+.btn-primary {
+  background-color: #5a75e6 !important; 
+}
+.btn-primary:hover {
+  background-color: #4262e2 !important; 
+}
 .address{
-  font-family: "Roboto", sans-serif;
-  color: #409eff;
+  color: #5a75e6;
   font-size: 14px;
- 
 }
 .contact-Mini {
   display: flex;
-  color: #4764da;
+  color: #5a75e6;
   width: 300px;
 }
 .contact-Mini h4 {
@@ -390,6 +474,13 @@ export default {
 
   background-color: white;
   padding: 20px;
+}
+
+.btn-modal {
+  background-color: #5a75e6;
+}
+.btn-modal:hover {
+  background-color: #3a5ce4;
 }
 
 .priceHour {
@@ -411,14 +502,14 @@ export default {
 }
 .price h4 {
   font-size: 17px;
-  color: #4764da;
+  color: #5a75e6;
 }
 .icono-price {
   width: 3.5%;
 }
 .icono-price p {
   color: white;
-  background-color: #409eff;
+  background-color: #5a75e6;
   height: 25px;
   border-radius: 50%;
   margin-top: 13px;
@@ -466,7 +557,7 @@ export default {
 }
 .category-Mini h4 {
   font-size: 15px;
-  color: #4764da;
+  color: #5a75e6;
 }
 
 .rightTop-MiniPerfil {
@@ -498,7 +589,7 @@ export default {
 }
 .skills-MiniPerfil h4 {
   font-size: 17px;
-  color: rgb(128, 128, 128);
+  color: #5a75e6;
 }
 
 .componenteUbicacion {
@@ -511,7 +602,7 @@ export default {
 .componenteUbicacion h4 {
   font-size: 17px;
   text-align: left;
-  color: #4764da;
+  color: #5a75e6;
 }
 .validCRegistro {
   background-color: white;

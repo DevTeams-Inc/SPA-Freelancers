@@ -32,6 +32,13 @@ class AdminService{
   }
 
   
+  topFreelancer() {
+
+    return this.axios.get(`${this.apiUrl}/best/freelancer`)
+
+   }
+
+  
 
 
 

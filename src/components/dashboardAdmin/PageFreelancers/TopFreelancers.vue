@@ -2,41 +2,15 @@
             <div class="container-freelancersTop">
                       <h4>Freelancers Populares</h4>
                            <div class="item-freelancers">
-                                <div class="item-freelancer-top">
-                                     <span>Icon</span>
-                                     <p>freelancer 1</p>
+                                <div class="item-freelancer-top" v-for="Tfreelancers in data">
+                                     <img :src="Tfreelancers.avatar" class="pic-admin">
+                                     <label>{{Tfreelancers.name}}, {{Tfreelancers.lastName}}</label>
                                  </div>
-                                 <div class="item-freelancer-top">
-                                     <span>Icon</span>
-                                     <p>Freelancer 1</p>
-                                 </div>
-                                 <div class="item-freelancer-top">
-                                     <span>Icon</span>
-                                     <p>Freelancer 1</p>
-                                 </div>
-                                 <div class="item-freelancer-top">
-                                     <span>Icon</span>
-                                     <p>Freelancer 1</p>
-                                 </div>
-                                 <div class="item-freelancer-top">
-                                     <span>Icon</span>
-                                     <p>Freelancer 1</p>
-                                 </div>
-                                 <div class="item-freelancer-top">
-                                     <span>Icon</span>
-                                     <p>Freelancer 1</p>
-                                 </div>
-                                 <div class="item-freelancer-top">
-                                     <span>Icon</span>
-                                     <p>Freelancer 1</p>
-                                 </div>
-                                 <div class="item-freelancer-top">
-                                     <span>Icon</span>
-                                     <p>Freelancer 1</p>
-                                 </div>
+                                 
                           </div>
                     </div>
     
+
 </template>
 <style>
 .container-freelancersTop{
@@ -70,10 +44,43 @@ border-radius:100%;
   transition: all 0.2s ease;
  
 }
+
+
+.pic-admin{
+ border-radius:100%;
+ width: 100px;
+}
 </style>
 <script>
 export default {
-      
+  
+  data(){
+   return {
+   data:[],
+
+    }
+
+
+  },
+
+ mounted (){
+
+     this.topFreelancer();  
+
+    },
+
+  methods:{
+
+
+  topFreelancer() {
+        let self = this;
+        self.$store.state.services.adminService.topFreelancer().then(r => {
+        self.data = r.data;
+       
+      });
+    }
+
+  }
 }
 </script>
 

@@ -9,7 +9,7 @@
         style="width: 98%;margin-left:10px;">
         <el-table-column label="Fecha" prop="createdAt"></el-table-column>
         <el-table-column label="Titulo" prop="title"></el-table-column>
-        <el-table-column label="Alcance" prop="scope"></el-table-column>
+        <el-table-column label="Tiempo Estimado" prop="scope"></el-table-column>
         <el-table-column label="Habilidad Requerida" prop="required_Skill"></el-table-column>
         <el-table-column label="Precio" prop="price"></el-table-column>
 

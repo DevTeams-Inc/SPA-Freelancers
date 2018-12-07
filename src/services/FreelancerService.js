@@ -61,6 +61,7 @@ class FreelancerService{
     sendMessage(model){
         return this.axios.post(`${this.apiUrl}/contact`, model)
     }
+
 }
 
 export default FreelancerService
