@@ -16,13 +16,9 @@ Axios.defaults.headers.common.Accept = "application/json";
 //residencia
 //  let apiUrl = "http://localhost:57455/";
 //devteams
-<<<<<<< HEAD
-let apiUrl ="http://192.168.96.117:45455/";
-=======
 // let apiUrl = "http://localhost:57455/";
 let apiUrl = "http://192.168.96.117:45455/";
 //devteams
->>>>>>> 29a90493e922108c5e03002b6896011bc44b55f6
 // let apiUrl = "http://192.168.1.139:45455/";
 
 export default {
@@ -33,11 +29,7 @@ export default {
   accountService: new AccountService(Axios, apiUrl),
   proyectService:new ProyectService(Axios,apiUrl),
   categoryService: new CategoryService(Axios,apiUrl),
-<<<<<<< HEAD
   contactService:new ContactService(Axios,apiUrl),
-  ratingService:new RatingService(Axios,apiUrl)
-=======
-  adminService: new AdminService(Axios,apiUrl),
-  contactService:new ContactService(Axios,apiUrl)
->>>>>>> 29a90493e922108c5e03002b6896011bc44b55f6
+  ratingService:new RatingService(Axios,apiUrl),
+  adminService: new AdminService(Axios,apiUrl)
 };
