@@ -93,6 +93,11 @@ export default {
   updated(){
     this.admin()
   },
+  mounted(){
+    // EventBus.$once('reset',()=>{
+    //   this.logout()
+    // })
+  },
   methods: {
     redirect(path) {
       if (path === undefined) return;
