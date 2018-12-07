@@ -158,9 +158,8 @@ export default {
         });
     },
     contactFreelancer(form){
-
-           this.fullscreenLoading=true;
         let self = this;
+        self.fullscreenLoading=true;
         if(self.UserId){
           self.form.fullName = localStorage.getItem('user_info')
           self.form.emailFrom = localStorage.getItem('user_email')
@@ -182,16 +181,16 @@ export default {
                     self.form.fullName = ''
                     self.form.emailFrom = ''
                     self.form.emailDestiny = ''
-                      this.fullscreenLoading=false;
+                    self.fullscreenLoading=false;
                 }).catch(err => {
-                      this.fullscreenLoading=false;
-                    self.$notify.error({
+                      self.fullscreenLoading=false;
+                      self.$notify.error({
                       title: "Lo sentimos",
                       message: "Ha ocurrido un problema, porfavor intente de nuevo.",
                       offset: 50,
                       duration: 3000
                     });
-                 
+            
                 });
              
             } else {
