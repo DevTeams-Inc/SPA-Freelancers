@@ -19,17 +19,15 @@
               <el-rate id="rating-star"  disabled show-score text-color="#ff9900" score-template></el-rate>
             </div>
             <div class="ciudad-mini">
+              <div class="category-Mini">
+                <h4>{{data.profesion}}</h4>
+              </div>
               <div class="address">
                 <i class="el-icon-location">{{data.address}}</i> 
               </div>
-       
               
             </div>
-            <div class="category-Mini">
-       
-                <h4>{{data.profesion}}</h4>
-              
-            </div>
+            
             <div class="contact-Mini">
               <h4>
                 <i style="padding-right:5px;" class="el-icon-phone-outline"></i>
@@ -81,7 +79,8 @@
                 circle
               ></el-button>
             </router-link>
-            <el-button style="margin-left:90px;background-color:#5a75e6!important;" v-if="id != UserId" type="primary">Contactar</el-button>
+            <el-button style="margin-left:90px;background-color:#5a75e6!important;" v-if="id != UserId" type="primary" 
+            @click="openDialog(), freelancer = data.name + ' ' + data.lastName, email = data.email">Contactar</el-button>
           </div>
         </div>
       </div>
@@ -140,6 +139,31 @@
         </router-link>
       </div>
     </div>
+    <div>
+        <el-dialog :title="`Contactar a ${freelancer}`" :visible.sync="contactForm" ref="contactForm">
+          <el-form :model="form" :rules="rules" ref="form">
+              <el-form-item label="Nombre Completo:" prop="fullName" v-show="!this.UserId">
+                <el-input v-model="form.fullName" autocomplete="off" placeholder="Flash"></el-input>
+              </el-form-item>
+              <el-form-item label="Email" prop="emailFrom" v-show="!this.UserId">
+                <el-input v-model="form.emailFrom" autocomplete="off" placeholder="barry@flash.com"></el-input>
+              </el-form-item>
+              <el-form-item label="Mensaje:" prop="message">
+                <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="El hombre más veloz que existe..."
+                  v-model="form.message">
+                </el-input>
+              </el-form-item>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+              <el-button @click="contactForm = false">Cancelar</el-button>
+              <el-button type="primary"  v-loading.fullscreen.lock="fullscreenLoading" element-loading-text="Estamos enviando su mensaje..." 
+              @click="contactFreelancer('form') ,  form.emailDestiny = email">Enviar</el-button>
+          </span>
+          </el-dialog>
+      </div>
   </div>
 </template>
 <script>
@@ -148,13 +172,21 @@ export default {
   props: ["id"],
   data() {
     return {
+      contactForm: false,
       exist: null,
-      applicationUserId: localStorage.getItem("user_id"),
       loading: false,
       dialogFormVisible: false,
       loadingprofile: false,
       loading: false,
       file: "",
+      form: {
+        fullName: '',
+        message: '',
+        emailDestiny: '',
+        emailFrom: '',
+        fromId:'',
+        applicationUserId: localStorage.getItem("user_id"),
+      },
       idFrelancer:null,
       infoContent: "",
       infoImg: "",
@@ -226,12 +258,57 @@ export default {
           self.markers[1].position.lng = r.data.long;
           self.markers[1].position.lat = r.data.lat;
           EventBus.$emit("idFrelancerLogeado",(r.data.id));
+          console.log(r.data.applicationUserId);
+          
           this.loading = false;
         })
         .catch(e => {
 
           this.$router.push(`/completar/registro/${id}`);
         });
+    },
+
+    contactFreelancer(form){
+        let self = this;
+        self.fullscreenLoading=true;
+        if(self.UserId){
+          self.form.fullName = localStorage.getItem('user_info')
+          self.form.emailFrom = localStorage.getItem('user_email')
+          //con este freelancerid yo tomo el id del user real
+          self.form.fromId = self.id
+        }
+        self.$refs[form].validate(valid => {
+            if(valid) {
+              self.$store.state.services.freelancerService.sendMessage(self.form)
+                .then(result => {
+                    self.contactForm = false
+                    self.$notify.success({
+                      title: "Mensaje enviado",
+                      message: "Su mensaje ha sido enviado.",
+                      offset: 50,
+                      duration: 2000
+                    });
+               
+                    self.form.fullName = ''
+                    self.form.emailFrom = ''
+                    self.form.emailDestiny = ''
+                    self.form.message = ''
+                    self.fullscreenLoading=false;
+                }).catch(err => {
+                    self.fullscreenLoading=false;
+                    self.$notify.error({
+                      title: "Lo sentimos",
+                      message: "Ha ocurrido un problema, porfavor intente de nuevo.",
+                      offset: 50,
+                      duration: 3000
+                    });
+                 
+                });
+             
+            } else {
+              return false;
+            }
+        })
     },
     /**
      * obtienen la ubicacion de donde estas conectado
@@ -347,7 +424,10 @@ export default {
         .catch(e => {
           self.exist = false;
         });
-    }
+    },
+    openDialog(){
+        this.contactForm = true
+    },
   },
   computed: {
     /**
