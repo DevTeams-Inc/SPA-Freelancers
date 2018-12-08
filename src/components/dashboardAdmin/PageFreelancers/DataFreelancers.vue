@@ -12,7 +12,6 @@
                  </template>
                  <template slot-scope="scope">
                    <div class="botones-table">
-                     <el-button  size="mini"  @click="dialogFormBloquearVisible=true">Bloquear</el-button>
                      <el-button size="mini" type="danger"  @click="dialogFormEliminarVisible=true,id=scope.row.freelancerId">Eliminar</el-button>
                    </div>
                   </template>

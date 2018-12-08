@@ -1,44 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="content-admin-Index">
-    <div class="container-cont">
-      <div class="item-cont">
-        <h4>Proyectos publicados</h4>
-        <i class="fas fa-rocket fa-2x" style="margin-top:12px;"></i>
-        <br>
-        <br>
-        <span>{{data1}}</span>
-      </div>
-      <div class="item-cont">
-        <h4>Freelancers Registrados</h4>
-        <i class="fas fa-user-tie fa-2x" style="margin-top:12px;"></i>
-        <br>
-        <br>
-        <span>{{data}}</span>
-      </div>
-
-    
-      <div class="item-cont">
-        <h4>Categorias Creadas</h4>
-        <i class="fas fa-flag fa-2x" style="margin-top:12px;"></i>
-        <br>
-        <br>
-        <span>{{data2}}</span>
-         </div>
-
-        <div class="item-cont">
-        <h4>Habilidades Creadas</h4>
-        <i class="fas fa-book fa-2x" style="margin-top:12px;"></i>
-        <br>
-        <br>
-        <span>{{data3}}</span>
-      </div>
-
-     
-    </div>
-    
-
-=======
   <div class="space p-2 m-2" >
     <el-row class="mb-3 mt-5" >
       <el-col :span="7" :offset="2">
@@ -88,7 +48,6 @@
         </div>
       </el-col>
     </el-row>
->>>>>>> 5fcbe6ae385eb19ca4dda7a9e53dc39991e56bb3
   </div>
 </template>
 

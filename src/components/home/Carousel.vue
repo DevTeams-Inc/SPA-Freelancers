@@ -5,10 +5,7 @@
             <div class="col mt-5">
                 <div class="title animated fadeInRight" >
                             <h2>Los freelancers más rápidos del mundo.</h2>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                            Nesciunt dolorem similique reiciendis voluptatibus molestiae. 
-                            Reiciendis eveniet dolores placeat nihil fugiat esse officia ab, 
-                            deserunt similique quod illo eum nemo repellat.</p>
+                            <p>Los freelancers mas rapidos, mas eficientes y mas listos</p>
                     </div>
                     <button 
                     class="btn btn-primary btn-search animated fadeInLeft"
